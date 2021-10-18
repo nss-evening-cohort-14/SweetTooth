@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using SweetTooth.Models;
 using System;
 using System.Collections.Generic;
@@ -19,6 +21,13 @@ namespace SweetTooth.DataAccess
         internal IEnumerable<Mood> GetAll()
         {
             using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select *
+                        from Mood";
+
+            var moods = db.Query<Mood>(sql);
+
+            return moods;
         }
     }
 }
