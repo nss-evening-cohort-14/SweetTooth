@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using SweetTooth.Models;
-//using Dapper;
-
+using Dapper;
 
 namespace SweetTooth.DataAccess
 {
@@ -20,8 +20,13 @@ namespace SweetTooth.DataAccess
 
         internal void Add(User newUser)
         {
-            //using var db = new SqlConnection(_connectionString);
-            var sql = @"";
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"insert into [User] (Id, [Admin], FirstName, LastName, DateCreated, MoodId)
+	                        Output Inserted.Id 
+                            Values (@Id, @[Admin], @FirstName, @LastName, GetDate())";
+
+            var id = db.ExecuteScalar<Guid>(sql, newUser);
+            newUser.Id = id;
         }
     }
 }
