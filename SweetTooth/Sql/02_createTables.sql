@@ -6,7 +6,7 @@ CREATE TABLE dbo.Snack
 	Category varchar(50) NOT NULL,
 	Price money NOT NULL,
 	[Description] varchar(500) NOT NULL,
-	[Image] varchar(2000) NOT NULL
+	[Image] nvarchar(4000) NOT NULL
 	);
 
 -- create mood table
@@ -20,6 +20,7 @@ CREATE TABLE dbo.Mood
 CREATE TABLE dbo.[User]
 	(
 	Id uniqueidentifier NOT NULL primary key default(newsequentialid()),
+	[Admin] bit NOT NULL,
 	FirstName varchar(50) NOT NULL,
 	LastName varchar(50) NOT NULL,
 	DateCreated datetime NOT NULL,
