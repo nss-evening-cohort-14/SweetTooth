@@ -30,6 +30,7 @@ namespace SweetTooth
             services.AddSingleton<IConfiguration>(Configuration);
 
             services.AddTransient<MoodRepo>();
+            services.AddTransient<SnackRepo>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
