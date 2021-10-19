@@ -26,11 +26,11 @@ namespace SweetTooth.Models
             return Ok(_repo.GetAll());
         }
 
-        [HttpGet("{id}")]
-        public string GetSingleUser(Guid id)
-        {
-            return "value";
-        }
+        //[HttpGet("{id}")]
+        //public string GetSingleUser(Guid id)
+        //{
+        //    return "value";
+        //}
 
         [HttpPost]
         public IActionResult AddUser(User newUser)
@@ -43,7 +43,6 @@ namespace SweetTooth.Models
             _repo.Add(newUser);
 
             return Created($"api/users/{newUser.Id}", newUser);
-            //refactor this response ^^ once I create GetSingleUser
         }
     }
 }
