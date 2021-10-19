@@ -33,6 +33,7 @@ namespace SweetTooth.Controllers
             {
                 return BadRequest("Name is a required field.");
             }
+            _repo.Add(newMood);
 
             return Created($"/api/moods/{newMood.Id}", newMood);
         } 

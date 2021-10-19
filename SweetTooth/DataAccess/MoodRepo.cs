@@ -34,9 +34,9 @@ namespace SweetTooth.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
 
-            var sql = @"insert into Mood(Id, Name)
+            var sql = @"insert into Mood(Name)
                         output inserted.Id
-                        values (@Id, @Name)";
+                        values (@Name)";
 
             var id = db.ExecuteScalar<Guid>(sql, newMood);
             newMood.Id = id;
