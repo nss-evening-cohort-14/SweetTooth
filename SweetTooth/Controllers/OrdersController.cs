@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SweetTooth.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/orders")]
     [ApiController]
     public class OrdersController : ControllerBase
     {
@@ -23,6 +23,19 @@ namespace SweetTooth.Controllers
         public IActionResult GetAllOrders()
         {
             return Ok(_repo.GetAll());
+        }
+
+        [HttpGet("{orderId}/orderItems")]
+        public IActionResult GetOrderItems(Guid orderId)
+        {
+             var orderItems = _repo.GetOrderItems(orderId);
+
+            if (orderItems == null)
+            {
+                return NotFound("No items were found for this order.");
+            }
+
+            return Ok(orderItems);
         }
     }
 }

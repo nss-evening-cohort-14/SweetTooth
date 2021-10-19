@@ -29,5 +29,18 @@ namespace SweetTooth.DataAccess
 
             return orders;
         }
+
+        public IEnumerable<OrderItem> GetOrderItems(Guid orderId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select * 
+                        from OrderItem
+                        where OrderId = @id";
+
+            var orderItems = db.Query<OrderItem>(sql, new { id = orderId });
+
+            return orderItems;
+        }
     }
 }
