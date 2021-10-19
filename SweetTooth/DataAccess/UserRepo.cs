@@ -21,9 +21,11 @@ namespace SweetTooth.DataAccess
         internal void Add(User newUser)
         {
             using var db = new SqlConnection(_connectionString);
-            var sql = @"insert into [User] (Id, [Admin], FirstName, LastName, DateCreated, MoodId)
+            var sql = @"insert into [User] ([Admin], FirstName, LastName, DateCreated, MoodId)
 	                        Output Inserted.Id 
-                            Values (@Id, @[Admin], @FirstName, @LastName, GetDate())";
+                            Values (@Admin, @FirstName, @LastName, @DateCreated, @MoodId)";
+
+            newUser.DateCreated = DateTime.Now;
 
             var id = db.ExecuteScalar<Guid>(sql, newUser);
             newUser.Id = id;
