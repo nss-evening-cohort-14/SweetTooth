@@ -29,5 +29,17 @@ namespace SweetTooth.DataAccess
 
             return moods;
         }
+
+        internal void Add(Mood newMood)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"insert into Mood(Id, Name)
+                        output inserted.Id
+                        values (@Id, @Name)";
+
+            var id = db.ExecuteScalar<Guid>(sql, newMood);
+            newMood.Id = id;
+        }
     }
 }
