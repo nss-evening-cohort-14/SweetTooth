@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SweetTooth.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,17 @@ namespace SweetTooth.Controllers
     [ApiController]
     public class MoodsController : ControllerBase
     {
+        MoodRepo _repo;
+
+        public MoodsController(MoodRepo repo)
+        {
+            _repo = repo;
+        }
+
+       [HttpGet]
+       public IActionResult GetAllMoods()
+       {
+            return Ok(_repo.GetAll());
+       }
     }
 }
