@@ -25,7 +25,7 @@ namespace SweetTooth.Controllers
             return Ok(_repo.GetAll());
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult GetSnackById(Guid id)
         {
             var snack = _repo.GetById(id);
@@ -41,14 +41,14 @@ namespace SweetTooth.Controllers
         [HttpPost]
         public IActionResult AddSnack(Snack newSnack)
         {
-            if (string.IsNullOrEmpty(newSnack.Name))
+            if (string.IsNullOrEmpty(newSnack.Name) || string.IsNullOrEmpty(newSnack.Category) || (newSnack.Price == 0) || string.IsNullOrEmpty(newSnack.Description) || string.IsNullOrEmpty(newSnack.Image))
             {
-                return BadRequest("Name is required");
+                return BadRequest("All fields are required, or Price can't be 0.");
             }
 
             _repo.Add(newSnack);
 
-            return Created($"/api/snack//{newSnack.Id}", newSnack);
+            return Created($"/api/snack/{newSnack.Id}", newSnack);
         }
     }
 }

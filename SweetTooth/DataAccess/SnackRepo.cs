@@ -46,7 +46,7 @@ namespace SweetTooth.DataAccess
 
             var sql = @"insert into Snack(Name, Category, Price, Description, Image)
                         output inserted.Id
-                        vales (@Name, @Category, @Price, @Description, @Image)";
+                        values (@Name, @Category, @Price, @Description, @Image)";
 
             var id = db.ExecuteScalar<Guid>(sql, newSnack);
             newSnack.Id = id;
