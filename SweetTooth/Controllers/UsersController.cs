@@ -20,21 +20,18 @@ namespace SweetTooth.Models
             _repo = repo;
         }
 
-        // GET: api/<UsersController>
         [HttpGet]
-        public IEnumerable<string> GetAll()
+        public IActionResult GetAllUsers()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(_repo.GetAll());
         }
 
-        // GET api/<UsersController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public string GetSingleUser(Guid id)
         {
             return "value";
         }
 
-        // POST api/<UsersController>
         [HttpPost]
         public IActionResult AddUser(User newUser)
         {
@@ -46,19 +43,7 @@ namespace SweetTooth.Models
             _repo.Add(newUser);
 
             return Created($"api/users/{newUser.Id}", newUser);
-            //refactor this reponse ^^ once I create GetSingleUser
-        }
-
-        // PUT api/<UsersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<UsersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            //refactor this response ^^ once I create GetSingleUser
         }
     }
 }

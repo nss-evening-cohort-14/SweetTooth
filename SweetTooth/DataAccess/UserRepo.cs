@@ -28,5 +28,16 @@ namespace SweetTooth.DataAccess
             var id = db.ExecuteScalar<Guid>(sql, newUser);
             newUser.Id = id;
         }
+
+        internal IEnumerable<User> GetAll()
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var users = db.Query<User>(@"Select * From [User]");
+
+            return users;
+        }
+
+
     }
 }
