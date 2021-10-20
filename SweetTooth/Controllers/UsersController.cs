@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SweetTooth.DataAccess;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace SweetTooth.Models
 {
     [Route("api/[controller]")]
@@ -33,7 +31,7 @@ namespace SweetTooth.Models
 
             if (singleUser == null)
             {
-                return NotFound($"No user found with this  ID: {id}.");
+                return NotFound($"No user found with this ID: {id}.");
             }
 
             return Ok(singleUser);
