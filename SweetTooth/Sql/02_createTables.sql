@@ -59,7 +59,7 @@ CREATE TABLE dbo.[Order]
 	(
 	Id uniqueidentifier NOT NULL primary key default(newsequentialid()),
 	UserId uniqueidentifier NOT NULL,
-	OrderDate datetime NOT NULL,
+	OrderDate datetime NOT NULL Default(CAST(GETDATE() AS SMALLDATETIME)),
 	OrderNumber int NOT NULL,
 	Total money NOT NULL,
 	PaymentMethodId uniqueidentifier NOT NULL,

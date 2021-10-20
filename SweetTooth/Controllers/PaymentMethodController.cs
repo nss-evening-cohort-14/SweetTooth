@@ -19,7 +19,7 @@ namespace SweetTooth.Controllers
             _repo = repo;
         }
 
-        [HttpGet("{userId}")]
+        [HttpGet("userId/{userId}")]
         public IActionResult GetAllUserPaymentMethods(Guid userId)
         {
             var methods = _repo.GetAllUserPaymentMethods(userId);
@@ -32,7 +32,7 @@ namespace SweetTooth.Controllers
             return Ok(methods);
         }
 
-        [HttpGet("{paymentId}")]
+        [HttpGet("paymentId/{paymentId}")]
         public IActionResult GetById(Guid paymentId)
         {
             var method = _repo.GetById(paymentId);
@@ -53,6 +53,10 @@ namespace SweetTooth.Controllers
                 return BadRequest("All fields are required");
             }
 
+            if (!(newMethod.CardNumber.Length == 16) || !(newMethod.ExpDate.Length == 4) || (newMethod.SecurityCode.Length > 4) || (newMethod.SecurityCode.Length < 3))
+            {
+                return BadRequest("CardNumber must be length 16, ExpDate must be length 4, or SecurityCode must be length 3 or 4.");
+            }
             _repo.Add(newMethod);
 
             return Created($"/api/paymentMethod/{newMethod.Id}", newMethod);

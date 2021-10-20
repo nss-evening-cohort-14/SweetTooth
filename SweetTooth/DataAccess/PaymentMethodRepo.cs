@@ -33,7 +33,7 @@ namespace SweetTooth.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
 
-            var sql = @"Select * from PaymentThod where Id = @methodId";
+            var sql = @"Select * from PaymentMethod where Id = @methodId";
 
             var method = db.QuerySingleOrDefault<PaymentMethod>(sql, new { methodId });
 
