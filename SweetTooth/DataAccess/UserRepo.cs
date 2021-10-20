@@ -44,6 +44,14 @@ namespace SweetTooth.DataAccess
 
             if (user == null) return null;
 
+            var addrSql = @"Select *
+                                From UserAddress
+                                Where UserId = @userId";
+
+            var userAddress = db.Query<UserAddress>(addrSql, new { userId });
+
+            user.Address = userAddress;
+
             return user;
         }
 
