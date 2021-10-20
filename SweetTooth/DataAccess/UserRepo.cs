@@ -21,6 +21,7 @@ namespace SweetTooth.DataAccess
         internal void Add(User newUser)
         {
             using var db = new SqlConnection(_connectionString);
+
             var sql = @"insert into [User] ([Admin], FirstName, LastName, DateCreated, MoodId)
 	                        Output Inserted.Id 
                             Values (@Admin, @FirstName, @LastName, @DateCreated, @MoodId)";
@@ -29,6 +30,21 @@ namespace SweetTooth.DataAccess
 
             var id = db.ExecuteScalar<Guid>(sql, newUser);
             newUser.Id = id;
+        }
+
+        internal User GetById(Guid userId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var userSql = @"Select * 
+                        From [User]
+                        Where Id = @id";
+
+            var user = db.QuerySingleOrDefault<User>(userSql, new { id = userId });
+
+            if (user == null) return null;
+
+            return user;
         }
 
         internal IEnumerable<User> GetAll()

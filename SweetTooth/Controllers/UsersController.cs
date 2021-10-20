@@ -26,11 +26,18 @@ namespace SweetTooth.Models
             return Ok(_repo.GetAll());
         }
 
-        //[HttpGet("{id}")]
-        //public string GetSingleUser(Guid id)
-        //{
-        //    return "value";
-        //}
+        [HttpGet("{id}")]
+        public IActionResult GetUserById(Guid id)
+        {
+            var singleUser = _repo.GetById(id);
+
+            if (singleUser == null)
+            {
+                return NotFound($"No user found with this  ID: {id}.");
+            }
+
+            return Ok(singleUser);
+        }
 
         [HttpPost]
         public IActionResult AddUser(User newUser)
