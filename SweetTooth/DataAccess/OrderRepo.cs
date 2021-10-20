@@ -13,7 +13,7 @@ namespace SweetTooth.DataAccess
     {
         string _connectionString;
 
-        internal OrderRepo(IConfiguration config)
+        public OrderRepo(IConfiguration config)
         {
             _connectionString = config.GetConnectionString("SweetTooth");
         }
@@ -56,7 +56,7 @@ namespace SweetTooth.DataAccess
 
         Order Map(Order order, PaymentMethod paymentMethod)
         {
-            order.paymentMethod = paymentMethod;
+            order.PaymentMethod = paymentMethod;
             return order;
         }
     }

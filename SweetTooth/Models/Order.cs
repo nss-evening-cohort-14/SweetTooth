@@ -18,6 +18,6 @@ namespace SweetTooth.Models
 
         // These two properties are needed for getting a single order info. Not to store in the order table.
         public IEnumerable<OrderItem> OrderItems { get; set; }
-        // public PaymentMethod PaymentMethod { get; set; }
+        public PaymentMethod PaymentMethod { get; set; }
     }
 }

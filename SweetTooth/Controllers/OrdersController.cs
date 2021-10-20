@@ -28,7 +28,7 @@ namespace SweetTooth.Controllers
         [HttpGet("{orderId}")]
         public IActionResult GetSingleOrder(Guid orderId)
         {
-             var order = _repo.GetSingleOrder(orderId);
+            var order = _repo.GetSingleOrder(orderId);
 
             if (order == null)
             {
