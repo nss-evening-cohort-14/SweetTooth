@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SweetTooth.DataAccess;
+using SweetTooth.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,12 @@ namespace SweetTooth.Controllers
             }
 
             return Ok(order);
+        }
+
+        [HttpPost]
+        public IActionResult AddOrder(Order newOrder)
+        {
+
         }
     }
 }
