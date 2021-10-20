@@ -25,17 +25,17 @@ namespace SweetTooth.Controllers
             return Ok(_repo.GetAll());
         }
 
-        [HttpGet("{orderId}/orderItems")]
-        public IActionResult GetOrderItems(Guid orderId)
+        [HttpGet("{orderId}")]
+        public IActionResult GetSingleOrder(Guid orderId)
         {
-             var orderItems = _repo.GetOrderItems(orderId);
+             var order = _repo.GetSingleOrder(orderId);
 
-            if (orderItems == null)
+            if (order == null)
             {
-                return NotFound("No items were found for this order.");
+                return NotFound("Order was not found.");
             }
 
-            return Ok(orderItems);
+            return Ok(order);
         }
     }
 }

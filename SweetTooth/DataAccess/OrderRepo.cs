@@ -13,12 +13,12 @@ namespace SweetTooth.DataAccess
     {
         string _connectionString;
 
-        public OrderRepo(IConfiguration config)
+        internal OrderRepo(IConfiguration config)
         {
             _connectionString = config.GetConnectionString("SweetTooth");
         }
 
-        public IEnumerable<Order> GetAll()
+        internal IEnumerable<Order> GetAll()
         {
             using var db = new SqlConnection(_connectionString);
 
@@ -30,17 +30,34 @@ namespace SweetTooth.DataAccess
             return orders;
         }
 
-        public IEnumerable<OrderItem> GetOrderItems(Guid orderId)
+        internal Order GetSingleOrder(Guid orderId)
         {
             using var db = new SqlConnection(_connectionString);
 
             var sql = @"select * 
-                        from OrderItem
-                        where OrderId = @id";
+                        from [Order] o
+	                        join PaymentMethod p
+	                        on p.Id = o.PaymentMethodId
+                        where o.Id = @id";
 
-            var orderItems = db.Query<OrderItem>(sql, new { id = orderId });
+            var orderItemsSql = @"select * 
+                                from OrderItem
+                                where OrderId = @id";
 
-            return orderItems;
+            var orderItems = db.Query<OrderItem>(orderItemsSql, new { id = orderId });
+
+            var orders = db.Query<Order, PaymentMethod, Order>(sql, Map, new { id = orderId }, splitOn: "Id");
+
+            var order = orders.FirstOrDefault();
+            order.OrderItems = orderItems;
+
+            return order;
+        }
+
+        Order Map(Order order, PaymentMethod paymentMethod)
+        {
+            order.paymentMethod = paymentMethod;
+            return order;
         }
     }
 }

@@ -15,5 +15,9 @@ namespace SweetTooth.Models
         public Guid PaymentMethodId { get; set; } // foreign key
         public bool Processed { get; set; }
         public bool Shipped { get; set; }
+
+        // These two properties are needed for getting a single order info. Not to store in the order table.
+        public IEnumerable<OrderItem> OrderItems { get; set; }
+        // public PaymentMethod PaymentMethod { get; set; }
     }
 }
