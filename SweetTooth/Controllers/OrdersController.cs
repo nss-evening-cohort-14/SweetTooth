@@ -42,7 +42,9 @@ namespace SweetTooth.Controllers
         [HttpPost]
         public IActionResult AddOrder(Order newOrder)
         {
+            _repo.Add(newOrder);
 
+            return Created($"/api/orders/{newOrder.Id}", newOrder);
         }
     }
 }

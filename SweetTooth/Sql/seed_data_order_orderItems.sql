@@ -64,7 +64,7 @@ insert into SnackMood (Id, MoodId, SnackId)
 -- insert order data
 insert into [Order] (Id, UserId, OrderDate, OrderNumber, Total, PaymentMethodId, Processed, Shipped)
 	values	
-		('31C6502C-2531-EC11-A549-782B467938C5', '3D0DF9C9-7F30-EC11-A549-782B467938C5', convert(datetime, '2021-10-19 05:50:06.000'), 1234567895, 35.99, 'CA702FFE-2231-EC11-A549-782B467938C5', 1, 0)
+		('31C6502C-2531-EC11-A549-782B467938C5', '3D0DF9C9-7F30-EC11-A549-782B467938C5', cast('2021-10-19 05:50:06.000', datetime), 1234567895, 35.99, 'CA702FFE-2231-EC11-A549-782B467938C5', 1, 0)
 ;
 
 -- insert userAddress data

@@ -54,6 +54,14 @@ namespace SweetTooth.DataAccess
             return order;
         }
 
+        internal int GenerateNumber()
+        {
+            Random generator = new Random();
+            int r = generator.Next(100000, 1000000);
+
+            return r;
+        }
+
         internal void Add(Order newOrder)
         {
             using var db = new SqlConnection(_connectionString);
@@ -84,7 +92,7 @@ namespace SweetTooth.DataAccess
             {
                 UserId = newOrder.UserId,
                 OrderDate = DateTime.Now,
-                OrderNumber = 0,
+                OrderNumber = GenerateNumber(),
                 Total = newOrder.Total,
                 PaymentMethodId = newOrder.PaymentMethodId,
 
