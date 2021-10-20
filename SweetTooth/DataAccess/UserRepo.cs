@@ -22,14 +22,15 @@ namespace SweetTooth.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
 
-            var sql = @"insert into [User] ([Admin], FirstName, LastName, DateCreated, MoodId)
-	                        Output Inserted.Id 
-                            Values (@Admin, @FirstName, @LastName, @DateCreated, @MoodId)";
+            var userSql = @"insert into [User] ([Admin], FirstName, LastName, DateCreated, MoodId)
+	                            Output Inserted.Id 
+                                Values (@Admin, @FirstName, @LastName, @DateCreated, @MoodId)";
 
             newUser.DateCreated = DateTime.Now;
 
-            var id = db.ExecuteScalar<Guid>(sql, newUser);
-            newUser.Id = id;
+            var userId = db.ExecuteScalar<Guid>(userSql, newUser);
+            newUser.Id = userId;
+
         }
 
         internal User GetById(Guid userId)
@@ -37,20 +38,19 @@ namespace SweetTooth.DataAccess
             using var db = new SqlConnection(_connectionString);
 
             var userSql = @"Select * 
-                        From [User]
-                        Where Id = @id";
+                            From [User]
+                            Where Id = @id";
 
             var user = db.QuerySingleOrDefault<User>(userSql, new { id = userId });
 
             if (user == null) return null;
 
             var addrSql = @"Select *
-                                From UserAddress
-                                Where UserId = @userId";
+                            From UserAddress
+                            Where UserId = @userId";
 
             var userAddress = db.Query<UserAddress>(addrSql, new { userId });
 
-            user.Address = userAddress;
 
             return user;
         }
