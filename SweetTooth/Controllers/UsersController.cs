@@ -7,7 +7,7 @@ using SweetTooth.DataAccess;
 
 namespace SweetTooth.Models
 {
-    [Route("api/[controller]")]
+    [Route("api/Users")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -48,6 +48,23 @@ namespace SweetTooth.Models
             _repo.Add(newUser);
 
             return Created($"api/users/{newUser.Id}", newUser);
+        }
+
+        //UserAddress calls only
+        [HttpPost]
+        public IActionResult AddUserAddress(UserAddress newAddress)
+        {
+            if (string.IsNullOrEmpty(newAddress.Street) 
+                || string.IsNullOrEmpty(newAddress.City) 
+                || string.IsNullOrEmpty(newAddress.State)
+                || string.IsNullOrEmpty(newAddress.Zip)
+                )
+            {
+                return BadRequest("Field is required.");
+            }
+
+            _repo.AddAddress(newAddress);
+            return Created($"api/users/address/{newAddress.Id}", newAddress);
         }
     }
 }
