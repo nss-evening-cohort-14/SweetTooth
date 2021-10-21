@@ -28,19 +28,19 @@ namespace SweetTooth.DataAccess
                             From UserAddress
                             Where UserId = @userId";
 
-            var userAddress = db.QuerySingleOrDefault<UserAddress>(addrSql);
+            var userAddress = db.QuerySingleOrDefault<UserAddress>(addrSql, new { userId = Id });
 
             return userAddress;
         }
 
-        //internal IEnumerable<User> GetAll()
-        //{
-        //    using var db = new SqlConnection(_connectionString);
+        internal IEnumerable<UserAddress> GetAll()
+        {
+            using var db = new SqlConnection(_connectionString);
 
-        //    var users = db.Query<User>(@"Select * From [User]");
+            var allAddresses = db.Query<UserAddress>(@"Select * From UserAddress");
 
-        //    return users;
-        //}
+            return allAddresses;
+        }
 
         //internal void AddAddress(UserAddressRepo newAddress)
         //{

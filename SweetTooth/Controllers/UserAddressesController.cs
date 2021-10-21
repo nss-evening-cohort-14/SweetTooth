@@ -8,13 +8,22 @@ using SweetTooth.Models;
 
 namespace SweetTooth.Controllers
 {
-    public class UserAddressesController : Controller
+    [Route("api/UserAddresses")]
+    [ApiController]
+    public class UserAddressesController : ControllerBase
     {
         private UserAddressRepo _repo;
         
         public UserAddressesController(UserAddressRepo repo)
         {
             _repo = repo;
+        }
+
+        [HttpGet]
+        public IActionResult GetAllAddresses()
+        {
+            return Ok(_repo.GetAll());
+
         }
 
         [HttpGet("{id}")]
