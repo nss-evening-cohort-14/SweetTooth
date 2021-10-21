@@ -46,19 +46,18 @@ insert into SnackMood (Id, MoodId, SnackId)
 ;
 
 -- insert user data -- note: will need to test datetime constructor with C# first
-/*insert into [User] (Id, FirstName, LastName, DateCreated, MoodId)
+insert into [User] (Id, [Admin], FirstName, LastName, DateCreated, MoodId)
 	values
-		('1542282b-620c-47a1-a1ac-b538160ae161', 'TestUser', 'Juan', '', 'c4892c07-e999-4bfc-aef6-50b4989a2544'),
-		('b6f71a9f-2496-4364-9069-03024b233e15', 'TestUser', 'Dos', '', '')
-;*/
-
+		('b1a01661-4331-ec11-8172-0800275f12c6', 1, 'User', 'One', cast('2021-10-19' as datetime), '0e628817-e344-4335-9933-4c827d5ec2ad'),
+		('d9110d2a-4431-ec11-8172-0800275f12c6', 0, 'User', 'Two', cast('2021-10-19' as datetime), '81530eb5-27ab-475a-b0cc-3f03001ae9bd')
+;
 
 -- insert paymentMethod data -- note: will use enum on backend possibly for Payment Method
-/*insert into PaymentMethod (Id, UserId, Method, CardNumber, ExpDate, SecurityCode)
+insert into PaymentMethod (Id, UserId, Method, CardNumber, ExpDate, SecurityCode)
 	values
-		()
-;*/
-
+		('94cc4b9c-fd31-ec11-8172-0800275f12c6','b1a01661-4331-ec11-8172-0800275f12c6','Credit','0123456789012345','1023','234'),
+		('c34f01c3-fd31-ec11-8172-0800275f12c6','b1a01661-4331-ec11-8172-0800275f12c6','Debit','3123456783920345','0822','2345')
+ ; 
 
 /* note: likely leave population of this to development
 -- insert order data
@@ -66,6 +65,7 @@ insert into [Order] (Id, UserId, OrderDate, OrderNumber, Total, PaymentMethodId,
 	values	
 		()
 ;
+
 
 -- insert userAddress data
 insert into UserAddress (Id, UserId, Street, City, [State], Zip)
