@@ -22,8 +22,6 @@ namespace SweetTooth.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
 
-            //if (userAddressId.UserId == null) return null;
-
             var addrSql = @"Select *
                             From UserAddress
                             Where UserId = @userId";
@@ -45,12 +43,6 @@ namespace SweetTooth.DataAccess
         internal void AddAddress(UserAddress newAddress)
         {
             using var db = new SqlConnection(_connectionString);
-
-            //var userIdSql = @"Select Id 
-            //                From [User]
-            //                Where Id = @id";
-
-            //var userId = db.QuerySingleOrDefault<Guid>(userIdSql, new { id = userId });
 
             var addressSql = @"insert into UserAddress(UserId, Street, City, [State], Zip)
                              Output inserted.Id
