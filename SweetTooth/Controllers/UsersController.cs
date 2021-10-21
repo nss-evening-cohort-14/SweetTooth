@@ -48,7 +48,5 @@ namespace SweetTooth.Models
 
             return Created($"api/users/{newUser.Id}", newUser);
         }
-
-     
     }
 }
