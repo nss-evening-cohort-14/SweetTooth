@@ -39,21 +39,21 @@ namespace SweetTooth.Controllers
             return Ok(singleUserAddress);
         }
 
-        //[HttpPost]
-        //public IActionResult AddUserAddress(UserAddress newAddress)
-        //{
-        //    if (string.IsNullOrEmpty(newAddress.Street)
-        //        || string.IsNullOrEmpty(newAddress.City)
-        //        || string.IsNullOrEmpty(newAddress.State)
-        //        || string.IsNullOrEmpty(newAddress.Zip)
-        //        )
-        //    {
-        //        return BadRequest("Field is required.");
-        //    }
+        [HttpPost]
+        public IActionResult AddUserAddress(UserAddress newAddress)
+        {
+            if (string.IsNullOrEmpty(newAddress.Street)
+                || string.IsNullOrEmpty(newAddress.City)
+                || string.IsNullOrEmpty(newAddress.State)
+                || string.IsNullOrEmpty(newAddress.Zip)
+                )
+            {
+                return BadRequest("Field is required.");
+            }
 
-        //    _repo.AddAddress(newAddress);
-        //    return Created($"api/users/address/{newAddress.Id}", newAddress);
-        //}
+            _repo.AddAddress(newAddress);
+            return Created($"api/users/address/{newAddress.Id}", newAddress);
+        }
 
 
     }
