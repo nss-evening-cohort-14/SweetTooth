@@ -42,24 +42,20 @@ namespace SweetTooth.DataAccess
             return allAddresses;
         }
 
-        internal void AddAddress(User userId, UserAddressRepo newAddress)
+        internal void AddAddress(UserAddress newAddress)
         {
             using var db = new SqlConnection(_connectionString);
 
-            var userIdSql = @"Select Id 
-                            From [User]
-                            Where Id = @id";
+            //var userIdSql = @"Select Id 
+            //                From [User]
+            //                Where Id = @id";
 
-            var user = db.QuerySingleOrDefault<User>(userIdSql, new { id = userId });
-
-
+            //var userId = db.QuerySingleOrDefault<Guid>(userIdSql, new { id = userId });
 
             var addressSql = @"insert into UserAddress(UserId, Street, City, [State], Zip)
                              Output inserted.Id
-                             Values( @UserId, @Street, @City, @State, @Zip)
-                                Where UserId = @UserId";
+                             Values( @UserId, @Street, @City, @State, @Zip)";
 
-            user.Id = UserId;
             var addressId = db.ExecuteScalar<Guid>(addressSql, newAddress);
 
             newAddress.Id = addressId;
