@@ -35,9 +35,9 @@ CREATE TABLE dbo.PaymentMethod
 	Id uniqueidentifier NOT NULL primary key default(newsequentialid()),
 	UserId uniqueidentifier NOT NULL,
 	Method varchar(20) NOT NULL,
-	CardNumber int NOT NULL,
-	ExpDate date NOT NULL,
-	SecurityCode int NOT NULL,
+	CardNumber varchar(16) NOT NULL,
+	ExpDate varchar(4) NOT NULL,
+	SecurityCode varchar(4) NOT NULL,
 	CONSTRAINT FK_PaymentMethod_User FOREIGN KEY (UserId)
 		REFERENCES dbo.[User] (Id)
 	);
@@ -59,7 +59,7 @@ CREATE TABLE dbo.[Order]
 	(
 	Id uniqueidentifier NOT NULL primary key default(newsequentialid()),
 	UserId uniqueidentifier NOT NULL,
-	OrderDate datetime NOT NULL,
+	OrderDate datetime NOT NULL Default(CAST(GETDATE() AS SMALLDATETIME)),
 	OrderNumber int NOT NULL,
 	Total money NOT NULL,
 	PaymentMethodId uniqueidentifier NOT NULL,
