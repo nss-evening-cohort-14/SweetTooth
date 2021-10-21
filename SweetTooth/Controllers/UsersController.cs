@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SweetTooth.DataAccess;
-
 namespace SweetTooth.Models
 {
     [Route("api/Users")]
@@ -50,21 +49,6 @@ namespace SweetTooth.Models
             return Created($"api/users/{newUser.Id}", newUser);
         }
 
-        //UserAddress calls only
-        [HttpPost]
-        public IActionResult AddUserAddress(UserAddress newAddress)
-        {
-            if (string.IsNullOrEmpty(newAddress.Street) 
-                || string.IsNullOrEmpty(newAddress.City) 
-                || string.IsNullOrEmpty(newAddress.State)
-                || string.IsNullOrEmpty(newAddress.Zip)
-                )
-            {
-                return BadRequest("Field is required.");
-            }
-
-            _repo.AddAddress(newAddress);
-            return Created($"api/users/address/{newAddress.Id}", newAddress);
-        }
+     
     }
 }

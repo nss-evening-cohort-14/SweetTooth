@@ -34,8 +34,7 @@ namespace SweetTooth.DataAccess
                             From UserAddress
                             Where UserId = @userId";
 
-            var userAddress = db.Query<UserAddress>(addrSql, new { userId });
-
+            var userAddress = db.Query<UserAddressRepo>(addrSql, new { userId });
 
             return user;
         }
@@ -61,21 +60,7 @@ namespace SweetTooth.DataAccess
 
             var userId = db.ExecuteScalar<Guid>(userSql, newUser);
             newUser.Id = userId;
-
         }
 
-        // User Address only below
-        internal void AddAddress(UserAddress newAddress)
-        {
-            using var db = new SqlConnection(_connectionString);
-
-            var addressSql = @"insert into UserAddress(Id, UserId, Street, City, [State], Zip)
-                             Output inserted.Id
-                             Values(@Id, @UserId, @Street, @City, @State, @Zip)
-                                Where UserId = @UserId";
-
-            var addressId = db.ExecuteScalar<Guid>(addressSql, newAddress);
-            newAddress.Id = addressId;
-        }
     }
 }
