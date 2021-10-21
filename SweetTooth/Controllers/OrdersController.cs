@@ -14,10 +14,13 @@ namespace SweetTooth.Controllers
     public class OrdersController : ControllerBase
     {
         OrderRepo _repo;
+        PaymentMethodRepo _pmRepo;
 
-        public OrdersController(OrderRepo repo)
+        public OrdersController(OrderRepo repo, PaymentMethodRepo pmRepo)
         {
             _repo = repo;
+            _pmRepo = pmRepo;
+            // need the payment method repo for the add function
         }
 
         [HttpGet]
@@ -40,11 +43,14 @@ namespace SweetTooth.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddOrder(Order newOrder)
+        public IActionResult AddOrder(CreateOrderCommand command)
         {
-            _repo.Add(newOrder);
+            var _order = command.Order;
+            var _snacks = command.SnackIdQuantityList;
 
-            return Created($"/api/orders/{newOrder.Id}", newOrder);
+            _repo.Add(_order, _snacks);
+
+            return Created($"/api/orders/{_order.Id}", _order);
         }
     }
 }

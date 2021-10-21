@@ -32,6 +32,7 @@ namespace SweetTooth.DataAccess
 
         internal Order GetSingleOrder(Guid orderId)
         {
+
             using var db = new SqlConnection(_connectionString);
 
             var sql = @"select * 
@@ -62,8 +63,9 @@ namespace SweetTooth.DataAccess
             return r;
         }
 
-        internal void Add(Order newOrder)
+        internal void Add(Order newOrder, List<Item> snackList)
         {
+
             using var db = new SqlConnection(_connectionString);
 
             var orderSql = @"insert into [dbo].[Order]
@@ -78,10 +80,14 @@ namespace SweetTooth.DataAccess
                         values (@UserId,
 		                        @OrderDate,
 		                        @OrderNumber,
-		                        Total,
+		                        @Total,
 		                        @PaymentMethodId,
 		                        @Processed,
 		                        @Shipped)";
+
+            var pmSql = @"select *
+                          from PaymentMethod
+                          where Id = @PaymentMethodId";
 
             var orderItemsSql = @"insert into [dbo].[Order]
                                 (OrderId, SnackId, Quantity)
@@ -105,18 +111,17 @@ namespace SweetTooth.DataAccess
 
             var orderId = db.ExecuteScalar<Guid>(orderSql, orderParams);
             newOrder.Id = orderId;
+            newOrder.PaymentMethod = db.ExecuteScalar<PaymentMethod>(pmSql);
 
-            foreach (var orderItem in newOrder.OrderItems)
+            foreach (var snack in snackList)
             {
-                var orderItemsParams = new
+                var itemParams = new
                 {
                     OrderId = newOrder.Id,
-                    SnackId = orderItem.SnackId,
-                    Quantity = orderItem.Quantity
+                    SnackId = snack.SnackId,
+                    Quantity = snack.Quantity
                 };
-
-                var orderItemId = db.ExecuteScalar<Guid>(orderItemsSql, orderItemsParams);
-                orderItem.Id = orderItemId;
+                db.ExecuteScalar<Guid>(orderItemsSql, itemParams);
             }
         }
 
