@@ -18,8 +18,6 @@ namespace SweetTooth.DataAccess
             _connectionString = config.GetConnectionString("SweetTooth");
         }
 
- 
-
         internal User GetById(Guid userId)
         {
             using var db = new SqlConnection(_connectionString);
