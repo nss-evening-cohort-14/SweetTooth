@@ -44,12 +44,13 @@ namespace SweetTooth.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
 
-            var sql = @"insert into Snack(Name, Category, Price, Description, Image)
-                        output inserted.Id
-                        values (@Name, @Category, @Price, @Description, @Image)";
+            //add snack
+            var snackSql = @"insert into Snack(Name, Category, Price, Description, Image)
+                             output inserted.Id
+                             values (@Name, @Category, @Price, @Description, @Image)";
 
-            var id = db.ExecuteScalar<Guid>(sql, newSnack);
-            newSnack.Id = id;
+            var snackId = db.ExecuteScalar<Guid>(snackSql, newSnack);
+            newSnack.Id = snackId;
         }
     }
 }

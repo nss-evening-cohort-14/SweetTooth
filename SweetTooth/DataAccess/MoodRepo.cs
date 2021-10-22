@@ -41,5 +41,19 @@ namespace SweetTooth.DataAccess
             var id = db.ExecuteScalar<Guid>(sql, newMood);
             newMood.Id = id;
         }
+
+        internal object GetById(Guid moodId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var moodSql = @"Select *
+                            from Mood
+                            where Id = @moodId";
+
+            var mood = db.QuerySingleOrDefault<Mood>(moodSql, new { id = moodId });
+
+            return mood;
+
+        }
     }
 }
