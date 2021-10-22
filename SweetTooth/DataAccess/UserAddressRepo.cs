@@ -26,7 +26,7 @@ namespace SweetTooth.DataAccess
                             From UserAddress
                             Where UserId = @userId";
 
-            var userAddress = db.QuerySingleOrDefault<UserAddress>(addrSql, new { userId = Id });
+            var userAddress = db.QueryFirstOrDefault<UserAddress>(addrSql, new { userId = Id });
 
             return userAddress;
         }
