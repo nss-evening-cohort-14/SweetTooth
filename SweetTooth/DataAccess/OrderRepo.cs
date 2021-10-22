@@ -85,11 +85,7 @@ namespace SweetTooth.DataAccess
 		                        @Processed,
 		                        @Shipped)";
 
-            var pmSql = @"select *
-                          from PaymentMethod
-                          where Id = @PaymentMethodId";
-
-            var orderItemsSql = @"insert into [dbo].[Order]
+            var orderItemsSql = @"insert into [dbo].[OrderItem]
                                 (OrderId, SnackId, Quantity)
                                 Output inserted.Id
                                 values (@OrderId, @SnackId, @Quantity)";
@@ -104,14 +100,15 @@ namespace SweetTooth.DataAccess
 
                 // setting those to false because the order could just be in the cart. Will need seperate
                 // calls to process order and ship.
-                Processed = false,
-                Shipped = false,
+                Processed = newOrder.Processed,
+                Shipped = newOrder.Processed,
             };
 
 
             var orderId = db.ExecuteScalar<Guid>(orderSql, orderParams);
             newOrder.Id = orderId;
-            newOrder.PaymentMethod = db.ExecuteScalar<PaymentMethod>(pmSql);
+
+            // Creating an orderItem for each snack inputed by user.
 
             foreach (var snack in snackList)
             {

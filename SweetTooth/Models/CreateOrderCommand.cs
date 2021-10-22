@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SweetTooth.DataAccess
+namespace SweetTooth.Models
 {
     public class CreateOrderCommand
     {

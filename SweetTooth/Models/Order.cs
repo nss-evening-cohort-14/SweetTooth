@@ -13,8 +13,8 @@ namespace SweetTooth.Models
         public int OrderNumber { get; set; }
         public decimal Total { get; set; }
         public Guid PaymentMethodId { get; set; } // foreign key
-        public bool Processed { get; set; }
-        public bool Shipped { get; set; }
+        public bool Processed { get; set; } = false;
+        public bool Shipped { get; set; } = false;
 
         // These two properties are needed for getting a single order info. Not to store in the order table.
         public IEnumerable<OrderItem> OrderItems { get; set; }
