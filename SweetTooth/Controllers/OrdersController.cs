@@ -16,11 +16,9 @@ namespace SweetTooth.Controllers
         OrderRepo _repo;
         PaymentMethodRepo _pmRepo;
 
-        public OrdersController(OrderRepo repo, PaymentMethodRepo pmRepo)
+        public OrdersController(OrderRepo repo)
         {
             _repo = repo;
-            _pmRepo = pmRepo;
-            // need the payment method repo for the add function
         }
 
         [HttpGet]
@@ -51,6 +49,19 @@ namespace SweetTooth.Controllers
             _repo.Add(_order, _snacks);
 
             return Created($"/api/orders/{_order.Id}", _order);
+        }
+
+        [HttpGet("{orderId}/orderItems")]
+        public IActionResult GetOrderItems(Guid orderId)
+        {
+            var orderItems = _repo.GetOrderItems(orderId);
+
+            if (orderItems == null)
+            {
+                return NotFound("No items were found for this order.");
+            }
+
+            return Ok(orderItems);
         }
     }
 }
