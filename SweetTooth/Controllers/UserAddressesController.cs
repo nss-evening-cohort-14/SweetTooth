@@ -33,7 +33,7 @@ namespace SweetTooth.Controllers
 
             if (singleUserAddress == null)
             {
-                return NotFound($"No user found with this ID: {id}.");
+                return NotFound($"No addresses found for this User ID: {id}.");
             }
 
             return Ok(singleUserAddress);
