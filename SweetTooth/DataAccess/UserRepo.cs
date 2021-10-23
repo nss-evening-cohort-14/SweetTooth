@@ -22,15 +22,21 @@ namespace SweetTooth.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
 
-            var userSql = @"Select u.*, ua.Id as AddrId, Street, City, [State], Zip
-                            From [User] u
-                            Left Join UserAddress ua on u.Id = ua.UserId 
-                            Where u.Id = @id";
+            var userSql = @"Select * 
+                            From [User]
+                            Where Id = @id";
 
             var user = db.QuerySingleOrDefault<User>(userSql, new { id = userId });
 
             if (user == null) return null;
 
+            var addressSql = @"Select *
+                                From UserAddress ua
+                                Where ua.UserId = @userId";
+
+            var address = db.Query<UserAddress>(addressSql, new { userId });
+
+            user.Address = address;
             return user;
         }
 
