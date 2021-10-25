@@ -154,20 +154,3 @@ namespace SweetTooth.DataAccess
     }
 }
 
-//{
-//    "order": {
-//        "userId": "ba99f1b7-4f31-ec11-a549-782b467938c5",
-//    "total": 35.99,
-//    "paymentMethodId": "f1a82af4-4f31-ec11-a549-782b467938c5"
-//     },
-//  "snackIdQuantityList": [
-//    {
-//        "snackId": "bce4630e-3810-4cf1-a136-252f76ed70d1",
-//      "quantity": 5
-//    },
-//    {
-//        "snackId": "abd18a81-fd9c-47ef-a931-9320bf33276a",
-//      "quantity": 5
-//    }
-//  ]
-//}
