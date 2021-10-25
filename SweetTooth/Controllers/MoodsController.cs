@@ -20,11 +20,22 @@ namespace SweetTooth.Controllers
             _repo = repo;
         }
 
-       [HttpGet]
-       public IActionResult GetAllMoods()
-       {
+        [HttpGet]
+        public IActionResult GetAllMoods()
+        {
             return Ok(_repo.GetAll());
-       }
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(Guid id)
+        {
+            var mood = _repo.GetById(id);
+            if (mood == null)
+            {
+                return NotFound($"No mood with the id {id} was found.");
+            }
+            return Ok(mood);
+        }
 
         [HttpPost]
        public IActionResult AddMood(Mood newMood)
