@@ -4,12 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SweetTooth.DataAccess;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace SweetTooth.Models
 {
-    [Route("api/[controller]")]
+    [Route("api/Users")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -26,11 +23,18 @@ namespace SweetTooth.Models
             return Ok(_repo.GetAll());
         }
 
-        //[HttpGet("{id}")]
-        //public string GetSingleUser(Guid id)
-        //{
-        //    return "value";
-        //}
+        [HttpGet("{id}")]
+        public IActionResult GetUserById(Guid id)
+        {
+            var singleUser = _repo.GetById(id);
+
+            if (singleUser == null)
+            {
+                return NotFound($"No user found with this ID: {id}.");
+            }
+
+            return Ok(singleUser);
+        }
 
         [HttpPost]
         public IActionResult AddUser(User newUser)

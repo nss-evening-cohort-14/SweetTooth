@@ -31,8 +31,10 @@ namespace SweetTooth
 
             services.AddTransient<MoodRepo>();
             services.AddTransient<UserRepo>();
+            services.AddTransient<UserAddressRepo>();
             services.AddTransient<SnackRepo>();
             services.AddTransient<PaymentMethodRepo>();
+            services.AddTransient<SnackMoodRepo>();
             services.AddTransient<OrderRepo>();
 
             services.AddControllers();

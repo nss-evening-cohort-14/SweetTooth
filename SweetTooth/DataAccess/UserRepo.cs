@@ -18,17 +18,26 @@ namespace SweetTooth.DataAccess
             _connectionString = config.GetConnectionString("SweetTooth");
         }
 
-        internal void Add(User newUser)
+        internal User GetById(Guid userId)
         {
             using var db = new SqlConnection(_connectionString);
-            var sql = @"insert into [User] ([Admin], FirstName, LastName, DateCreated, MoodId)
-	                        Output Inserted.Id 
-                            Values (@Admin, @FirstName, @LastName, @DateCreated, @MoodId)";
 
-            newUser.DateCreated = DateTime.Now;
+            var userSql = @"Select * 
+                            From [User]
+                            Where Id = @id";
 
-            var id = db.ExecuteScalar<Guid>(sql, newUser);
-            newUser.Id = id;
+            var user = db.QuerySingleOrDefault<User>(userSql, new { id = userId });
+
+            if (user == null) return null;
+
+            var addressSql = @"Select *
+                                From UserAddress ua
+                                Where ua.UserId = @userId";
+
+            var address = db.Query<UserAddress>(addressSql, new { userId });
+
+            user.Address = address;
+            return user;
         }
 
         internal IEnumerable<User> GetAll()
@@ -40,6 +49,19 @@ namespace SweetTooth.DataAccess
             return users;
         }
 
+        internal void Add(User newUser)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var userSql = @"insert into [User] ([Admin], FirstName, LastName, DateCreated, MoodId)
+	                            Output Inserted.Id 
+                                Values (@Admin, @FirstName, @LastName, @DateCreated, @MoodId)";
+
+            newUser.DateCreated = DateTime.Now;
+
+            var userId = db.ExecuteScalar<Guid>(userSql, newUser);
+            newUser.Id = userId;
+        }
 
     }
 }

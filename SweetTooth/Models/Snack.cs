@@ -20,4 +20,5 @@ namespace SweetTooth.Models
         public const string Savory = "Savory";
         public const string Sweet = "Sweet";
     }
+    
 }
