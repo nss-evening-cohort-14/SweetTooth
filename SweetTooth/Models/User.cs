@@ -14,5 +14,6 @@ namespace SweetTooth.Models
         public DateTime DateCreated { get; set; }
         public Guid MoodId { get; set; }
 
+        public IEnumerable<UserAddress> Address { get; set; }
     }
 }
