@@ -66,7 +66,7 @@ namespace SweetTooth.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateUserAddress(Guid id, UserAddress userAddress)
         {
-            var userAddressToUpdate = _repo.GetById(id);
+            var userAddressToUpdate = _repo.GetByAddressId(id);
 
             if (userAddressToUpdate == null)
                 return NotFound($"Could not find a user Address with the ID: {id} to update.");
