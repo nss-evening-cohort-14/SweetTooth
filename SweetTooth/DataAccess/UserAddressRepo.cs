@@ -18,7 +18,7 @@ namespace SweetTooth.DataAccess
             _connectionString = config.GetConnectionString("SweetTooth");
         }
 
-        internal UserAddress GetById(Guid id)
+        internal UserAddress GetByUserId(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
 
@@ -80,12 +80,6 @@ namespace SweetTooth.DataAccess
         internal object UpdateAddress(Guid id, UserAddress userAddress)
         {
             using var db = new SqlConnection(_connectionString);
-
-            //var getSingleAddressById = @"Select UserAddress.Id
-            //                             From UserAddress
-            //                             Where id = @id";
-
-            //var addressIdOnly = db.QuerySingleOrDefault<UserAddress>(getSingleAddressById, id);
 
             var updateAddressSql = @"Update UserAddress
                         Set 

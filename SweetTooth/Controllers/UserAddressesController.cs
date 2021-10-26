@@ -29,11 +29,11 @@ namespace SweetTooth.Controllers
         [HttpGet("{id}")]
         public IActionResult GetUserAddressById(Guid id)
         {
-            var singleUserAddress = _repo.GetById(id);
+            var singleUserAddress = _repo.GetByUserId(id);
 
             if (singleUserAddress == null)
             {
-                return NotFound($"No addresses found for this User ID: {id}.");
+                return NotFound($"No addresses found for this User ID: {id}. Input a User ID only.");
             }
 
             return Ok(singleUserAddress);
