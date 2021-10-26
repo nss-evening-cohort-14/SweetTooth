@@ -55,5 +55,18 @@ namespace SweetTooth.DataAccess
             return mood;
 
         }
+        
+        internal void UpdateMood(Guid id, Mood mood)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"update Mood
+                        Set Name = @name
+                        output inserted.*
+                        where id = @id";
+
+            mood.Id = id;
+            var moddId = db.QuerySingleOrDefault<Guid>(sql, mood)
+        }
     }
 }
