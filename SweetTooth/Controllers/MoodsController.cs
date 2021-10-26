@@ -47,6 +47,21 @@ namespace SweetTooth.Controllers
             _repo.Add(newMood);
 
             return Created($"/api/moods/{newMood.Id}", newMood);
-        } 
+        }
+        
+        [HttpPut("{id}")]
+        public IActionResult UpdateMood(Guid id, Mood mood)
+        {
+            var moodToUpdate = _repo.GetById(id);
+
+            if (moodToUpdate == null)
+            {
+                NotFound("This mood was not found.");
+            }
+
+            var updateMood = _repo.UpdateMood(id, mood);
+
+            return Ok(updateMood);
+        }
     }
 }

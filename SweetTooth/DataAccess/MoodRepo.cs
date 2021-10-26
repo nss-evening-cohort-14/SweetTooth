@@ -42,7 +42,7 @@ namespace SweetTooth.DataAccess
             newMood.Id = id;
         }
 
-        internal object GetById(Guid moodId)
+        internal Mood GetById(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
 
@@ -50,10 +50,24 @@ namespace SweetTooth.DataAccess
                             from Mood
                             where Id = @moodId";
 
-            var mood = db.QuerySingleOrDefault<Mood>(moodSql, new { id = moodId });
-
+            var mood = db.QuerySingleOrDefault<Mood>(moodSql, new { moodId = id });
             return mood;
 
+        }
+
+        internal Mood UpdateMood(Guid id, Mood mood)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"update Mood
+                        Set Name = @name
+                        output inserted.*
+                        where id = @id";
+
+            mood.Id = id;
+            var updatedeMood = db.QuerySingleOrDefault<Mood>(sql, mood);
+
+            return updatedeMood;
         }
     }
 }
