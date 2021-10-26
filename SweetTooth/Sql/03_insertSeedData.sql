@@ -55,7 +55,8 @@ insert into [User] (Id, [Admin], FirstName, LastName, DateCreated, MoodId)
 -- insert userAddress data
 insert into UserAddress (Id, UserId, Street, City, [State], Zip)
 	values	
-		('B2412447-2534-EC11-8173-0800275F12C6', 'B1A01661-4331-EC11-8172-0800275F12C6', '848 Washington St.', 'San Francisco', 'CA', '94543')
+		('B2412447-2534-EC11-8173-0800275F12C6', 'B1A01661-4331-EC11-8172-0800275F12C6', '848 Washington St.', 'San Francisco', 'CA', '94543'),
+		('B2412447-4331-ec11-8172-0800275f12c6', 'd9110d2a-4431-ec11-8172-0800275f12c6', '848 Washington St.', 'San Francisco', 'CA', '94543')
 ;
 
 -- insert paymentMethod data -- note: will use enum on backend possibly for Payment Method
