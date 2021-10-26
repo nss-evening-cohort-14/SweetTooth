@@ -35,6 +35,7 @@ namespace SweetTooth
             services.AddTransient<SnackRepo>();
             services.AddTransient<PaymentMethodRepo>();
             services.AddTransient<SnackMoodRepo>();
+            services.AddTransient<OrderRepo>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
