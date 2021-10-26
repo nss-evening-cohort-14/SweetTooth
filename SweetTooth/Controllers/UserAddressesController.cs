@@ -13,7 +13,7 @@ namespace SweetTooth.Controllers
     public class UserAddressesController : ControllerBase
     {
         private UserAddressRepo _repo;
-        
+
         public UserAddressesController(UserAddressRepo repo)
         {
             _repo = repo;
@@ -58,16 +58,22 @@ namespace SweetTooth.Controllers
         [HttpDelete]
         public IActionResult HardDeleteUserAddress(Guid id)
         {
-            //var gettingUserAddress = GetUserAddressById(id);
-
-            //if (gettingUserAddress == null)
-            //{
-            //    return NotFound($"No address found.");
-            //}
-
             _repo.DeleteAddress(id);
 
             return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateUserAddress(Guid id, UserAddress userAddress)
+        {
+            var userAddressToUpdate = _repo.GetById(id);
+
+            if (userAddressToUpdate == null)
+                return NotFound($"Could not find a user Address with the ID: {id} to update.");
+
+            var updatedUserAddress = _repo.UpdateAddress(id, userAddress);
+
+            return Ok(updatedUserAddress);
         }
 
 

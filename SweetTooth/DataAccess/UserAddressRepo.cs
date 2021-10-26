@@ -64,6 +64,29 @@ namespace SweetTooth.DataAccess
             db.Execute(sql, new { id });
         }
 
+        internal object UpdateAddress(Guid id, UserAddress userAddress)
+        {
+            using var db = new SqlConnection(_connectionString);
 
+            //var getSingleAddressById = @"Select UserAddress.Id
+            //                             From UserAddress
+            //                             Where id = @id";
+
+            //var addressIdOnly = db.QuerySingleOrDefault<UserAddress>(getSingleAddressById, id);
+
+            var updateAddressSql = @"Update UserAddress
+                        Set UserId = @userId,
+                            Street = @street,
+                            City = @city,
+                            [State] = @state,
+                            Zip = @zip
+                        output inserted.*
+                        Where id = @id; ";
+
+            userAddress.Id = id;
+            var updatedUserAddress = db.QuerySingleOrDefault<UserAddress>(updateAddressSql, userAddress);
+
+            return updatedUserAddress;
+        }
     }
 }
