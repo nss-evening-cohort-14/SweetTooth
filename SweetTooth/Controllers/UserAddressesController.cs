@@ -55,6 +55,21 @@ namespace SweetTooth.Controllers
             return Created($"api/users/address/{newAddress.Id}", newAddress);
         }
 
+        [HttpDelete]
+        public IActionResult HardDeleteUserAddress(Guid id)
+        {
+            //var gettingUserAddress = GetUserAddressById(id);
+
+            //if (gettingUserAddress == null)
+            //{
+            //    return NotFound($"No address found.");
+            //}
+
+            _repo.DeleteAddress(id);
+
+            return Ok();
+        }
+
 
     }
 }

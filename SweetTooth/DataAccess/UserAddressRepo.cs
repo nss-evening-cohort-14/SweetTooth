@@ -53,6 +53,17 @@ namespace SweetTooth.DataAccess
             newAddress.Id = addressId;
         }
 
+        public void DeleteAddress(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"Delete 
+                        From [UserAddress]
+                        Where Id = @id";
+
+            db.Execute(sql, new { id });
+        }
+
 
     }
 }
