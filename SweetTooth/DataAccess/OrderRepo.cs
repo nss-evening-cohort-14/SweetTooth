@@ -114,7 +114,7 @@ namespace SweetTooth.DataAccess
                 // setting those to false because the order could just be in the cart. Will need seperate
                 // calls to process order and ship.
                 Processed = newOrder.Processed,
-                Shipped = newOrder.Processed,
+                Shipped = newOrder.Shipped,
             };
 
 
