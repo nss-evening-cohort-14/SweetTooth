@@ -66,7 +66,15 @@ namespace SweetTooth.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
 
-            var sql = @"update Snack";
+            var sql = @"update Snack
+	                    Set 
+		                    [Name] = @name, 
+		                    Category = @category, 
+		                    Price = @price, 
+		                    [Description] = @description, 
+		                    [Image] = @image
+	                    output inserted.*
+	                    where id = @id";
 
             snack.Id = id;
             var updatedSnack = db.QuerySingleOrDefault<Snack>(sql, snack);
