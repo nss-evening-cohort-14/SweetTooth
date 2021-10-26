@@ -6,14 +6,16 @@ CREATE TABLE dbo.Snack
 	Category varchar(50) NOT NULL,
 	Price money NOT NULL,
 	[Description] varchar(500) NOT NULL,
-	[Image] nvarchar(4000) NOT NULL
+	[Image] nvarchar(4000) NOT NULL,
+	SoftDelete bit NOT NULL default 0
 	);
 
 -- create mood table
 CREATE TABLE dbo.Mood
 	(
 	Id uniqueidentifier NOT NULL primary key default(newsequentialid()),
-	[Name] varchar(50) NOT NULL
+	[Name] varchar(50) NOT NULL,
+	SoftDelete bit NOT NULL default 0
 	);
 
 -- create user table
@@ -25,6 +27,7 @@ CREATE TABLE dbo.[User]
 	LastName varchar(50) NOT NULL,
 	DateCreated datetime NOT NULL,
 	MoodId uniqueidentifier,
+	SoftDelete bit NOT NULL default 0,
 	CONSTRAINT FK_User_Mood FOREIGN KEY (MoodId)
 		REFERENCES dbo.Mood (Id)
 	);
@@ -38,6 +41,7 @@ CREATE TABLE dbo.PaymentMethod
 	CardNumber varchar(16) NOT NULL,
 	ExpDate varchar(4) NOT NULL,
 	SecurityCode varchar(4) NOT NULL,
+	SoftDelete bit NOT NULL default 0
 	CONSTRAINT FK_PaymentMethod_User FOREIGN KEY (UserId)
 		REFERENCES dbo.[User] (Id)
 	);

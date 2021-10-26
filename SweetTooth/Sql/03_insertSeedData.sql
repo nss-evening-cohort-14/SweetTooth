@@ -52,6 +52,12 @@ insert into [User] (Id, [Admin], FirstName, LastName, DateCreated, MoodId)
 		('d9110d2a-4431-ec11-8172-0800275f12c6', 0, 'User', 'Two', cast('2021-10-19' as datetime), '81530eb5-27ab-475a-b0cc-3f03001ae9bd')
 ;
 
+-- insert userAddress data
+insert into UserAddress (Id, UserId, Street, City, [State], Zip)
+	values	
+		('B2412447-2534-EC11-8173-0800275F12C6', 'B1A01661-4331-EC11-8172-0800275F12C6', '848 Washington St.', 'San Francisco', 'CA', '94543')
+;
+
 -- insert paymentMethod data -- note: will use enum on backend possibly for Payment Method
 insert into PaymentMethod (Id, UserId, Method, CardNumber, ExpDate, SecurityCode)
 	values
@@ -59,23 +65,15 @@ insert into PaymentMethod (Id, UserId, Method, CardNumber, ExpDate, SecurityCode
 		('c34f01c3-fd31-ec11-8172-0800275f12c6','b1a01661-4331-ec11-8172-0800275f12c6','Debit','3123456783920345','0822','2345')
  ; 
 
-/* note: likely leave population of this to development
 -- insert order data
 insert into [Order] (Id, UserId, OrderDate, OrderNumber, Total, PaymentMethodId, Processed, Shipped)
 	values	
-		()
-;
-
-
--- insert userAddress data
-insert into UserAddress (Id, UserId, Street, City, [State], Zip)
-	values	
-		()
+		('85955DA1-EE35-EC11-8173-0800275F12C6','B1A01661-4331-EC11-8172-0800275F12C6',cast('2021-10-20' as datetime),294109,35.99,'94CC4B9C-FD31-EC11-8172-0800275F12C6',0,0)
 ;
 
 -- insert orderItem data
 insert into OrderItem (Id, OrderId, SnackId, Quantity)
 	values	
-		()
-;*/
-
+		('86955DA1-EE35-EC11-8173-0800275F12C6','85955DA1-EE35-EC11-8173-0800275F12C6','BCE4630E-3810-4CF1-A136-252F76ED70D1',5),
+		('87955DA1-EE35-EC11-8173-0800275F12C6','85955DA1-EE35-EC11-8173-0800275F12C6','51D577A2-45C3-4BEE-80BA-65D2BECF76F8',5)
+;
