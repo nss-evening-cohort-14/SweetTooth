@@ -60,7 +60,8 @@ namespace SweetTooth.DataAccess
             using var db = new SqlConnection(_connectionString);
 
             var sql = @"update Mood
-                        Set Name = @name
+                        Set Name = @name,
+                            SoftDelete = @SoftDelete
                         output inserted.*
                         where id = @id";
 
@@ -68,6 +69,17 @@ namespace SweetTooth.DataAccess
             var updatedeMood = db.QuerySingleOrDefault<Mood>(sql, mood);
 
             return updatedeMood;
+        }
+
+        internal void SoftdeleteMood(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"delete
+                        from Mood
+                        where Id = @id";
+
+            var deletedMood = db.Execute(sql, new { id });
         }
     }
 }

@@ -63,5 +63,13 @@ namespace SweetTooth.Controllers
 
             return Ok(updateMood);
         }
+
+        [HttpPatch("{id}")]
+        public IActionResult SoftDeleteMood(Guid id)
+        {
+             _repo.SoftdeleteMood(id);
+
+            return Ok();
+        }
     }
 }
