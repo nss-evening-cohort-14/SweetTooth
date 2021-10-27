@@ -157,9 +157,26 @@ namespace SweetTooth.DataAccess
             return processedOrder;
         }
 
-        internal void ShipOrder(Order order)
+        internal Order ShipOrder(Guid id, Order order)
         {
-            // function to ship order when owner clicks ship button
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"update [Order]
+                        Set
+                        UserId = @userId,
+                        OrderDate = @orderDate,
+                        OrderNumber = @orderNumber,
+                        Total = @total,
+                        PaymentMethodId = @paymentMethodId,
+                        Processed = @processed,
+                        Shipped = @shipped
+                        Output inserted.*
+                        where id = @id";
+
+            order.Id = id;
+            var shippedOrder = db.QuerySingleOrDefault<Order>(sql, order);
+
+            return shippedOrder;
         }
 
         Order Map(Order order, PaymentMethod paymentMethod)

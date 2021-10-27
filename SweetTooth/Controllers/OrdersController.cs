@@ -79,5 +79,22 @@ namespace SweetTooth.Controllers
 
             return Ok(processOrder);
         }
+
+        [HttpPut("shipOrder{id}")]
+        public IActionResult ShipOrder(Guid id)
+        {
+            var orderToShip = _repo.GetSingleOrder(id);
+
+            if (orderToShip == null)
+            {
+                return NotFound("No order was found.");
+            }
+
+            orderToShip.Shipped = !orderToShip.Shipped;
+
+            var shipOrder = _repo.ProcessOrder(id, orderToShip);
+
+            return Ok(shipOrder);
+        }
     }
 }
