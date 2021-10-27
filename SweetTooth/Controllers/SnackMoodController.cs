@@ -42,5 +42,14 @@ namespace SweetTooth.Controllers
 
             return Created($"/api/snackMood/{newSnackMood.Id}", newSnackMood);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteSnackMood(Guid id)
+        {
+            _snackMoodRepo.Remove(id);
+            
+            return Ok();
+        }
+
     }
 }
