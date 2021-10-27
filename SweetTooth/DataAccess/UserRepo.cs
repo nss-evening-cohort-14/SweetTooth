@@ -63,5 +63,14 @@ namespace SweetTooth.DataAccess
             newUser.Id = userId;
         }
 
+        //internal void SoftDelete(Guid id)
+        //{
+        //    using var db = new SqlConnection(_connectionString);
+
+
+
+        //}
+
+
     }
 }

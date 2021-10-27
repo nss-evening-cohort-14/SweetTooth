@@ -13,6 +13,7 @@ namespace SweetTooth.Models
         public decimal Price { get; set; } = 0;
         public string Description {get; set;}
         public string Image {get; set;}
+        public bool SoftDelete { get; set; }
     }
 
     public static class Category

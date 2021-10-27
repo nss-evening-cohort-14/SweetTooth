@@ -48,5 +48,15 @@ namespace SweetTooth.Models
 
             return Created($"api/users/{newUser.Id}", newUser);
         }
+
+
+        //[HttpPut("{id}")]
+        //public IActionResult SoftDeleteUser(Guid id)
+        //{
+        //    _repo.SoftDelete(id);
+
+        //    return Ok();
+        //}
+
     }
 }

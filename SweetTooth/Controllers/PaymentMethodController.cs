@@ -62,5 +62,37 @@ namespace SweetTooth.Controllers
             return Created($"/api/paymentMethod/{newMethod.Id}", newMethod);
 
         }
+
+        [HttpPut("softDelete/{id}")]
+        public IActionResult ToggleSoftDelete(Guid id)
+        {
+            var paymentMethodToUpdate = _repo.GetById(id);
+
+            if (paymentMethodToUpdate == null)
+            {
+                return NotFound($"Could not find payment method with the id {id} for updating");
+            }
+
+            paymentMethodToUpdate.SoftDelete = !paymentMethodToUpdate.SoftDelete;
+
+            var updatedPaymentMethod = _repo.ToggleSoftDelete(id, paymentMethodToUpdate);
+
+            return Ok(updatedPaymentMethod);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateSnack(Guid id, PaymentMethod paymentMethod)
+        {
+            var paymentMethodToUpdate = _repo.GetById(id);
+
+            if (paymentMethodToUpdate == null)
+            {
+                return NotFound($"Could not find payment method with the id {id} for updating");
+            }
+
+            var updatedPaymentMethod = _repo.Update(id, paymentMethod);
+
+            return Ok(updatedPaymentMethod);
+        }
     }
 }

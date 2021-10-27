@@ -53,13 +53,25 @@ namespace SweetTooth.DataAccess
             newSnack.Id = snackId;
         }
 
-        internal void Remove(Guid id)
+        internal object ToggleSoftDelete(Guid id, Snack snack)
         {
             using var db = new SqlConnection(_connectionString);
 
-            var sql = @"Delete From Snack Where Id = @id";
+            var sql = @"update Snack
+	                    Set 
+		                    [Name] = @name, 
+		                    Category = @category, 
+		                    Price = @price, 
+		                    [Description] = @description, 
+		                    [Image] = @image,
+                            SoftDelete = @softDelete
+	                    output inserted.*
+	                    where id = @id";
 
-            db.Execute(sql, new { id });
+            snack.Id = id;
+            var updatedSnack = db.QuerySingleOrDefault<Snack>(sql, snack);
+
+            return updatedSnack;
         }
 
         internal object Update(Guid id, Snack snack)
@@ -72,7 +84,8 @@ namespace SweetTooth.DataAccess
 		                    Category = @category, 
 		                    Price = @price, 
 		                    [Description] = @description, 
-		                    [Image] = @image
+		                    [Image] = @image,
+                            SoftDelete = @softDelete
 	                    output inserted.*
 	                    where id = @id";
 
