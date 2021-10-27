@@ -135,15 +135,70 @@ namespace SweetTooth.DataAccess
             }
         }
 
-        internal void ProcessOrder(Order order)
+        internal Order ProcessOrder(Guid id, Order order)
         {
-            // function to process order once in cart. 
-            // update processed propety and orderDate
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"update [Order]
+                        Set
+                        UserId = @userId,
+                        OrderDate = @orderDate,
+                        OrderNumber = @orderNumber,
+                        Total = @total,
+                        PaymentMethodId = @paymentMethodId,
+                        Processed = @processed,
+                        Shipped = @shipped
+                        Output inserted.*
+                        where id = @id";
+
+            order.Id = id;
+            var processedOrder = db.QuerySingleOrDefault<Order>(sql, order);
+
+            return processedOrder;
         }
 
-        internal void ShipOrder(Order order)
+        internal Order ShipOrder(Guid id, Order order)
         {
-            // function to ship order when owner clicks ship button
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"update [Order]
+                        Set
+                        UserId = @userId,
+                        OrderDate = @orderDate,
+                        OrderNumber = @orderNumber,
+                        Total = @total,
+                        PaymentMethodId = @paymentMethodId,
+                        Processed = @processed,
+                        Shipped = @shipped
+                        Output inserted.*
+                        where id = @id";
+
+            order.Id = id;
+            var shippedOrder = db.QuerySingleOrDefault<Order>(sql, order);
+
+            return shippedOrder;
+        }
+
+        internal Order UpdateOrder(Guid id, Order order)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"update [Order]
+                        Set
+                        UserId = @userId,
+                        OrderDate = @orderDate,
+                        OrderNumber = @orderNumber,
+                        Total = @total,
+                        PaymentMethodId = @paymentMethodId,
+                        Processed = @processed,
+                        Shipped = @shipped
+                        Output inserted.*
+                        where id = @id";
+
+            order.Id = id;
+            var updatedOrder = db.QuerySingleOrDefault<Order>(sql, order);
+
+            return updatedOrder;
         }
 
         Order Map(Order order, PaymentMethod paymentMethod)

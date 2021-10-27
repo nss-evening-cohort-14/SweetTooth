@@ -51,12 +51,21 @@ namespace SweetTooth.Controllers
             return Created($"/api/snack/{newSnack.Id}", newSnack);
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteSnack(Guid id)
+        [HttpPut("softDelete/{id}")]
+        public IActionResult ToggleSoftDelete(Guid id)
         {
-            _repo.Remove(id);
+            var snackToUpdate = _repo.GetById(id);
 
-            return Ok();
+            if (snackToUpdate == null)
+            {
+                return NotFound($"Could not find snack with the id {id} for updating");
+            }
+
+            snackToUpdate.SoftDelete = !snackToUpdate.SoftDelete;
+
+            var updatedSnack = _repo.ToggleSoftDelete(id, snackToUpdate);
+
+            return Ok(updatedSnack);
         }
 
         [HttpPut("{id}")]
