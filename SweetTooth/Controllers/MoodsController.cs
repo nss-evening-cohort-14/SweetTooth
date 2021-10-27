@@ -65,7 +65,7 @@ namespace SweetTooth.Controllers
         }
 
         [HttpPut("softDelete/{id}")]
-        public IActionResult SoftDeleteMood(Guid id, Mood mood)
+        public IActionResult SoftDeleteMood(Guid id)
         {
              var moodToDelete = _repo.GetById(id);
 
@@ -73,8 +73,8 @@ namespace SweetTooth.Controllers
             {
                 NotFound("This mood was not found.");
             }
-
-            var delete = _repo.SoftdeleteMood(id, mood);
+            moodToDelete.SoftDelete = !moodToDelete.SoftDelete;
+            var delete = _repo.SoftdeleteMood(id, moodToDelete);
 
             return Ok(delete);
         }
