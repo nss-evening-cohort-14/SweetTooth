@@ -135,10 +135,17 @@ namespace SweetTooth.DataAccess
             }
         }
 
-        internal void ProcessOrder(Order order)
+        internal void ProcessOrder(Guid id, Order order)
         {
-            // function to process order once in cart. 
-            // update processed propety and orderDate
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"update [Order]
+                        Set Processed = @processed
+                        Output inserted.*
+                        where id = @id";
+
+            order.Id = id;
+            var processedOrder = db.QuerySingleOrDefault<Order>(sql, order);
         }
 
         internal void ShipOrder(Order order)
