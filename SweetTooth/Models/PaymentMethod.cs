@@ -13,6 +13,7 @@ namespace SweetTooth.Models
         public string CardNumber { get; set; }
         public string ExpDate { get; set; }
         public string SecurityCode { get; set; }
+        public bool SoftDelete { get; set; }
     }
 
     public static class Method
