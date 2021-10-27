@@ -54,20 +54,20 @@ namespace SweetTooth.DataAccess
             using var db = new SqlConnection(_connectionString);
 
             var userSql = @"Insert into [User] 
-                                [Admin], 
+                                ([Admin], 
                                 FirstName, 
                                 LastName, 
                                 DateCreated,
                                 MoodId,
-                                SoftDelete
+                                SoftDelete)
 	                        Output Inserted.Id 
                             Values 
-                                @Admin,
+                                (@Admin,
                                 @FirstName,
                                 @LastName,
                                 @DateCreated,
                                 @MoodId,
-                                @SoftDelete";
+                                @SoftDelete)";
 
             newUser.DateCreated = DateTime.Now;
 
@@ -94,13 +94,25 @@ namespace SweetTooth.DataAccess
             return updatedUser;
         }
 
-        //internal void SoftDelete(Guid id)
-        //{
-        //    using var db = new SqlConnection(_connectionString);
+        internal object SoftDelete(Guid id, User user)
+        {
+            using var db = new SqlConnection(_connectionString);
 
+            var updateUserSql = @"Update [User]
+                        Set Admin = @Admin,
+                            FirstName = @FirstName,
+                            LastName = @LastName,
+                            MoodId = @MoodId,
+                            SoftDelete = @SoftDelete
+                        Output Inserted.*
+                        Where id = @id; ";
 
+            user.Id = id;
+            var updatedUser = db.QuerySingleOrDefault<User>(updateUserSql, user);
 
-        //}
+            return updatedUser;
+
+        }
 
 
     }

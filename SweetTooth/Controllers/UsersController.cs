@@ -61,13 +61,18 @@ namespace SweetTooth.Models
 
             return Ok(updatedUser);
         }
-        //[HttpPut("{id}")]
-        //public IActionResult SoftDeleteUser(Guid id)
-        //{
-        //    _repo.SoftDelete(id);
+        [HttpPut("softDelete/{id}")]
+        public IActionResult SoftDeleteUser(Guid id)
+        {
+            var userToSoftDelete = _repo.GetById(id);
 
-        //    return Ok();
-        //}
+            if (userToSoftDelete == null)
+                return NotFound($"Could not find a User with the ID: {id} to delete.");
+
+            userToSoftDelete.SoftDelete = !userToSoftDelete.SoftDelete;
+
+            return Ok(userToSoftDelete);
+        }
 
     }
 }
