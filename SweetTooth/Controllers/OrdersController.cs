@@ -96,5 +96,20 @@ namespace SweetTooth.Controllers
 
             return Ok(shipOrder);
         }
+
+        [HttpPut("updateOrder{id}")]
+        public IActionResult UpdateOrder(Guid id, Order order)
+        {
+            var orderToUpdate = _repo.GetSingleOrder(id);
+
+            if (orderToUpdate == null)
+            {
+                return NotFound("No order was found.");
+            }
+
+            var updateOrder = _repo.UpdateOrder(id, order);
+
+            return Ok(updateOrder);
+        }
     }
 }
