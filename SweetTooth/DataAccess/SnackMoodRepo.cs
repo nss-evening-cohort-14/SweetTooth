@@ -42,5 +42,14 @@ namespace SweetTooth.DataAccess
             return snackMood;
 
         }
+
+        internal void Remove(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"Delete
+                        From SnackMood
+                        Where Id = @id";
+            db.Execute(sql, new { id });
+        }
     }
 }
