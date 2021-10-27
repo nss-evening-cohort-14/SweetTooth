@@ -76,7 +76,9 @@ namespace SweetTooth.DataAccess
             using var db = new SqlConnection(_connectionString);
 
             var sql = @"update Mood
-                        Set SoftDelete = @softDelete
+                        Set SoftDelete = @softDelete,
+                            Name = @name,
+                            Id = @id
                         Output inserted.*
                         where Id = @id";
 

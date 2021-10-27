@@ -135,17 +135,26 @@ namespace SweetTooth.DataAccess
             }
         }
 
-        internal void ProcessOrder(Guid id, Order order)
+        internal Order ProcessOrder(Guid id, Order order)
         {
             using var db = new SqlConnection(_connectionString);
 
             var sql = @"update [Order]
-                        Set Processed = @processed
+                        Set
+                        UserId = @userId,
+                        OrderDate = @orderDate,
+                        OrderNumber = @orderNumber,
+                        Total = @total,
+                        PaymentMethodId = @paymentMethodId,
+                        Processed = @processed,
+                        Shipped = @shipped
                         Output inserted.*
                         where id = @id";
 
             order.Id = id;
             var processedOrder = db.QuerySingleOrDefault<Order>(sql, order);
+
+            return processedOrder;
         }
 
         internal void ShipOrder(Order order)
