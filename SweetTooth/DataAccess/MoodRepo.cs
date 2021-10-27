@@ -71,7 +71,7 @@ namespace SweetTooth.DataAccess
             return updatedeMood;
         }
 
-        internal void SoftdeleteMood(Guid id)
+        internal Mood SoftdeleteMood(Guid id, Mood mood)
         {
             using var db = new SqlConnection(_connectionString);
 
@@ -79,7 +79,10 @@ namespace SweetTooth.DataAccess
                         Set SoftDelete = @softDelete
                         where Id = @id";
 
-            var deletedMood = db.Execute(sql, new { id });
+            mood.Id = id;
+            var deletedMood = db.QuerySingleOrDefault<Mood>(sql, mood);
+
+            return deletedMood;
         }
     }
 }
