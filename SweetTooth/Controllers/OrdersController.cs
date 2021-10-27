@@ -63,7 +63,7 @@ namespace SweetTooth.Controllers
             return Ok(orderItems);
         }
 
-        [HttpPut("processOrder{id}")]
+        [HttpPut("processOrder/{id}")]
         public IActionResult ProcessOrder(Guid id)
         {
             var orderToProcess = _repo.GetSingleOrder(id);
@@ -80,7 +80,7 @@ namespace SweetTooth.Controllers
             return Ok(processOrder);
         }
 
-        [HttpPut("shipOrder{id}")]
+        [HttpPut("shipOrder/{id}")]
         public IActionResult ShipOrder(Guid id)
         {
             var orderToShip = _repo.GetSingleOrder(id);
@@ -97,7 +97,7 @@ namespace SweetTooth.Controllers
             return Ok(shipOrder);
         }
 
-        [HttpPut("updateOrder{id}")]
+        [HttpPut("updateOrder/{id}")]
         public IActionResult UpdateOrder(Guid id, Order order)
         {
             var orderToUpdate = _repo.GetSingleOrder(id);
