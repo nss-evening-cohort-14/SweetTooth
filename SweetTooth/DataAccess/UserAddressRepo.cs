@@ -18,7 +18,7 @@ namespace SweetTooth.DataAccess
             _connectionString = config.GetConnectionString("SweetTooth");
         }
 
-        internal UserAddress GetById(Guid Id)
+        internal UserAddress GetByUserId(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
 
@@ -26,7 +26,20 @@ namespace SweetTooth.DataAccess
                             From UserAddress
                             Where UserId = @userId";
 
-            var userAddress = db.QueryFirstOrDefault<UserAddress>(addrSql, new { userId = Id });
+            var userAddress = db.QueryFirstOrDefault<UserAddress>(addrSql, new { userId = id });
+
+            return userAddress;
+        }
+        
+        internal UserAddress GetByAddressId(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var addrSql = @"Select *
+                            From UserAddress
+                            Where Id = @id";
+
+            var userAddress = db.QuerySingleOrDefault<UserAddress>(addrSql, new { Id = id });
 
             return userAddress;
         }
@@ -53,6 +66,34 @@ namespace SweetTooth.DataAccess
             newAddress.Id = addressId;
         }
 
+        public void DeleteAddress(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
 
+            var sql = @"Delete 
+                        From [UserAddress]
+                        Where Id = @id";
+
+            db.Execute(sql, new { id });
+        }
+
+        internal object UpdateAddress(Guid id, UserAddress userAddress)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var updateAddressSql = @"Update UserAddress
+                        Set 
+                            Street = @street,
+                            City = @city,
+                            [State] = @state,
+                            Zip = @zip
+                        output inserted.*
+                        Where id = @id; ";
+
+            userAddress.Id = id;
+            var updatedUserAddress = db.QuerySingleOrDefault<UserAddress>(updateAddressSql, userAddress);
+
+            return updatedUserAddress;
+        }
     }
 }

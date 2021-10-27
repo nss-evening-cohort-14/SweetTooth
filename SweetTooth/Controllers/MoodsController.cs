@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SweetTooth.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/mood")]
     [ApiController]
     public class MoodsController : ControllerBase
     {
@@ -62,6 +62,21 @@ namespace SweetTooth.Controllers
             var updateMood = _repo.UpdateMood(id, mood);
 
             return Ok(updateMood);
+        }
+
+        [HttpPut("softDelete/{id}")]
+        public IActionResult SoftDeleteMood(Guid id)
+        {
+             var moodToDelete = _repo.GetById(id);
+
+            if (moodToDelete == null)
+            {
+                NotFound("This mood was not found.");
+            }
+            moodToDelete.SoftDelete = !moodToDelete.SoftDelete;
+            var delete = _repo.SoftdeleteMood(id, moodToDelete);
+
+            return Ok(delete);
         }
     }
 }

@@ -14,7 +14,6 @@ namespace SweetTooth.Controllers
     public class OrdersController : ControllerBase
     {
         OrderRepo _repo;
-        PaymentMethodRepo _pmRepo;
 
         public OrdersController(OrderRepo repo)
         {
@@ -62,6 +61,55 @@ namespace SweetTooth.Controllers
             }
 
             return Ok(orderItems);
+        }
+
+        [HttpPut("processOrder/{id}")]
+        public IActionResult ProcessOrder(Guid id)
+        {
+            var orderToProcess = _repo.GetSingleOrder(id);
+
+            if (orderToProcess == null)
+            {
+                return NotFound("No order was found.");
+            }
+
+            orderToProcess.Processed = !orderToProcess.Processed;
+
+            var processOrder = _repo.ProcessOrder(id, orderToProcess);
+
+            return Ok(processOrder);
+        }
+
+        [HttpPut("shipOrder/{id}")]
+        public IActionResult ShipOrder(Guid id)
+        {
+            var orderToShip = _repo.GetSingleOrder(id);
+
+            if (orderToShip == null)
+            {
+                return NotFound("No order was found.");
+            }
+
+            orderToShip.Shipped = !orderToShip.Shipped;
+
+            var shipOrder = _repo.ProcessOrder(id, orderToShip);
+
+            return Ok(shipOrder);
+        }
+
+        [HttpPut("updateOrder/{id}")]
+        public IActionResult UpdateOrder(Guid id, Order order)
+        {
+            var orderToUpdate = _repo.GetSingleOrder(id);
+
+            if (orderToUpdate == null)
+            {
+                return NotFound("No order was found.");
+            }
+
+            var updateOrder = _repo.UpdateOrder(id, order);
+
+            return Ok(updateOrder);
         }
     }
 }
