@@ -13,6 +13,7 @@ namespace SweetTooth.Models
         public string LastName { get; set; }
         public DateTime DateCreated { get; set; }
         public Guid MoodId { get; set; }
+        public Boolean SoftDelete { get; set; }
 
         public IEnumerable<UserAddress> Address { get; set; }
     }

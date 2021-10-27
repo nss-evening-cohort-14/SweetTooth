@@ -53,9 +53,21 @@ namespace SweetTooth.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
 
-            var userSql = @"insert into [User] ([Admin], FirstName, LastName, DateCreated, MoodId)
-	                            Output Inserted.Id 
-                                Values (@Admin, @FirstName, @LastName, @DateCreated, @MoodId)";
+            var userSql = @"Insert into [User] 
+                                ([Admin], 
+                                FirstName, 
+                                LastName, 
+                                DateCreated,
+                                MoodId,
+                                SoftDelete)
+	                        Output Inserted.Id 
+                            Values 
+                                (@Admin,
+                                @FirstName,
+                                @LastName,
+                                @DateCreated,
+                                @MoodId,
+                                @SoftDelete)";
 
             newUser.DateCreated = DateTime.Now;
 
@@ -63,13 +75,44 @@ namespace SweetTooth.DataAccess
             newUser.Id = userId;
         }
 
-        //internal void SoftDelete(Guid id)
-        //{
-        //    using var db = new SqlConnection(_connectionString);
+        internal object UpdateUser(Guid id, User user)
+        {
+            using var db = new SqlConnection(_connectionString);
 
+            var updateUserSql = @"Update [User]
+                        Set Admin = @Admin,
+                            FirstName = @FirstName,
+                            LastName = @LastName,
+                            MoodId = @MoodId,
+                            SoftDelete = @SoftDelete
+                        Output Inserted.*
+                        Where id = @id; ";
 
+            user.Id = id;
+            var updatedUser = db.QuerySingleOrDefault<User>(updateUserSql, user);
 
-        //}
+            return updatedUser;
+        }
+
+        internal object SoftDelete(Guid id, User user)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var updateUserSql = @"Update [User]
+                        Set Admin = @Admin,
+                            FirstName = @FirstName,
+                            LastName = @LastName,
+                            MoodId = @MoodId,
+                            SoftDelete = @SoftDelete
+                        Output Inserted.*
+                        Where id = @id; ";
+
+            user.Id = id;
+            var updatedUser = db.QuerySingleOrDefault<User>(updateUserSql, user);
+
+            return updatedUser;
+
+        }
 
 
     }
