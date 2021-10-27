@@ -49,7 +49,18 @@ namespace SweetTooth.Models
             return Created($"api/users/{newUser.Id}", newUser);
         }
 
+        [HttpPut("{id}")]
+        public IActionResult UpdateUser(Guid id, User user)
+        {
+            var userToUpdate = _repo.GetById(id);
 
+            if (userToUpdate == null)
+                return NotFound($"Could not find a User with the ID: {id} to update.");
+
+            var updatedUser = _repo.UpdateUser(id, user);
+
+            return Ok(updatedUser);
+        }
         //[HttpPut("{id}")]
         //public IActionResult SoftDeleteUser(Guid id)
         //{

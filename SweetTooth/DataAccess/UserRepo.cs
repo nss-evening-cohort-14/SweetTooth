@@ -63,6 +63,25 @@ namespace SweetTooth.DataAccess
             newUser.Id = userId;
         }
 
+        internal object UpdateUser(Guid id, User user)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var updateUserSql = @"Update [User]
+                        Set Admin = @Admin,
+                            FirstName = @FirstName,
+                            LastName = @LastName,
+                            MoodId = @MoodId,
+                            SoftDelete = @SoftDelete
+                        output inserted.*
+                        Where id = @id; ";
+
+            user.Id = id;
+            var updatedUser = db.QuerySingleOrDefault<User>(updateUserSql, user);
+
+            return updatedUser;
+        }
+
         //internal void SoftDelete(Guid id)
         //{
         //    using var db = new SqlConnection(_connectionString);
