@@ -51,6 +51,46 @@ namespace SweetTooth.DataAccess
             newPaymentMethod.Id = id;
         }
 
+        internal object ToggleSoftDelete(Guid id, PaymentMethod paymentMethod)
+        {
+            using var db = new SqlConnection(_connectionString);
 
+            var sql = @"update PaymentMethod
+                        Set 
+	                        UserId = @userId, 
+	                        Method = @method, 
+	                        CardNumber = @cardNumber, 
+	                        ExpDate = @expDate,
+	                        SecurityCode = @securityCode,
+	                        SoftDelete = @softDelete
+                        output inserted.*
+                        where id = @id";
+
+            paymentMethod.Id = id;
+            var updatedPaymentMethod = db.QuerySingleOrDefault<PaymentMethod>(sql, paymentMethod);
+
+            return updatedPaymentMethod;
+        }
+
+        internal object Update(Guid id, PaymentMethod paymentMethod)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"update PaymentMethod
+                        Set 
+	                        UserId = @userId, 
+	                        Method = @method, 
+	                        CardNumber = @cardNumber, 
+	                        ExpDate = @expDate,
+	                        SecurityCode = @securityCode,
+	                        SoftDelete = @softDelete
+                        output inserted.*
+                        where id = @id";
+
+            paymentMethod.Id = id;
+            var updatedPaymentMethod = db.QuerySingleOrDefault<PaymentMethod>(sql, paymentMethod);
+
+            return updatedPaymentMethod;
+        }
     }
 }
