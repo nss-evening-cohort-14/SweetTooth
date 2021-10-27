@@ -53,9 +53,21 @@ namespace SweetTooth.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
 
-            var userSql = @"insert into [User] ([Admin], FirstName, LastName, DateCreated, MoodId)
-	                            Output Inserted.Id 
-                                Values (@Admin, @FirstName, @LastName, @DateCreated, @MoodId)";
+            var userSql = @"Insert into [User] 
+                                [Admin], 
+                                FirstName, 
+                                LastName, 
+                                DateCreated,
+                                MoodId,
+                                SoftDelete
+	                        Output Inserted.Id 
+                            Values 
+                                @Admin,
+                                @FirstName,
+                                @LastName,
+                                @DateCreated,
+                                @MoodId,
+                                @SoftDelete";
 
             newUser.DateCreated = DateTime.Now;
 
@@ -73,7 +85,7 @@ namespace SweetTooth.DataAccess
                             LastName = @LastName,
                             MoodId = @MoodId,
                             SoftDelete = @SoftDelete
-                        output inserted.*
+                        Output Inserted.*
                         Where id = @id; ";
 
             user.Id = id;
