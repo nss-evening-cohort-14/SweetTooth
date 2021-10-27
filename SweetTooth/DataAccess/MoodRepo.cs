@@ -75,8 +75,8 @@ namespace SweetTooth.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
 
-            var sql = @"delete
-                        from Mood
+            var sql = @"update Mood
+                        Set SoftDelete = @softDelete
                         where Id = @id";
 
             var deletedMood = db.Execute(sql, new { id });
