@@ -127,6 +127,7 @@ namespace SweetTooth.DataAccess
             {
                 var itemParams = new
                 {
+                    Id = new Guid(),
                     OrderId = newOrder.Id,
                     SnackId = snack.SnackId,
                     Quantity = snack.Quantity
@@ -210,6 +211,17 @@ namespace SweetTooth.DataAccess
                         where Id = @id";
 
             var deleteOrder = db.Execute(sql, new { id });
+        }
+
+        internal void DeleteOrderItems(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"Delete
+                        from OrderItem
+                        where Id = @id";
+
+            var deleteItems = db.Execute(sql, new { id });
         }
 
         Order Map(Order order, PaymentMethod paymentMethod)
