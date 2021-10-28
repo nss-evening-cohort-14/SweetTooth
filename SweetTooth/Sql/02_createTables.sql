@@ -98,7 +98,7 @@ CREATE TABLE dbo.OrderItem
 	SnackId uniqueidentifier NOT NULL,
 	Quantity int NOT NULL,
 	CONSTRAINT FK_OrderItem_Order FOREIGN KEY (OrderId)
-		REFERENCES dbo.[Order] (Id),
+		REFERENCES dbo.[Order] (Id) on delete cascade,
 	CONSTRAINT FK_OrderItem_Snack FOREIGN KEY (SnackId)
 		REFERENCES dbo.Snack (Id)
 	);
