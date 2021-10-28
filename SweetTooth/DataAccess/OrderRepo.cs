@@ -201,6 +201,21 @@ namespace SweetTooth.DataAccess
             return updatedOrder;
         }
 
+        internal void DeleteOrder(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"Delete
+                        from [Order]
+                        where Id = @id
+
+                        Delete 
+                        from OrderItem
+                        where OrderId = @id";
+
+            var deleteOrder = db.Execute(sql, new { id });
+        }
+
         Order Map(Order order, PaymentMethod paymentMethod)
         {
             order.PaymentMethod = paymentMethod;

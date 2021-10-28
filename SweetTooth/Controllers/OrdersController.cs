@@ -111,5 +111,22 @@ namespace SweetTooth.Controllers
 
             return Ok(updateOrder);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteOrderandItems(Guid id)
+        {
+            var order = _repo.GetSingleOrder(id);
+
+            if (order.Processed == true)
+            {
+                return BadRequest("Processed orders cannot be deleted.");
+            }
+
+            _repo.DeleteOrder(id);
+
+            return Ok();
+
+        }
+
     }
 }
