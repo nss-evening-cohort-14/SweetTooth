@@ -224,6 +224,19 @@ namespace SweetTooth.DataAccess
             var deleteItems = db.Execute(sql, new { id });
         }
 
+        internal void AddOrderItem(OrderItem item)
+        {
+            using var db = new SqlConnection(_connectionString);
+            
+            var sql = @"insert into [dbo].[OrderItem]
+                                (OrderId, SnackId, Quantity)
+                                Output inserted.Id
+                                values (@OrderId, @SnackId, @Quantity)";
+
+            var id = db.ExecuteScalar<Guid>(sql, item);
+            item.Id = id;
+        }
+
         Order Map(Order order, PaymentMethod paymentMethod)
         {
             order.PaymentMethod = paymentMethod;
