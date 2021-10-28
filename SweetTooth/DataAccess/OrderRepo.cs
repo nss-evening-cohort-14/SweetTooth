@@ -207,11 +207,7 @@ namespace SweetTooth.DataAccess
 
             var sql = @"Delete
                         from [Order]
-                        where Id = @id
-
-                        Delete 
-                        from OrderItem
-                        where OrderId = @id";
+                        where Id = @id";
 
             var deleteOrder = db.Execute(sql, new { id });
         }
