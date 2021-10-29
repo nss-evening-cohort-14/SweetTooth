@@ -127,6 +127,7 @@ namespace SweetTooth.DataAccess
             {
                 var itemParams = new
                 {
+                    Id = new Guid(),
                     OrderId = newOrder.Id,
                     SnackId = snack.SnackId,
                     Quantity = snack.Quantity
@@ -199,6 +200,41 @@ namespace SweetTooth.DataAccess
             var updatedOrder = db.QuerySingleOrDefault<Order>(sql, order);
 
             return updatedOrder;
+        }
+
+        internal void DeleteOrder(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"Delete
+                        from [Order]
+                        where Id = @id";
+
+            var deleteOrder = db.Execute(sql, new { id });
+        }
+
+        internal void DeleteOrderItems(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"Delete
+                        from OrderItem
+                        where Id = @id";
+
+            var deleteItems = db.Execute(sql, new { id });
+        }
+
+        internal void AddOrderItem(OrderItem item)
+        {
+            using var db = new SqlConnection(_connectionString);
+            
+            var sql = @"insert into [dbo].[OrderItem]
+                                (OrderId, SnackId, Quantity)
+                                Output inserted.Id
+                                values (@OrderId, @SnackId, @Quantity)";
+
+            var id = db.ExecuteScalar<Guid>(sql, item);
+            item.Id = id;
         }
 
         Order Map(Order order, PaymentMethod paymentMethod)
