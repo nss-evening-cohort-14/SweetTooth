@@ -1,9 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import firebase from 'firebase';
 import './App.scss';
 
 function App() {
+  const [user, setUser] = useState(null);
+  // const [admin, setAdmin] = useState(null);
   const [domWriting, setDomWriting] = useState('Nothing Here!');
 
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((userInState) => {
+      if (userInState) {
+        const userInfoObject = {
+          fullName: userInState.displayName,
+          uid: userInState.uid,
+          userName: userInState.email.split('@')[0]
+        };
+        setUser(userInfoObject);
+      } else if (user || user === null) {
+        setUser(false);
+      }
+    });
+  }, []);
   const handleClick = (e) => {
     console.warn(`You clicked ${e.target.id}`);
     setDomWriting(`You clicked ${e.target.id}! Check the Console!`);
@@ -18,7 +35,7 @@ function App() {
           className='btn btn-info'
           onClick={handleClick}
         >
-          I am THIS button
+          Login
         </button>
       </div>
       <div>
@@ -27,7 +44,7 @@ function App() {
           className='btn btn-primary mt-3'
           onClick={handleClick}
         >
-          I am THAT button
+          Logout
         </button>
       </div>
       <h3>{domWriting}</h3>
