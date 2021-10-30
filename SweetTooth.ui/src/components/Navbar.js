@@ -2,16 +2,11 @@ import React from 'react';
 import {
   NavbarBrand,
   Navbar,
-  NavbarText,
   NavbarToggler,
   Collapse,
   NavItem,
   Nav,
   NavLink,
-  DropdownMenu,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownItem
 } from 'reactstrap';
 
 export default function NavbarSweetTooth() {
@@ -23,7 +18,7 @@ export default function NavbarSweetTooth() {
         light
       >
         <NavbarBrand href="/">
-          reactstrap
+          SweetTooth
         </NavbarBrand>
         <NavbarToggler onClick={function noRefCheck() {}} />
         <Collapse navbar>
@@ -33,41 +28,25 @@ export default function NavbarSweetTooth() {
           >
             <NavItem>
               <NavLink href="/components/">
-                Components
+              <i className="fas fa-candy-cane"></i>
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="https://github.com/reactstrap/reactstrap">
-                GitHub
+              <i className="fas fa-shopping-cart"></i>
               </NavLink>
             </NavItem>
-            <UncontrolledDropdown
-              inNavbar
-              nav
-            >
-              <DropdownToggle
-                caret
-                nav
-              >
-                Options
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>
-                  Option 1
-                </DropdownItem>
-                <DropdownItem>
-                  Option 2
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>
-                  Reset
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
+            <NavItem>
+              <NavLink href="https://github.com/reactstrap/reactstrap">
+              <i className="fas fa-user"></i>
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="https://github.com/reactstrap/reactstrap">
+              Admin Dashboard
+              </NavLink>
+            </NavItem>
           </Nav>
-          <NavbarText>
-            Simple Text
-          </NavbarText>
         </Collapse>
       </Navbar>
     </div>
