@@ -6,8 +6,9 @@ import {
   Collapse,
   NavItem,
   Nav,
-  NavLink,
+  NavLink
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 export default function NavbarSweetTooth() {
   return (
@@ -27,23 +28,31 @@ export default function NavbarSweetTooth() {
             navbar
           >
             <NavItem>
-              <NavLink href="/components/">
-              <i className="fas fa-candy-cane"></i>
+              <NavLink>
+                <Link to="/shop">
+                <i className="fas fa-candy-cane"></i>
+                </Link>
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">
-              <i className="fas fa-shopping-cart"></i>
+              <NavLink>
+                <Link to="/cart">
+                <i className="fas fa-shopping-cart"></i>
+                </Link>
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">
-              <i className="fas fa-user"></i>
+              <NavLink>
+                <Link to="user-profile">
+                <i className="fas fa-user"></i>
+                </Link>
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">
-              Admin Dashboard
+              <NavLink>
+                <Link to="admin-dashboard">
+                Admin Dashboard
+                </Link>
               </NavLink>
             </NavItem>
           </Nav>

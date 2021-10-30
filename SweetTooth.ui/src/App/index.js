@@ -1,11 +1,16 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import NavbarSweetTooth from '../components/Navbar';
+import Routes from '../helpers/Routes';
 import './App.scss';
 
 function App() {
   return (
     <div className='App'>
-     <NavbarSweetTooth/>
+      <Router>
+          <NavbarSweetTooth/>
+          <Routes/>
+      </Router>
     </div>
   );
 }
