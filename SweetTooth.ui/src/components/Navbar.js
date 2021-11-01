@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { signInUser, signOutUser } from '../helpers/auth';
 
-export default function NavbarSweetTooth() {
+export default function NavbarSweetTooth({ ...user }) {
   const authButtons = () => (
     <NavItem>
       {
@@ -21,8 +21,8 @@ export default function NavbarSweetTooth() {
         && <>
           {
             user
-              ? <Button color='danger' onClick={signOutUser}>Admin Out</Button>
-              : <Button color='success' onClick={signInUser}>Admin In</Button>
+              ? <Button color='danger' onClick={signOutUser}>Log Out</Button>
+              : <Button color='success' onClick={signInUser}>Log In</Button>
           }
         </>
       }
@@ -73,9 +73,9 @@ export default function NavbarSweetTooth() {
                 </Link>
               </NavLink>
             </NavItem>
+          {authButtons()}
           </Nav>
         </Collapse>
-        {authButtons()}
       </Navbar>
     </div>
   );
