@@ -13,9 +13,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { signInUser, signOutUser } from '../helpers/auth';
 
-export default function NavbarSweetTooth({ ...user }) {
+// eslint-disable-next-line react/prop-types
+export default function NavbarSweetTooth({ user }) {
   const authButtons = () => (
-    <>
     <NavItem>
       {
         user !== null
@@ -28,7 +28,6 @@ export default function NavbarSweetTooth({ ...user }) {
         </>
       }
       </NavItem>
-      </>
   );
 
   return (
@@ -84,5 +83,5 @@ export default function NavbarSweetTooth({ ...user }) {
 }
 
 Navbar.propTypes = {
-  user: PropTypes.any.isRequired,
+  user: PropTypes.any,
 };
