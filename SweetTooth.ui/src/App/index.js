@@ -27,7 +27,7 @@ function App() {
     <div className='App'>
       <Router>
           <NavbarSweetTooth user={user}/>
-          <Routes user={user}/>
+          <Routes/>
       </Router>
     </div>
   );
