@@ -6,11 +6,29 @@ import {
   Collapse,
   NavItem,
   Nav,
-  NavLink
+  NavLink,
+  Button
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { signInUser, signOutUser } from '../helpers/auth';
 
 export default function NavbarSweetTooth() {
+  const authButtons = () => (
+    <NavItem>
+      {
+        user !== null
+        && <>
+          {
+            user
+              ? <Button color='danger' onClick={signOutUser}>Admin Out</Button>
+              : <Button color='success' onClick={signInUser}>Admin In</Button>
+          }
+        </>
+      }
+      </NavItem>
+  );
+
   return (
     <div>
       <Navbar
@@ -57,7 +75,12 @@ export default function NavbarSweetTooth() {
             </NavItem>
           </Nav>
         </Collapse>
+        {authButtons()}
       </Navbar>
     </div>
   );
 }
+
+Navbar.propTypes = {
+  user: PropTypes.any
+};
