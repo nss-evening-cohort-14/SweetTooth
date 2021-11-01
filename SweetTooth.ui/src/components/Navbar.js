@@ -15,18 +15,20 @@ import { signInUser, signOutUser } from '../helpers/auth';
 
 export default function NavbarSweetTooth({ ...user }) {
   const authButtons = () => (
+    <>
     <NavItem>
       {
         user !== null
         && <>
           {
             user
-              ? <Button color='danger' onClick={signOutUser}>Log Out</Button>
-              : <Button color='success' onClick={signInUser}>Log In</Button>
+              ? <Button outline color='danger' onClick={signOutUser}>Logout</Button>
+              : <Button outline color='success' onClick={signInUser}>Login</Button>
           }
         </>
       }
       </NavItem>
+      </>
   );
 
   return (
@@ -82,5 +84,5 @@ export default function NavbarSweetTooth({ ...user }) {
 }
 
 Navbar.propTypes = {
-  user: PropTypes.any
+  user: PropTypes.any.isRequired,
 };

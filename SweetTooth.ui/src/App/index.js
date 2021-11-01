@@ -9,12 +9,12 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((userInState) => {
-      if (userInState) {
+    firebase.auth().onAuthStateChanged((authed) => {
+      if (authed) {
         const userInfoObject = {
-          fullName: userInState.displayName,
-          uid: userInState.uid,
-          userName: userInState.email.split('@')[0]
+          fullName: authed.displayName,
+          uid: authed.uid,
+          userName: authed.email.split('@')[0]
         };
         setUser(userInfoObject);
       } else if (user || user === null) {
