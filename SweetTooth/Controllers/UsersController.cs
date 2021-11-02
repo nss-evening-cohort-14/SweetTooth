@@ -74,5 +74,18 @@ namespace SweetTooth.Models
             return Ok(userToSoftDelete);
         }
 
+        [HttpGet("email/{email}")]
+        public IActionResult GetUserByEmail(string email)
+        {
+            var user = _repo.GetUserByEmail(email);
+
+            if (user == null)
+            {
+                return NotFound("there are no users with this email.");
+            }
+
+            return Ok(user);
+        }
+
     }
 }

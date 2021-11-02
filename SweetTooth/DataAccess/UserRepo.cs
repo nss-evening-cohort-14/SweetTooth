@@ -114,6 +114,18 @@ namespace SweetTooth.DataAccess
 
         }
 
+        internal User GetUserByEmail(string email)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"Select from [User]
+                        where Email = @email";
+
+            var user = db.QueryFirstOrDefault<User>(sql, new { email });
+
+            return user;
+        }
+
 
     }
 }
