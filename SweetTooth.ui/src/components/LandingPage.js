@@ -1,71 +1,44 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import {
-  Col, Button, Form, FormGroup, Input, Label
+  Button, Container
 } from 'reactstrap';
 import styled from 'styled-components';
+import logo from '../Assets/SweetToothLogo.png';
 
 const LandingPageContainer = styled.div`
-display: flex;
-  justify-content: space-between;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  width: 75%;
+  width: 50%;
   border: 1px solid gray;
   padding: 10px;
   margin: 5px auto;
   border-radius: 5px;
-  background-color: rgb(16,24,30);
-  @media only screen and (max-width: 700px) {
-    width: 90%;
-  }
-  .todo-content {
-    padding: 10px;
-    word-break: break-all;
-  }
-  .far {
-    cursor: pointer;
-  }
+  // background-color: rgb(16,24,30);
+`;
+
+const LandingPageLogo = styled.img`
+  background-image: url(${logo}) no-repeat center center fixed;
+  display: inline-block;
+  width: 50%;
+  border-radius: 50%;
 `;
 
 function LandingPage() {
   return (
     <LandingPageContainer>
-      {/* <Container
+      <Container
         className="bg-light border"
         fluid="md"
-      > */}
+      >
 
+        <LandingPageLogo src={logo} alt="Logo"/>
         <h1>Welcome to SweetTooth!</h1>
-        <Col>
-        <Form>
-          <FormGroup>
-            <Label for="exampleEmail">
-              Email
-            </Label>
-            <Input
-              id="exampleEmail"
-              name="email"
-              placeholder="with a placeholder"
-              type="email"
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="examplePassword">
-              Password
-            </Label>
-            <Input
-              id="examplePassword"
-              name="password"
-              placeholder="password placeholder"
-              type="password"
-            />
-          </FormGroup>
           <Button>
-            Submit
+            Create an Account
           </Button>
-        </Form>
-        </Col>
-      {/* </Container> */}
+      </Container>
     </LandingPageContainer>
   );
 }
