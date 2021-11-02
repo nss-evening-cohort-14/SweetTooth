@@ -56,7 +56,9 @@ namespace SweetTooth.DataAccess
             var userSql = @"Insert into [User] 
                                 ([Admin], 
                                 FirstName, 
-                                LastName, 
+                                LastName,
+                                Email,
+                                ProfileUrl,
                                 DateCreated,
                                 MoodId,
                                 SoftDelete)
@@ -65,6 +67,8 @@ namespace SweetTooth.DataAccess
                                 (@Admin,
                                 @FirstName,
                                 @LastName,
+                                @Email, 
+                                @ProfileUrl,
                                 @DateCreated,
                                 @MoodId,
                                 @SoftDelete)";
