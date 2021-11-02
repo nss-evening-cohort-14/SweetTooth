@@ -67,6 +67,32 @@ namespace SweetTooth.DataAccess
 
             return order;
         }
+        internal Order GetOrderByUserId(Guid userId)
+        {
+
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select * 
+                        from [Order]
+                        where UserId = @id";
+
+            var order = db.QueryFirstOrDefault<Order>(sql, new { id = userId });
+
+            return order;
+        }
+
+        internal IEnumerable<OrderItem> getOrderItemsByOrderId(Guid orderId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var orderItemsSql = @"select * 
+                                from OrderItem
+                                where OrderId = @id";
+
+            var orderItems = db.Query<OrderItem>(orderItemsSql, new { id = orderId });
+
+            return orderItems;
+        }
 
         internal int GenerateNumber()
         {
