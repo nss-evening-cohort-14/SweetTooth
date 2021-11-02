@@ -14,7 +14,7 @@ display: flex;
   padding: 10px;
   margin: 5px auto;
   border-radius: 5px;
-  // background-color: rgb(16,24,30);
+  background-color: rgb(16,24,30);
   @media only screen and (max-width: 700px) {
     width: 90%;
   }
