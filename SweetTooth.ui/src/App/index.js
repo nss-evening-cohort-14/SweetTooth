@@ -12,9 +12,11 @@ function App() {
     firebase.auth().onAuthStateChanged((authed) => {
       if (authed) {
         const userInfoObject = {
-          fullName: authed.displayName,
           uid: authed.uid,
-          userName: authed.email.split('@')[0]
+          firstName: authed.displayName.split(' ')[0],
+          lastName: authed.displayName.split(' ')[1],
+          email: authed.email,
+          profileUrl: authed.photoURL
         };
         setUser(userInfoObject);
       } else if (user || user === null) {
