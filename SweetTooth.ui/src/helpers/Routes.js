@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import AdminDashboard from '../components/AdminDashboard';
 import Cart from '../components/Cart';
+import LandingPage from '../components/LandingPage';
 import ShoppingPage from '../components/ShoppingPage';
 import UserProfile from '../components/UserProfile';
 
@@ -17,6 +18,7 @@ export default function Routes() {
       <Switch>
         <Route
         exact path="/"
+        component={LandingPage}
         />
         <Route
         exact path="/shop"
