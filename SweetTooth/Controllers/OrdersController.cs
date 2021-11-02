@@ -140,17 +140,5 @@ namespace SweetTooth.Controllers
             _repo.AddOrderItem(item);
             return Created($"/api/orders/{item.Id}", item);
         }
-
-        [HttpGet("user/{userId}")]
-        public IActionResult GetOrderByUserId(Guid userId)
-        {
-            var order = _repo.GetOrderByUserId(userId);
-            if (order == null)
-            {
-                return NotFound("No order was found.");
-            }
-            return Ok(order);
-        }
-
     }
 }
