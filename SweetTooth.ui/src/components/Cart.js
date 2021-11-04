@@ -1,9 +1,10 @@
 import React from 'react';
+import OrderItemCard from './OrderItemCard';
 
 export default function Cart() {
   return (
     <div>
-      <h1>Shopping Cart</h1>
+     <OrderItemCard/>
     </div>
   );
 }
