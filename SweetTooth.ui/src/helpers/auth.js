@@ -1,5 +1,8 @@
 import firebase from 'firebase/';
 import axios from 'axios';
+import firebaseConfig from './apiKeys';
+
+const dbUrl = firebaseConfig.databaseURL;
 
 axios.interceptors.request.use((request) => {
   // eslint-disable-next-line no-undef
@@ -26,7 +29,18 @@ const signInUser = () => {
         moodId: 'c4892c07-e999-4bfc-aef6-50b4989a2544'
       };
 
-      // this is where we would call api method to add user
+      const createNewUser = (newUser, uid) => new Promise((resolve, reject) => {
+        axios.post(`${dbUrl}/users.json`, newUser)
+          .then((response) => {
+            const body = { uid: response.data.name };
+            axios.patch(`${dbUrl}/users/${response.data.name}.json`, body)
+              .then(() => {
+                // eslint-disable-next-line no-undef
+                getUsers(uid).then((userArray) => resolve(userArray));
+              })
+              .catch((error) => reject(error));
+          });
+      });
     }
   });
 };
