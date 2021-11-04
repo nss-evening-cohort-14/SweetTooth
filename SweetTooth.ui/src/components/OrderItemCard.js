@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Card,
   CardBody,
@@ -8,7 +9,7 @@ import {
 } from 'reactstrap';
 import OrderItemCardStyled from '../styles/OrderStyled';
 
-export default function OrderItemCard() {
+function OrderItemCard(quantity) {
   return (
     <OrderItemCardStyled>
        <Card>
@@ -23,7 +24,7 @@ export default function OrderItemCard() {
             Price
           </CardSubtitle>
           <CardText>
-            Quantity
+            {quantity}
           </CardText>
         </CardBody>
         <img
@@ -35,3 +36,9 @@ export default function OrderItemCard() {
     </OrderItemCardStyled>
   );
 }
+
+OrderItemCard.propTypes = {
+  quantity: PropTypes.number.isRequired
+};
+
+export default OrderItemCard;
