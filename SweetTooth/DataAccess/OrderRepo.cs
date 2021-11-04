@@ -74,12 +74,21 @@ namespace SweetTooth.DataAccess
             using var db = new SqlConnection(_connectionString);
 
             var sql = @"select * 
-                        from [Order]
-                        where UserId = @id";
+                        from [Order] o
+                        where o.UserId = @userId";
 
-            var order = db.QueryFirstOrDefault<Order>(sql, new { id = userId });
+            var order = db.QueryFirstOrDefault<Order>(sql, new { userId = userId });
+
+            var orderItemsSql = @"select * 
+                                from OrderItem
+                                where OrderId = @id";
+
+            var orderItems = db.Query<OrderItem>(orderItemsSql, new { id = order.Id });
+
+            order.OrderItems = orderItems;
 
             return order;
+
         }
 
         internal int GenerateNumber()
