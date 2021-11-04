@@ -11,10 +11,10 @@ const LandingPageContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 50%;
-  border: 1px solid gray;
+  // border: 1px solid gray;
   padding: 10px;
   margin: 5px auto;
-  border-radius: 5px;
+  // border-radius: 5px;
   // background-color: rgb(16,24,30);
 `;
 
@@ -23,6 +23,7 @@ const LandingPageLogo = styled.img`
   display: inline-block;
   width: 50%;
   border-radius: 50%;
+  padding 20x;
 `;
 
 function LandingPage() {
@@ -32,9 +33,13 @@ function LandingPage() {
         className="bg-light border"
         fluid="md"
       >
-
-        <LandingPageLogo src={logo} alt="Logo"/>
         <h1>Welcome to SweetTooth!</h1>
+        <LandingPageLogo src={logo} alt="Logo"/>
+        <h3>Already have an Account?</h3>
+          <Button>
+            Sign In
+          </Button>
+          <h3>New to SweetTooth?  You are in for a treat!</h3>
           <Button>
             Create an Account
           </Button>
