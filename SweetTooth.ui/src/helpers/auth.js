@@ -29,6 +29,7 @@ const signInUser = () => {
         moodId: 'c4892c07-e999-4bfc-aef6-50b4989a2544'
       };
 
+      // eslint-disable-next-line no-unused-vars
       const createNewUser = (newUser, uid) => new Promise((resolve, reject) => {
         axios.post(`${dbUrl}/users.json`, newUser)
           .then((response) => {
