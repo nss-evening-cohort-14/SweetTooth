@@ -88,7 +88,6 @@ namespace SweetTooth.DataAccess
             order.OrderItems = orderItems;
 
             return order;
-
         }
 
         internal int GenerateNumber()
