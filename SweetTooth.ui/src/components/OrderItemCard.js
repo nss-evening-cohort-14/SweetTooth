@@ -3,7 +3,8 @@ import {
   Card,
   CardBody,
   CardTitle,
-  CardSubtitle
+  CardSubtitle,
+  CardText
 } from 'reactstrap';
 import OrderItemCardStyled from '../styles/OrderStyled';
 
@@ -21,6 +22,9 @@ export default function OrderItemCard() {
           >
             Price
           </CardSubtitle>
+          <CardText>
+            Quantity
+          </CardText>
         </CardBody>
         <img
           alt="Card image cap"

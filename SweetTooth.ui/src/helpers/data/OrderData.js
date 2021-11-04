@@ -9,4 +9,15 @@ const getSingleOder = (orderId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-export default getSingleOder;
+const getOrderByUserId = (userId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/api/orders/user/${userId}`)
+    .then((response) => {
+      if (response.data) {
+        resolve(response.data);
+      } else {
+        resolve([]);
+      }
+    }).catch((error) => reject(error));
+});
+
+export { getSingleOder, getOrderByUserId };
