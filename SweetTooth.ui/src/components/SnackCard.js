@@ -1,28 +1,33 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    Button, 
-    Card,
-    CardText,
-    CardTitle
+  Button,
+  Card,
+  CardText,
+  CardTitle
 } from 'reactstrap';
 
-const SnackCard = ({ 
-    snackName, snackDescription, snackImageUrl
+const SnackCard = ({
+  name, category, price, description, image
 }) => {
-    return (
-        <Card body>
-            <CardTitle tag="h5">{snackName}</CardTitle>
-            <CardText>{snackDescription}</CardText>
-            <img src={snackImageUrl} alt={snackName}/>
-            <Button>"Plus1"</Button>
-            <Button>"Minus1"</Button>
-        </Card>
-    );
+  <Card body>
+    <CardTitle tag='h5'>{name}</CardTitle>
+    <CardText>
+      {category}
+      {description}
+      {price}
+    </CardText>
+    <img src={image} alt={name}/>
+    <Button>Plus1</Button>
+    <Button>Minus1</Button>
+  </Card>;
 };
 
 SnackCard.propTypes = {
-    snackName: PropTypes.string,
-    snackDescription: PropTypes.string,
-    snackImageUrl: PropTypes.string
-}
+  name: PropTypes.string,
+  category: PropTypes.string,
+  price: PropTypes.number,
+  description: PropTypes.string,
+  image: PropTypes.string
+};
 export default SnackCard;
