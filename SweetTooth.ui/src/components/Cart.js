@@ -18,28 +18,24 @@ export default function Cart() {
     }
   );
 
-  const [orderItems, setOrderItems] = useState([]);
-
   useEffect(() => {
     getOrderByUserId('b1a01661-4331-ec11-8172-0800275f12c6').then((res) => {
       setOrder(res);
-      setOrderItems([res.orderItems]);
-      console.warn(order);
+      console.warn('order', order);
     });
   }, []);
 
-  console.warn('orderitems', typeof orderItems);
-  console.warn(orderItems);
+  console.warn('type orderItems', typeof order.orderItems);
   return (
     <div>
      {
-        orderItems.map((item) => (
-         <OrderItemCard
-         key={item.Id}
-         quantity={item.quantity}
-         />
+        order.orderItems.map((item, i) => (
+          <OrderItemCard
+          key={i}
+          quantity={item.quantity}
+          />
         ))
-     }
+      }
     </div>
   );
 }

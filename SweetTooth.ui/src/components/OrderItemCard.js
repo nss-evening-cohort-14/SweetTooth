@@ -9,7 +9,7 @@ import {
 } from 'reactstrap';
 import OrderItemCardStyled from '../styles/OrderStyled';
 
-function OrderItemCard(quantity) {
+function OrderItemCard({ quantity }) {
   return (
     <OrderItemCardStyled>
        <Card>
