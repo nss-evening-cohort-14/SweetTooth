@@ -11,6 +11,8 @@ namespace SweetTooth.Models
         public Boolean Admin { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Email { get; set; }
+        public string ProfileUrl { get; set; }
         public DateTime DateCreated { get; set; }
         public Guid MoodId { get; set; }
         public Boolean SoftDelete { get; set; }
