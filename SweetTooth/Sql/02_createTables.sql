@@ -25,6 +25,8 @@ CREATE TABLE dbo.[User]
 	[Admin] bit NOT NULL,
 	FirstName varchar(50) NOT NULL,
 	LastName varchar(50) NOT NULL,
+	Email varchar(100) NOT NULL,
+	ProfileUrl nvarchar(4000) NULL,
 	DateCreated datetime NOT NULL,
 	MoodId uniqueidentifier,
 	SoftDelete bit NOT NULL default 0,

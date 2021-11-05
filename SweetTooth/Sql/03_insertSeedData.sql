@@ -46,10 +46,11 @@ insert into SnackMood (Id, MoodId, SnackId)
 ;
 
 -- insert user data -- note: will need to test datetime constructor with C# first
-insert into [User] (Id, [Admin], FirstName, LastName, DateCreated, MoodId)
+insert into [User] (Id, [Admin], FirstName, LastName, Email, DateCreated, MoodId)
 	values
-		('b1a01661-4331-ec11-8172-0800275f12c6', 1, 'User', 'One', cast('2021-10-19' as datetime), '0e628817-e344-4335-9933-4c827d5ec2ad'),
-		('d9110d2a-4431-ec11-8172-0800275f12c6', 0, 'User', 'Two', cast('2021-10-19' as datetime), '81530eb5-27ab-475a-b0cc-3f03001ae9bd')
+		('b1a01661-4331-ec11-8172-0800275f12c6', 1, 'Matthew', 'Gonzales', 'gonzalesmattg@gmail.com', cast('2021-10-19' as datetime), '0e628817-e344-4335-9933-4c827d5ec2ad'),
+		('d9110d2a-4431-ec11-8172-0800275f12c6', 1, 'Jim', 'Conner', 'jamesdavidconner@gmail.com', cast('2021-10-19' as datetime), '81530eb5-27ab-475a-b0cc-3f03001ae9bd'),
+		('c60250e4-3b74-11ec-8d3d-0242ac130003', 1, 'Gabrielle', 'Tobermann', 'gabrielle.tobermann@gmail.com', cast('2021-10-19' as datetime), '81530eb5-27ab-475a-b0cc-3f03001ae9bd')
 ;
 
 -- insert userAddress data
