@@ -9,4 +9,10 @@ const getSnacks = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-export default getSnacks;
+const getSnackById = (snackId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/snacl/${snackId}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
+export { getSnacks, getSnackById };
