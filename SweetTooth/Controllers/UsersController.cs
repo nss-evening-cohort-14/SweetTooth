@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SweetTooth.DataAccess;
 namespace SweetTooth.Models
 {
     [Route("api/Users")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private UserRepo _repo;
@@ -35,10 +37,12 @@ namespace SweetTooth.Models
 
             return Ok(singleUser);
         }
-
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult AddUser(User newUser)
         {
+            //var fbUserId = User.FindFirst(claim => claim.Type == "user_id").Value;
+
             if (string.IsNullOrEmpty(newUser.FirstName) || string.IsNullOrEmpty(newUser.LastName))
             {
                 return BadRequest("Name is required");
