@@ -19,7 +19,7 @@ const signInUser = () => {
     if (user.additionalUserInfo?.isNewUser) {
       // eslint-disable-next-line no-unused-vars
       const userInfo = {
-        id: user.user?.uid,
+        firebaseId: user.user?.uid,
         firstName: user.user?.displayName.split(' ')[0],
         lastName: user.user?.displayName.split(' ')[1],
         email: user.user?.email,

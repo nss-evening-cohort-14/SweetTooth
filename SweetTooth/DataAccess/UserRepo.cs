@@ -54,7 +54,7 @@ namespace SweetTooth.DataAccess
             using var db = new SqlConnection(_connectionString);
 
             var userSql = @"Insert into [User] 
-                                (Id,
+                                (FirebaseId,
                                 [Admin], 
                                 FirstName, 
                                 LastName,
@@ -63,8 +63,9 @@ namespace SweetTooth.DataAccess
                                 DateCreated,
                                 MoodId,
                                 SoftDelete)
+                            Output inserted.Id
                             Values 
-                                (@Id,
+                                (@FirebaseId,
                                 @Admin,
                                 @FirstName,
                                 @LastName,
@@ -76,7 +77,8 @@ namespace SweetTooth.DataAccess
 
             newUser.DateCreated = DateTime.Now;
 
-            var userId = db.Query<User>(userSql, newUser);
+            var userId = db.ExecuteScalar<Guid>(userSql, newUser);
+            newUser.Id = userId;
         }
 
         internal object UpdateUser(Guid id, User user)
