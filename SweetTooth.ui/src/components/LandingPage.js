@@ -4,7 +4,7 @@ import {
   Button, ButtonGroup, Container
 } from 'reactstrap';
 import styled from 'styled-components';
-import logo from '../assets/SweetToothLogo.png';
+import logo from '../Assets/SweetToothLogo.png';
 import { signInUser, signOutUser } from '../helpers/auth';
 
 const LandingPageContainer = styled.div`
@@ -49,10 +49,9 @@ function LandingPage({ user }) {
       >
         <h1>Welcome to SweetTooth!</h1>
         <LandingPageLogo src={logo} alt="Logo"/>
-        <h4>Already have an Account?</h4>
-        {authButtons()}
-
-          <h5>New to SweetTooth? Then you&#39;re in for a treat!</h5>
+          {user ? '' : <h4>Already have an Account?</h4>}
+          {authButtons()}
+          {user ? '' : <h5>New to SweetTooth? Then you&#39;re in for a treat!</h5>}
         {
           user
             ? ''

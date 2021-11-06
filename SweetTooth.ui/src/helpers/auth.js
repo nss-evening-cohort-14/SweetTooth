@@ -28,6 +28,7 @@ const signInUser = () => {
         moodId: 'c4892c07-e999-4bfc-aef6-50b4989a2544'
       };
       createNewUser(userInfo);
+      window.location.href = '/shop';
     }
   });
 };
