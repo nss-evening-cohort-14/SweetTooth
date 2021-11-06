@@ -4,13 +4,13 @@ import firebaseConfig from '../apiKeys';
 const dbUrl = firebaseConfig.databaseURL;
 
 const getSingleOder = (orderId) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/api/orders/${orderId}`)
+  axios.get(`${dbUrl}/orders/${orderId}`)
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
 
 const getOrderByUserId = (userId) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/api/orders/user/${userId}`)
+  axios.get(`${dbUrl}/orders/user/${userId}`)
     .then((response) => {
       if (response.data) {
         resolve(response.data);
@@ -21,7 +21,7 @@ const getOrderByUserId = (userId) => new Promise((resolve, reject) => {
 });
 
 const getOrderItems = (orderId) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/api/orders/${orderId}orderItems`)
+  axios.get(`${dbUrl}/orders/${orderId}orderItems`)
     .then((res) => {
       if (res.data) {
         resolve(res.data);
