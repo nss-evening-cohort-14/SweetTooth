@@ -22,7 +22,8 @@ CREATE TABLE dbo.Mood
 CREATE TABLE dbo.[User]
 	(
 	Id uniqueidentifier NOT NULL primary key default(newsequentialid()),
-	[Admin] bit NOT NULL,
+	FirebaseId varchar(50) NOT NULL,
+	[Admin] bit NOT NULL default 0,
 	FirstName varchar(50) NOT NULL,
 	LastName varchar(50) NOT NULL,
 	Email varchar(100) NOT NULL,

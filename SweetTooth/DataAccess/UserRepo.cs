@@ -54,7 +54,8 @@ namespace SweetTooth.DataAccess
             using var db = new SqlConnection(_connectionString);
 
             var userSql = @"Insert into [User] 
-                                ([Admin], 
+                                (FirebaseId,
+                                [Admin], 
                                 FirstName, 
                                 LastName,
                                 Email,
@@ -62,9 +63,10 @@ namespace SweetTooth.DataAccess
                                 DateCreated,
                                 MoodId,
                                 SoftDelete)
-	                        Output Inserted.Id 
+                            Output inserted.Id
                             Values 
-                                (@Admin,
+                                (@FirebaseId,
+                                @Admin,
                                 @FirstName,
                                 @LastName,
                                 @Email, 

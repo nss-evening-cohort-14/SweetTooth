@@ -3,8 +3,10 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import AdminDashboard from '../components/AdminDashboard';
 import Cart from '../components/Cart';
+import LandingPage from '../components/LandingPage';
 import ShoppingPage from '../components/ShoppingPage';
 import UserProfile from '../components/UserProfile';
 
@@ -17,6 +19,9 @@ export default function Routes({ user }) {
       <Switch>
         <Route
         exact path="/"
+        component={() => <LandingPage
+          user={user}
+        />}
         />
         <Route
         exact path="/shop"
@@ -41,3 +46,7 @@ export default function Routes({ user }) {
     </div>
   );
 }
+
+Routes.propTypes = {
+  user: PropTypes.any,
+};

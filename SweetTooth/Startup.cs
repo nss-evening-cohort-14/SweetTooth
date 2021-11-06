@@ -12,6 +12,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using SweetTooth.DataAccess;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace SweetTooth
 {
@@ -37,6 +39,21 @@ namespace SweetTooth
             services.AddTransient<SnackMoodRepo>();
             services.AddTransient<OrderRepo>();
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+              .AddJwtBearer(options =>
+              {
+                  options.IncludeErrorDetails = true;
+                  options.Authority = "https://securetoken.google.com/sweettooth-cadd3";
+                  options.TokenValidationParameters = new TokenValidationParameters
+                  {
+                      ValidateLifetime = true,
+                      ValidateAudience = true,
+                      ValidateIssuer = true,
+                      ValidAudience = "sweettooth-cadd3",
+                      ValidIssuer = "https://securetoken.google.com/sweettooth-cadd3"
+                  };
+              });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -59,6 +76,8 @@ namespace SweetTooth
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

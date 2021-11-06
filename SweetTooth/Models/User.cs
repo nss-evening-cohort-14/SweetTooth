@@ -8,6 +8,7 @@ namespace SweetTooth.Models
     public class User
     {
         public Guid Id { get; set; }
+        public string FirebaseId { get; set; }
         public Boolean Admin { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
