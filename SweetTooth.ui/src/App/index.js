@@ -6,20 +6,16 @@ import Routes from '../helpers/Routes';
 import './App.scss';
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((authed) => {
-      if (authed) {
-        const userInfoObject = {
-          uid: authed.uid,
-          firstName: authed.displayName.split(' ')[0],
-          lastName: authed.displayName.split(' ')[1],
-          email: authed.email,
-          profileUrl: authed.photoURL
-        };
-        setUser(userInfoObject);
-      } else if (user || user === null) {
+    firebase.auth().onAuthStateChanged((userInfo) => {
+      if (userInfo) {
+        // eslint-disable-next-line no-undef
+        userInfo.getIdToken().then((token) => sessionStorage.setItem('token', token));
+
+        setUser(userInfo);
+      } else {
         setUser(false);
       }
     });
@@ -29,7 +25,7 @@ function App() {
     <div className='App'>
       <Router>
           <NavbarSweetTooth user={user}/>
-          <Routes/>
+          <Routes user={user}/>
       </Router>
     </div>
   );
