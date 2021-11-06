@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import firebase from 'firebase';
+// import 'firebase/auth';
 import NavbarSweetTooth from '../components/Navbar';
 import Routes from '../helpers/Routes';
 import './App.scss';
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((authed) => {
-      if (authed) {
-        const userInfoObject = {
-          uid: authed.uid,
-          firstName: authed.displayName.split(' ')[0],
-          lastName: authed.displayName.split(' ')[1],
-          email: authed.email,
-          profileUrl: authed.photoURL
-        };
-        setUser(userInfoObject);
-      } else if (user || user === null) {
+    firebase.auth().onAuthStateChanged((userInfo) => {
+      if (userInfo) {
+        // eslint-disable-next-line no-undef
+        userInfo.getIdToken().then((token) => sessionStorage.setItem('token', token));
+
+        setUser(userInfo);
+      } else {
         setUser(false);
       }
     });
