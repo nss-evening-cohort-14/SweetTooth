@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getOrderByUserId } from '../helpers/data/OrderData';
+import { getSnackById } from '../helpers/data/SnackData';
 // import { getSnackById } from '../helpers/data/SnackData';
 import OrderItemCard from './OrderItemCard';
 
@@ -19,12 +20,21 @@ export default function Cart() {
     }
   );
 
-  // const [itemSnack, setItemSnack] = useState([]);
+  const [orderItems, setOrderItems] = useState([]);
 
   useEffect(() => {
     getOrderByUserId('b1a01661-4331-ec11-8172-0800275f12c6').then((res) => {
       setOrder(res);
+      setOrderItems(res.orderItems);
     });
+  }, []);
+
+  useEffect(() => {
+    const itemsArr = [];
+    itemsArr.push(orderItems);
+
+    itemsArr.map((item) => getSnackById(item.snackId).then((response) => ({ ...item, response })));
+    console.warn('itemsArr', itemsArr);
   }, []);
 
   return (
