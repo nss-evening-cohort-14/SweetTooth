@@ -1,10 +1,11 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {
-  Button, Container
+  Button, ButtonGroup, Container
 } from 'reactstrap';
 import styled from 'styled-components';
-import logo from '../Assets/SweetToothLogo.png';
+import logo from '../assets/SweetToothLogo.png';
+import { signInUser, signOutUser } from '../helpers/auth';
 
 const LandingPageContainer = styled.div`
   display: flex;
@@ -25,8 +26,21 @@ const LandingPageLogo = styled.img`
   border-radius: 50%;
   padding 20x;
 `;
-
-function LandingPage() {
+function LandingPage({ user }) {
+  const authButtons = () => (
+    <div>
+      {
+        user !== null
+        && <ButtonGroup>
+          {
+            user
+              ? <Button outline color='danger' onClick={signOutUser}>Logout</Button>
+              : <Button outline color='success' onClick={signInUser}>Login</Button>
+          }
+        </ButtonGroup>
+      }
+      </div>
+  );
   return (
     <LandingPageContainer>
       <Container
@@ -35,21 +49,22 @@ function LandingPage() {
       >
         <h1>Welcome to SweetTooth!</h1>
         <LandingPageLogo src={logo} alt="Logo"/>
-        <h3>Already have an Account?</h3>
-          <Button>
-            Sign In
-          </Button>
-          <h3>New to SweetTooth?  You are in for a treat!</h3>
-          <Button>
-            Create an Account
-          </Button>
+        <h4>Already have an Account?</h4>
+        {authButtons()}
+
+          <h5>New to SweetTooth? Then you&#39;re in for a treat!</h5>
+        {
+          user
+            ? ''
+            : <Button outline color='info' onClick={signInUser}>Create your Account</Button>
+        }
       </Container>
     </LandingPageContainer>
   );
 }
 
-// LandingPage.propTypes = {
-
-// };
+LandingPage.propTypes = {
+  user: PropTypes.any,
+};
 
 export default LandingPage;

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import firebase from 'firebase';
-// import 'firebase/auth';
 import NavbarSweetTooth from '../components/Navbar';
 import Routes from '../helpers/Routes';
 import './App.scss';
@@ -26,7 +25,7 @@ function App() {
     <div className='App'>
       <Router>
           <NavbarSweetTooth user={user}/>
-          <Routes/>
+          <Routes user={user}/>
       </Router>
     </div>
   );

@@ -17,7 +17,6 @@ const signInUser = () => {
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth().signInWithPopup(provider).then((user) => {
     if (user.additionalUserInfo?.isNewUser) {
-      // eslint-disable-next-line no-unused-vars
       const userInfo = {
         firebaseId: user.user?.uid,
         firstName: user.user?.displayName.split(' ')[0],

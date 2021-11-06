@@ -6,32 +6,15 @@ import {
   Collapse,
   NavItem,
   Nav,
-  Button
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { signInUser, signOutUser } from '../helpers/auth';
 
 // eslint-disable-next-line react/prop-types
-export default function NavbarSweetTooth({ user }) {
+export default function NavbarSweetTooth() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
-
-  const authButtons = () => (
-    <NavItem>
-      {
-        user !== null
-        && <>
-          {
-            user
-              ? <Button outline color='danger' onClick={signOutUser}>Logout</Button>
-              : <Button outline color='success' onClick={signInUser}>Login</Button>
-          }
-        </>
-      }
-      </NavItem>
-  );
 
   return (
     <div>
@@ -69,7 +52,6 @@ export default function NavbarSweetTooth({ user }) {
                 Admin Dashboard
                 </Link>
             </NavItem>
-          {authButtons()}
           </Nav>
         </Collapse>
       </Navbar>

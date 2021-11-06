@@ -3,6 +3,7 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import AdminDashboard from '../components/AdminDashboard';
 import Cart from '../components/Cart';
 import LandingPage from '../components/LandingPage';
@@ -12,13 +13,15 @@ import UserProfile from '../components/UserProfile';
 // will need to add private routes once auth is done.
 // Admin and user hook
 
-export default function Routes() {
+export default function Routes({ user }) {
   return (
     <div>
       <Switch>
         <Route
         exact path="/"
-        component={LandingPage}
+        component={() => <LandingPage
+          user={user}
+        />}
         />
         <Route
         exact path="/shop"
@@ -40,3 +43,7 @@ export default function Routes() {
     </div>
   );
 }
+
+Routes.propTypes = {
+  user: PropTypes.any,
+};
