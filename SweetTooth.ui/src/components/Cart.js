@@ -25,17 +25,10 @@ export default function Cart() {
   useEffect(() => {
     getOrderByUserId('b1a01661-4331-ec11-8172-0800275f12c6').then((res) => {
       setOrder(res);
-      setOrderItems(res.orderItems);
     });
   }, []);
 
-  useEffect(() => {
-    const itemsArr = [];
-    itemsArr.push(orderItems);
-
-    itemsArr.map((item) => getSnackById(item.snackId).then((response) => ({ ...item, response })));
-    console.warn('itemsArr', itemsArr);
-  }, []);
+  console.warn('orderItems', orderItems);
 
   return (
     <div>

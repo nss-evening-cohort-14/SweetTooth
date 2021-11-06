@@ -80,10 +80,12 @@ namespace SweetTooth.DataAccess
             var order = db.QueryFirstOrDefault<Order>(sql, new { userId = userId });
 
             var orderItemsSql = @"select * 
-                                from OrderItem
+                                from OrderItem ot
+                                join Snack s
+                                on ot.SnackId = s.Id
                                 where OrderId = @id";
 
-            var orderItems = db.Query<OrderItem>(orderItemsSql, new { id = order.Id });
+            var orderItems = db.Query<OrderItem, Snack, OrderItem>(orderItemsSql, MapOrderItem, new { id = order.Id }, splitOn: "Id");
 
             order.OrderItems = orderItems;
 
@@ -263,6 +265,12 @@ namespace SweetTooth.DataAccess
         {
             order.PaymentMethod = paymentMethod;
             return order;
+        }
+
+        OrderItem MapOrderItem(OrderItem orderItem, Snack snack)
+        {
+            orderItem.ItemSnack = snack;
+            return orderItem;
         }
     }
 }

@@ -10,7 +10,7 @@ const getSnacks = () => new Promise((resolve, reject) => {
 });
 
 const getSnackById = (snackId) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/snacl/${snackId}`)
+  axios.get(`${dbUrl}/snack/${snackId}`)
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
