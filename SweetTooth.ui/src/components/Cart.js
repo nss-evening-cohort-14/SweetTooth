@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { getOrderByUserId } from '../helpers/data/OrderData';
 import OrderItemCard from './OrderItemCard';
 
-export default function Cart() {
+function Cart({ user }) {
   const [order, setOrder] = useState(
     {
       id: '',
@@ -28,6 +29,7 @@ export default function Cart() {
   }, []);
 
   console.warn('orderItems', orderItems);
+  console.warn(user);
 
   return (
     <div>
@@ -45,3 +47,8 @@ export default function Cart() {
     </div>
   );
 }
+
+Cart.propTypes = {
+  user: PropTypes.any
+};
+export default Cart;
