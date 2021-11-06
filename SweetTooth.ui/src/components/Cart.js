@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { getOrderByUserId } from '../helpers/data/OrderData';
-import { getSnackById } from '../helpers/data/SnackData';
-// import { getSnackById } from '../helpers/data/SnackData';
 import OrderItemCard from './OrderItemCard';
 
 export default function Cart() {
@@ -25,6 +23,7 @@ export default function Cart() {
   useEffect(() => {
     getOrderByUserId('b1a01661-4331-ec11-8172-0800275f12c6').then((res) => {
       setOrder(res);
+      setOrderItems(res.orderItems);
     });
   }, []);
 
@@ -37,6 +36,9 @@ export default function Cart() {
           <OrderItemCard
           key={i}
           quantity={item.quantity}
+          name={item.itemSnack.name}
+          price={item.itemSnack.price}
+          image={item.itemSnack.image}
           />
         ))
       }

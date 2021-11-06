@@ -9,19 +9,21 @@ import {
 } from 'reactstrap';
 import OrderItemCardStyled from '../styles/OrderStyled';
 
-function OrderItemCard({ quantity }) {
+function OrderItemCard({
+  quantity, name, image, price
+}) {
   return (
     <OrderItemCardStyled>
        <Card>
         <CardBody>
           <CardTitle tag="h5">
-            Snack name
+            {name}
           </CardTitle>
           <CardSubtitle
             className="mb-2 text-muted"
             tag="h6"
           >
-            Price
+            {`$${price}`}
           </CardSubtitle>
           <CardText>
             {quantity}
@@ -29,7 +31,7 @@ function OrderItemCard({ quantity }) {
         </CardBody>
         <img
           alt="Card image cap"
-          src="https://picsum.photos/318/180"
+          src={image}
           width="100%"
         />
     </Card>
@@ -38,7 +40,10 @@ function OrderItemCard({ quantity }) {
 }
 
 OrderItemCard.propTypes = {
-  quantity: PropTypes.number.isRequired
+  quantity: PropTypes.number.isRequired,
+  name: PropTypes.string,
+  price: PropTypes.number,
+  image: PropTypes.string
 };
 
 export default OrderItemCard;

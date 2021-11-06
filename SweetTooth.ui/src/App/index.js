@@ -29,7 +29,7 @@ function App() {
     <div className='App'>
       <Router>
           <NavbarSweetTooth user={user}/>
-          <Routes/>
+          <Routes user={user}/>
       </Router>
     </div>
   );
