@@ -3,10 +3,16 @@ import firebaseConfig from '../apiKeys';
 
 const dbUrl = firebaseConfig.databaseURL;
 
+const getUserByFirebaseId = (uid) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/users/user/${uid}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
 const createNewUser = (userInfo) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/users`, userInfo)
-    .then((response) => resolve(response.data))
+    .then(() => getUserByFirebaseId(userInfo.firebaseId)).then((resp) => resolve(resp))
     .catch(reject);
 });
 
-export default createNewUser;
+export { createNewUser, getUserByFirebaseId };

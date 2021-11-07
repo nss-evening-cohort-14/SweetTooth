@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import NavbarSweetTooth from '../components/Navbar';
 import Routes from '../helpers/Routes';
 import './App.scss';
+import { getUserByFirebaseId } from '../helpers/data/userData';
 
 function App() {
   const [user, setUser] = useState({});
@@ -13,14 +14,15 @@ function App() {
       if (userInfo) {
         // eslint-disable-next-line no-undef
         userInfo.getIdToken().then((token) => sessionStorage.setItem('token', token));
-
-        setUser(userInfo);
-        console.warn('userInfo', userInfo.uid);
+        getUserByFirebaseId(userInfo.uid).then((resp) => setUser(resp));
+        console.warn(userInfo.uid);
       } else {
         setUser(false);
       }
     });
   }, []);
+
+  console.warn(user);
 
   return (
     <div className='App'>
