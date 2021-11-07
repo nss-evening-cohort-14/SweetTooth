@@ -15,6 +15,7 @@ function App() {
         userInfo.getIdToken().then((token) => sessionStorage.setItem('token', token));
 
         setUser(userInfo);
+        console.warn('userInfo', userInfo.uid);
       } else {
         setUser(false);
       }

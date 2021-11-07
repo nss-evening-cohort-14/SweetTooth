@@ -19,6 +19,7 @@ namespace SweetTooth.Models
             _repo = repo;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetAllUsers()
         {
@@ -65,6 +66,7 @@ namespace SweetTooth.Models
 
             return Ok(updatedUser);
         }
+
         [HttpPut("softDelete/{id}")]
         public IActionResult SoftDeleteUser(Guid id)
         {
@@ -78,14 +80,15 @@ namespace SweetTooth.Models
             return Ok(userToSoftDelete);
         }
 
-        [HttpGet("email/{email}")]
-        public IActionResult GetUserByEmail(string email)
+        [AllowAnonymous]
+        [HttpGet("user/{firebaseId}")]
+        public IActionResult GetUserByUid(string firebaseId)
         {
-            var user = _repo.GetUserByEmail(email);
+            var user = _repo.GetUserByUid(firebaseId);
 
             if (user == null)
             {
-                return NotFound("there are no users with this email.");
+                return NotFound("there are no users with this uid.");
             }
 
             return Ok(user);

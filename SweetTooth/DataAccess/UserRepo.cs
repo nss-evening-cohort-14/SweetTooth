@@ -120,14 +120,15 @@ namespace SweetTooth.DataAccess
 
         }
 
-        internal User GetUserByEmail(string email)
+        internal User GetUserByUid(string firebaseId)
         {
             using var db = new SqlConnection(_connectionString);
 
-            var sql = @"Select from [User]
-                        where Email = @email";
+                    var sql = @"Select *
+                                from [User]
+                                where FirebaseId = @firebaseId";
 
-            var user = db.QueryFirstOrDefault<User>(sql, new { email });
+            var user = db.QueryFirstOrDefault<User>(sql, new { firebaseId });
 
             return user;
         }
