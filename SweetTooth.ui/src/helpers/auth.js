@@ -1,6 +1,6 @@
 import firebase from 'firebase/';
 import axios from 'axios';
-import createNewUser from './data/userData';
+import { createNewUser } from './data/UserData';
 
 axios.interceptors.request.use((request) => {
   // eslint-disable-next-line no-undef

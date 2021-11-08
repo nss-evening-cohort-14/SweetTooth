@@ -3,7 +3,7 @@ import React from 'react';
 export default function Orders() {
   return (
     <div>
-      <h1>Orders</h1>
+      <h3>Orders</h3>
     </div>
   );
 }
