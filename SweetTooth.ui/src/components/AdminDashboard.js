@@ -3,10 +3,6 @@ import getMoods from '../helpers/data/MoodData';
 import getOrders from '../helpers/data/OrderData';
 import getSnacks from '../helpers/data/SnackData';
 import { getUsers } from '../helpers/data/UserData';
-import Moods from '../helpers/views/Moods';
-import Orders from '../helpers/views/Orders';
-import Snacks from '../helpers/views/Snacks';
-import Users from '../helpers/views/Users';
 import MoodCard from './MoodCard';
 import OrderCard from './OrderCard';
 import SnackCard from './SnackCard';
@@ -28,7 +24,6 @@ export default function AdminDashboard() {
     <div>
       <h1>Admin Dashboard</h1>
       <h2>Orders</h2>
-        <Orders/>
         {orders.map((order) => (
           <OrderCard
             key={order.key}
@@ -41,7 +36,6 @@ export default function AdminDashboard() {
           />
         ))}
       <h2>Moods</h2>
-        <Moods/>
         {moods.map((mood) => (
           <MoodCard
             key={mood.id}
@@ -50,7 +44,6 @@ export default function AdminDashboard() {
           />
         ))}
       <h2>Snacks</h2>
-        <Snacks/>
         {snacks.map((snack) => (
           <SnackCard
             key={snack.id}
@@ -62,16 +55,19 @@ export default function AdminDashboard() {
           />
         ))}
       <h2>Users</h2>
-        <Users/>
         {users.map((user) => (
           <UserCard
             key={user.id}
             id={user.id}
+            firebaseId={user.firebaseId}
             admin={user.admin}
             firstName={user.firstName}
             lastName={user.lastName}
+            email={user.email}
+            profileUrl={user.profileUrl}
             dateCreated={user.dateCreated}
             moodId={user.moodId}
+            softDelete={user.softDelete}
           />
         ))}
     </div>
