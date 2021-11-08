@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Row, Col } from 'reactstrap';
 import getMoods from '../helpers/data/MoodData';
 import getOrders from '../helpers/data/OrderData';
 import getSnacks from '../helpers/data/SnackData';
@@ -24,9 +25,20 @@ export default function AdminDashboard() {
     <div>
       <h1>Admin Dashboard</h1>
       <h2>Orders</h2>
+      <Row className='border'>
+        <Col>id</Col>
+        <Col>userId</Col>
+        <Col>orderDate</Col>
+        <Col>orderNumber</Col>
+        <Col>total</Col>
+        <Col>paymentMethodId</Col>
+        <Col>processed</Col>
+        <Col>shipped</Col>
+      </Row>
         {orders.map((order) => (
           <OrderCard
             key={order.id}
+            id={order.id}
             userId={order.userId}
             orderDate={order.orderDate}
             orderNumber={order.orderNumber}
@@ -37,6 +49,10 @@ export default function AdminDashboard() {
           />
         ))}
       <h2>Moods</h2>
+      <Row className='border'>
+        <Col>id</Col>
+        <Col>name</Col>
+      </Row>
         {moods.map((mood) => (
           <MoodCard
             key={mood.id}
@@ -45,6 +61,7 @@ export default function AdminDashboard() {
           />
         ))}
       <h2>Snacks</h2>
+      <Row>
         {snacks.map((snack) => (
           <SnackCard
             key={snack.id}
@@ -55,7 +72,20 @@ export default function AdminDashboard() {
             image={snack.image}
           />
         ))}
+      </Row>
       <h2>Users</h2>
+      <Row className='border'>
+        <Col>id</Col>
+        <Col>firebaseId</Col>
+        <Col>admin</Col>
+        <Col>firstName</Col>
+        <Col>lastName</Col>
+        <Col>email</Col>
+        <Col>profileUrl</Col>
+        <Col>dateCreated</Col>
+        <Col>moodId</Col>
+        <Col>softDelete</Col>
+      </Row>
         {users.map((user) => (
           <UserCard
             key={user.id}

@@ -1,14 +1,15 @@
 import React from 'react';
+import { Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 function MoodCard({
   id, name
 }) {
   return (
-    <div>
-      {id}<br/>
-      {name}
-    </div>
+    <Row className='border'>
+      <Col>{id}</Col>
+      <Col>{name}</Col>
+    </Row>
   );
 }
 

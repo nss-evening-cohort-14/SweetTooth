@@ -1,20 +1,21 @@
 import React from 'react';
+import { Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 function OrderCard({
   id, userId, orderDate, orderNumber, total, paymentMethodId, processed, shipped
 }) {
   return (
-    <div>
-      {id}<br/>
-      {userId}<br/>
-      {orderDate}<br/>
-      {orderNumber}<br/>
-      {total}<br/>
-      {paymentMethodId}<br/>
-      {processed}<br/>
-      {shipped}<br/>
-    </div>
+    <Row className='border'>
+      <Col>{id}</Col>
+      <Col>{userId}</Col>
+      <Col>{orderDate}</Col>
+      <Col>{orderNumber}</Col>
+      <Col>{total}</Col>
+      <Col>{paymentMethodId}</Col>
+      <Col>{processed}</Col>
+      <Col>{shipped}</Col>
+    </Row>
   );
 }
 
