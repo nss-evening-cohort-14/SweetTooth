@@ -26,13 +26,14 @@ export default function AdminDashboard() {
       <h2>Orders</h2>
         {orders.map((order) => (
           <OrderCard
-            key={order.key}
-            id={order.id}
-            admin={order.admin}
-            firstName={order.firstName}
-            lastName={order.lastName}
-            dateCreated={order.dateCreated}
-            moodId={order.moodId}
+            key={order.id}
+            userId={order.userId}
+            orderDate={order.orderDate}
+            orderNumber={order.orderNumber}
+            total={order.total}
+            paymentMethodId={order.paymentMethodId}
+            processed={order.processed}
+            shipped={order.shipped}
           />
         ))}
       <h2>Moods</h2>

@@ -10,7 +10,7 @@ const createNewUser = (userInfo) => new Promise((resolve, reject) => {
 });
 
 const getUsers = () => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/users`)
+  axios.get(`${dbUrl}/Users`)
     .then((response) => resolve(Object.values(response.data)))
     .catch((error) => reject(error));
 });

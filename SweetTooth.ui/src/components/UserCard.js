@@ -28,7 +28,7 @@ UserCard.propTypes = {
   lastName: PropTypes.string,
   email: PropTypes.string,
   profileUrl: PropTypes.string,
-  dateCreated: PropTypes.instanceOf(Date),
+  dateCreated: PropTypes.string,
   moodId: PropTypes.string,
   softDelete: PropTypes.bool,
 };

@@ -21,7 +21,7 @@ function OrderCard({
 OrderCard.propTypes = {
   id: PropTypes.string,
   userId: PropTypes.string,
-  orderDate: PropTypes.instanceOf(Date),
+  orderDate: PropTypes.string,
   orderNumber: PropTypes.number,
   total: PropTypes.number,
   paymentMethodId: PropTypes.string,
