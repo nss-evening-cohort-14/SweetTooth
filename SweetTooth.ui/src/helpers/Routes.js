@@ -29,7 +29,10 @@ export default function Routes({ user }) {
         />
         <Route
         exact path="/cart"
-        component={Cart}
+        component={() => <Cart
+        user={user}
+        />
+      }
         />
         <Route
         exact path="/user-profile"

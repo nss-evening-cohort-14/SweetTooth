@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Container
-} from 'reactstrap';
 import styled from 'styled-components';
-import getSnacks from '../helpers/data/SnackData';
+import { Container } from 'reactstrap';
+import { getSnacks } from '../helpers/data/SnackData';
 import '../styles/shoppingPage.scss';
 import SnackCard from './SnackCard';
 

@@ -68,6 +68,30 @@ namespace SweetTooth.DataAccess
             return order;
         }
 
+        internal Order GetOrderByUserId(Guid userId)
+        {
+
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select * 
+                        from [Order] o
+                        where o.UserId = @userId";
+
+            var order = db.QueryFirstOrDefault<Order>(sql, new { userId = userId });
+
+            var orderItemsSql = @"select * 
+                                from OrderItem ot
+                                join Snack s
+                                on ot.SnackId = s.Id
+                                where OrderId = @id";
+
+            var orderItems = db.Query<OrderItem, Snack, OrderItem>(orderItemsSql, MapOrderItem, new { id = order.Id }, splitOn: "Id");
+
+            order.OrderItems = orderItems;
+
+            return order;
+        }
+
         internal int GenerateNumber()
         {
             Random generator = new Random();
@@ -241,6 +265,12 @@ namespace SweetTooth.DataAccess
         {
             order.PaymentMethod = paymentMethod;
             return order;
+        }
+
+        OrderItem MapOrderItem(OrderItem orderItem, Snack snack)
+        {
+            orderItem.ItemSnack = snack;
+            return orderItem;
         }
     }
 }
