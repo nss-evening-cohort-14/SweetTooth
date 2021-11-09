@@ -22,7 +22,7 @@ function Cart({ user }) {
   const [orderItems, setOrderItems] = useState([]);
 
   useEffect(() => {
-    getOrderByUserId(user.firebaseId).then((res) => {
+    getOrderByUserId(user.id).then((res) => {
       setOrder(res);
       setOrderItems(res.orderItems);
     });
