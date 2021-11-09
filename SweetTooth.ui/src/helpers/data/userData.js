@@ -15,4 +15,11 @@ const createNewUser = (userInfo) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export { createNewUser, getUserByFirebaseId };
+
+const getUsers = () => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/Users`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch((error) => reject(error));
+});
+
+export { createNewUser, getUsers, getUserByFirebaseId };

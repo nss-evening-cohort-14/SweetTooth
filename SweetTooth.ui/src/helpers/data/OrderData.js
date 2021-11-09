@@ -31,4 +31,15 @@ const getOrderItems = (orderId) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
-export { getSingleOder, getOrderByUserId, getOrderItems };
+const getOrders = () => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/orders`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch((error) => reject(error));
+});
+
+export {
+  getSingleOder,
+  getOrderByUserId,
+  getOrderItems,
+  getOrders
+};
