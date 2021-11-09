@@ -13,7 +13,7 @@ insert into Snack (Id, [Name], Category, Price, [Description], [Image])
 insert into Mood (Id, [Name])
 	values
 		('c4892c07-e999-4bfc-aef6-50b4989a2544','Happy'),
-		('efae66d0-afc7-49d8-9285-1c180bebec3c', 'Feels'),
+		('efae66d0-afc7-49d8-9285-1c180bebec3c','Feels'),
 		('c3f35310-bc3c-42d7-b747-443aa859afa3','Angry'),
 		('5172c391-5275-4f82-8306-098a00d841d8','Rage'),
 		('01a95448-05d7-45bc-b19b-25ae507f0fe9','Intoxicated'),
