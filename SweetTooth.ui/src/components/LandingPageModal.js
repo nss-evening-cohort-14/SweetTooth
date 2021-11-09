@@ -15,7 +15,7 @@ function LandingPageModal() {
   <Modal
     isOpen={modal} toggle={toggle}
   >
-    <ModalHeader toggle={function noRefCheck() {}}>
+    <ModalHeader toggle={toggle}>
       Start by creating your account with Google
       <Button
         color="primary"
@@ -24,10 +24,10 @@ function LandingPageModal() {
         Google
       </Button>
     </ModalHeader>
+    <LandingPageForm />
     <ModalBody>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
     </ModalBody>
-    <LandingPageForm />
     <ModalFooter>
       {' '}
       <Button onClick={function noRefCheck() {}}>

@@ -1,160 +1,104 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import {
-  Button, Form, FormGroup, FormText, Input, Label
+  Button, Col, Container, Form, FormGroup, Input, Label, Row
 } from 'reactstrap';
 
 function LandingPageForm() {
   return (
-    <Form centered>
-    <FormGroup>
-      <Label for="exampleEmail">
-        Email
-      </Label>
-      <Input
-        id="exampleEmail"
-        name="email"
-        placeholder="with a placeholder"
-        type="email"
-      />
-    </FormGroup>
-    <FormGroup>
-      <Label for="examplePassword">
-        Password
-      </Label>
-      <Input
-        id="examplePassword"
-        name="password"
-        placeholder="password placeholder"
-        type="password"
-      />
-    </FormGroup>
-    <FormGroup>
-      <Label for="exampleSelect">
-        Select
-      </Label>
-      <Input
-        id="exampleSelect"
-        name="select"
-        type="select"
-      >
-        <option>
-          1
-        </option>
-        <option>
-          2
-        </option>
-        <option>
-          3
-        </option>
-        <option>
-          4
-        </option>
-        <option>
-          5
-        </option>
-      </Input>
-    </FormGroup>
-    <FormGroup>
-      <Label for="exampleSelectMulti">
-        Select Multiple
-      </Label>
-      <Input
-        id="exampleSelectMulti"
-        multiple
-        name="selectMulti"
-        type="select"
-      >
-        <option>
-          1
-        </option>
-        <option>
-          2
-        </option>
-        <option>
-          3
-        </option>
-        <option>
-          4
-        </option>
-        <option>
-          5
-        </option>
-      </Input>
-    </FormGroup>
-    <FormGroup>
-      <Label for="exampleText">
-        Text Area
-      </Label>
-      <Input
-        id="exampleText"
-        name="text"
-        type="textarea"
-      />
-    </FormGroup>
-    <FormGroup>
-      <Label for="exampleFile">
-        File
-      </Label>
-      <Input
-        id="exampleFile"
-        name="file"
-        type="file"
-      />
-      <FormText>
-        This is some placeholder block-level help text for the above input. Is a bit lighter and easily wraps to a new line.
-      </FormText>
-    </FormGroup>
-    <FormGroup tag="fieldset">
-      <legend>
-        Radio Buttons
-      </legend>
-      <FormGroup check>
-        <Input
-          name="radio1"
-          type="radio"
-        />
-        {' '}
-        <Label check>
-          Option one is this and that—be sure to include why i great
+    <Container>
+    <Form>
+  <Row form>
+    <Col md={6}>
+      <FormGroup>
+        <Label for="exampleEmail">
+          Email
         </Label>
-      </FormGroup>
-      <FormGroup check>
         <Input
-          name="radio1"
-          type="radio"
+          id="exampleEmail"
+          name="email"
+          placeholder="with a placeholder"
+          type="email"
         />
-        {' '}
-        <Label check>
-          Option two can be something else and selecting it will deselect option one
-        </Label>
       </FormGroup>
-      <FormGroup
-        check
-        disabled
-      >
+    </Col>
+    <Col md={6}>
+      <FormGroup>
+        <Label for="examplePassword">
+          Password
+        </Label>
         <Input
-          disabled
-          name="radio1"
-          type="radio"
+          id="examplePassword"
+          name="password"
+          placeholder="password placeholder"
+          type="password"
         />
-        {' '}
-        <Label check>
-          Option three is disabled
-        </Label>
       </FormGroup>
-    </FormGroup>
-    <FormGroup check>
-      <Input type="checkbox" />
-      {' '}
-      <Label check>
-        Check me out
-      </Label>
-    </FormGroup>
-    <Button>
-      Submit
-    </Button>
-  </Form>
+    </Col>
+  </Row>
+  <FormGroup>
+    <Label for="exampleAddress">
+      Address
+    </Label>
+    <Input
+      id="exampleAddress"
+      name="address"
+      placeholder="1234 Main St"
+    />
+  </FormGroup>
+  <Row form>
+    <Col md={6}>
+      <FormGroup>
+        <Label for="exampleCity">
+          City
+        </Label>
+        <Input
+          id="exampleCity"
+          name="city"
+        />
+      </FormGroup>
+    </Col>
+    <Col md={4}>
+      <FormGroup>
+        <Label for="exampleState">
+          State
+        </Label>
+        <Input
+          id="exampleState"
+          name="state"
+        />
+      </FormGroup>
+    </Col>
+    <Col md={2}>
+      <FormGroup>
+        <Label for="exampleZip">
+          Zip
+        </Label>
+        <Input
+          id="exampleZip"
+          name="zip"
+        />
+      </FormGroup>
+    </Col>
+  </Row>
+  <FormGroup check>
+    <Input
+      id="exampleCheck"
+      name="check"
+      type="checkbox"
+    />
+    <Label
+      check
+      for="exampleCheck"
+    >
+      Check me out
+    </Label>
+  </FormGroup>
+  <Button>
+    Sign in
+  </Button>
+</Form>
+  </Container>
   );
 }
 
