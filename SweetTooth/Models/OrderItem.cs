@@ -11,5 +11,6 @@ namespace SweetTooth.Models
         public Guid OrderId { get; set; } // foreign key 
         public Guid SnackId { get; set; } // foreign key 
         public int Quantity { get; set; }
+        public Snack ItemSnack { get; set; }
     }
 }
