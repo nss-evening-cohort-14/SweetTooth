@@ -17,7 +17,8 @@ namespace SweetTooth.Models
         public DateTime DateCreated { get; set; }
         public Guid MoodId { get; set; }
         public Boolean SoftDelete { get; set; }
+        public IEnumerable<UserAddress> Addresses { get; set; }
+        public IEnumerable<PaymentMethod> PaymentMethods { get; set; }
 
-        public IEnumerable<UserAddress> Address { get; set; }
     }
 }

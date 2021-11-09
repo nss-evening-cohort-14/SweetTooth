@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'reactstrap';
 import getMoods from '../helpers/data/MoodData';
-import getOrders from '../helpers/data/OrderData';
-import getSnacks from '../helpers/data/SnackData';
-import { getUsers } from '../helpers/data/UserData';
+import { getOrders } from '../helpers/data/OrderData';
+import { getSnacks } from '../helpers/data/SnackData';
+import { getUsers } from '../helpers/data/userData';
 import MoodCard from './MoodCard';
 import OrderCard from './OrderCard';
 import SnackCard from './SnackCard';
