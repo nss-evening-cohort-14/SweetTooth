@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Button, Modal, ModalBody, ModalFooter, ModalHeader
 } from 'reactstrap';
-import { signInUser } from '../helpers/auth';
 import LandingPageForm from './forms/LandingPageForm';
 
 function LandingPageModal() {
@@ -16,13 +15,7 @@ function LandingPageModal() {
     isOpen={modal} toggle={toggle}
   >
     <ModalHeader toggle={toggle}>
-      Start by creating your account with Google
-      <Button
-        color="primary"
-        onClick={signInUser}
-      >
-        Google
-      </Button>
+      Let&#39;s get Started!
     </ModalHeader>
     <LandingPageForm />
     <ModalBody>

@@ -1,104 +1,77 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import {
-  Button, Col, Container, Form, FormGroup, Input, Label, Row
+  Button,
+  Col, Container, Form, FormGroup, Input, Label
 } from 'reactstrap';
+// import { signInUser } from '../../helpers/auth';
 
+const handleSubmit = (e) => {
+  e.preventDefault();
+  console.warn('you clicked submit');
+  // if (userObject.firebaseId) {
+  //   updateUser(project)
+  //     .then((response) => setUser(response));
+  // } else {
+  //   signInUser(user).then((userArray) => (setProjects(usersArray)));
+  // }
+};
 function LandingPageForm() {
   return (
     <Container>
-    <Form>
-  <Row form>
-    <Col md={6}>
-      <FormGroup>
-        <Label for="exampleEmail">
-          Email
-        </Label>
-        <Input
-          id="exampleEmail"
-          name="email"
-          placeholder="with a placeholder"
-          type="email"
-        />
-      </FormGroup>
-    </Col>
-    <Col md={6}>
-      <FormGroup>
-        <Label for="examplePassword">
-          Password
-        </Label>
-        <Input
-          id="examplePassword"
-          name="password"
-          placeholder="password placeholder"
-          type="password"
-        />
-      </FormGroup>
-    </Col>
-  </Row>
-  <FormGroup>
-    <Label for="exampleAddress">
-      Address
-    </Label>
-    <Input
-      id="exampleAddress"
-      name="address"
-      placeholder="1234 Main St"
-    />
-  </FormGroup>
-  <Row form>
-    <Col md={6}>
-      <FormGroup>
-        <Label for="exampleCity">
-          City
-        </Label>
-        <Input
-          id="exampleCity"
-          name="city"
-        />
-      </FormGroup>
-    </Col>
-    <Col md={4}>
-      <FormGroup>
-        <Label for="exampleState">
-          State
-        </Label>
-        <Input
-          id="exampleState"
-          name="state"
-        />
-      </FormGroup>
-    </Col>
-    <Col md={2}>
-      <FormGroup>
-        <Label for="exampleZip">
-          Zip
-        </Label>
-        <Input
-          id="exampleZip"
-          name="zip"
-        />
-      </FormGroup>
-    </Col>
-  </Row>
-  <FormGroup check>
-    <Input
-      id="exampleCheck"
-      name="check"
-      type="checkbox"
-    />
-    <Label
-      check
-      for="exampleCheck"
-    >
-      Check me out
-    </Label>
-  </FormGroup>
-  <Button>
-    Sign in
-  </Button>
-</Form>
-  </Container>
+      <Form onSubmit={handleSubmit}>
+        <FormGroup row>
+          <Label for="exampleAddress" sm={2}>
+            Address
+          </Label>
+          <Col sm={10}>
+          <Input
+            id="exampleAddress"
+            name="address"
+            placeholder="1234 Main St"
+          />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label for="exampleCity" sm={2}>
+            City
+          </Label>
+          <Col sm={10}>
+            <Input
+              id="exampleCity"
+              name="city"
+              placeholder="City"
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label for="exampleState" sm={2}>
+            State
+          </Label>
+          <Col sm={3}>
+          <Input
+            id="exampleState"
+            name="state"
+            placeholder="TN"
+          />
+          </Col>
+          <Label for="exampleZip" sm={1}>
+            Zip
+          </Label>
+          <Col sm={6}>
+          <Input
+            id="exampleZip"
+            name="zip"
+            placeholder="37217"
+          />
+          </Col>
+        </FormGroup>
+        <hr/>
+        <Button color= 'primary' type='submit'>
+          Submit
+        </Button>
+      </Form>
+    </Container>
   );
 }
 
