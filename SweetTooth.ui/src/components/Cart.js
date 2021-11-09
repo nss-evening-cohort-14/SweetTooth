@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import {
+  Card,
+  CardTitle,
+  CardText,
+  CardBody,
+  FormGroup,
+  Label,
+  Input
+} from 'reactstrap';
 import { getOrderByUserId } from '../helpers/data/OrderData';
 import OrderItemCard from './OrderItemCard';
 
@@ -29,6 +38,7 @@ function Cart({ user }) {
   }, []);
 
   console.warn(order);
+  console.warn(user.paymentMethods);
 
   return (
     <div>
@@ -43,7 +53,37 @@ function Cart({ user }) {
           />
         ))
       }
-    </div>
+      <div>
+      <div>
+      <Card
+      color="light"
+      >
+      <CardBody>
+        <CardTitle tag="h5">
+          Select an shipping address
+        </CardTitle>
+        <CardText>
+          {
+            user.paymentMethods.map((pm, i) => (
+              <FormGroup check
+              key={i}>
+              <Input
+                id="checkbox1"
+                type="checkbox"
+              />
+              {' '}
+              <Label check>
+                {pm}
+              </Label>
+            </FormGroup>
+            ))
+          }
+        </CardText>
+      </CardBody>
+      </Card>
+      </div>
+        </div>
+      </div>
   );
 }
 

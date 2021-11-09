@@ -8,21 +8,19 @@ import { getUserByFirebaseId } from '../helpers/data/userData';
 
 function App() {
   const [user, setUser] = useState({});
-  // const [userPaymentMethod, setUserPaymentMethod] = useState({});
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userInfo) => {
       if (userInfo) {
+        // when still logged in but refresh page, user remains empty instead of changing state.
         // eslint-disable-next-line no-undef
         userInfo.getIdToken().then((token) => sessionStorage.setItem('token', token));
         getUserByFirebaseId(userInfo.uid).then((resp) => setUser(resp));
-        console.warn(userInfo.uid);
+        console.warn('user', user);
       } else {
         setUser(false);
       }
     });
-
-    // getPaymentMethodByUserId(user.id).then(setUserPaymentMethod);
   }, []);
 
   return (
