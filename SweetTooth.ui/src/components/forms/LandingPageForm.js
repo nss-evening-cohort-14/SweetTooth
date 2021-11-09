@@ -67,6 +67,54 @@ function LandingPageForm() {
           </Col>
         </FormGroup>
         <hr/>
+        <FormGroup row>
+          <Label for="CardNumber" sm={2}>
+            Number
+          </Label>
+          <Col sm={6}>
+          <Input
+            id="CardNumber"
+            name="number"
+            placeholder="1234567890123456"
+          />
+          </Col>
+          <Col sm={4}>
+            <Input
+              id="exampleSelect"
+              name="select"
+              type="select"
+            >
+              <option>
+                Credit
+              </option>
+              <option>
+                Debit
+              </option>
+            </Input>
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label for="exampleDate" sm={2}>
+            ExpDate
+          </Label>
+          <Col sm={4}>
+          <Input
+            id="expDate"
+            name="expDate"
+            placeholder="mmyy"
+          />
+          </Col>
+          <Label for="exampleDate" sm={2}>
+            CVC
+          </Label>
+          <Col sm={4}>
+          <Input
+            id="securityCode"
+            name="securityCode"
+            placeholder="####"
+          />
+          </Col>
+        </FormGroup>
         <Button color= 'primary' type='submit'>
           Submit
         </Button>

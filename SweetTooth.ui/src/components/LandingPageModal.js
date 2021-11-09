@@ -15,7 +15,7 @@ function LandingPageModal() {
     isOpen={modal} toggle={toggle}
   >
     <ModalHeader toggle={toggle}>
-      Let&#39;s get Started!
+      Let&#39;s get our snack on!
     </ModalHeader>
     <LandingPageForm />
     <ModalBody>
