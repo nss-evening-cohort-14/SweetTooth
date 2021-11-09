@@ -28,6 +28,8 @@ function Cart({ user }) {
     });
   }, []);
 
+  console.warn(order);
+
   return (
     <div>
      {

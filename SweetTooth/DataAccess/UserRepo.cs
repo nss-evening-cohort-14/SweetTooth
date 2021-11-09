@@ -36,7 +36,7 @@ namespace SweetTooth.DataAccess
 
             var address = db.Query<UserAddress>(addressSql, new { userId });
 
-            user.Address = address;
+            user.Addresses = address;
             return user;
         }
 
@@ -124,15 +124,27 @@ namespace SweetTooth.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
 
-                    var sql = @"Select *
-                                from [User]
-                                where FirebaseId = @firebaseId";
+            var sql = @"Select *
+                        from [User] u
+                        where u.FirebaseId = @firebaseId";
 
-            var user = db.QueryFirstOrDefault<User>(sql, new { firebaseId });
+            var addressSql = @"Select *
+                                from UserAddress
+                                Where UserId = @id";
+
+            var paymentSql = @"Select *
+                               from PaymentMethod
+                               Where UserId = @id";
+
+            var user = db.QuerySingleOrDefault<User>(sql, new { firebaseId });
+
+            var addresses = db.Query<UserAddress>(addressSql, new { id = user.Id });
+
+            var payment = db.Query<PaymentMethod>(paymentSql, new { id = user.Id });
+            user.Addresses = addresses;
+            user.PaymentMethods = payment;
 
             return user;
         }
-
-
     }
 }

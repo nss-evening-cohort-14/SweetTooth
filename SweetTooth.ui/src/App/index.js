@@ -8,7 +8,7 @@ import { getUserByFirebaseId } from '../helpers/data/userData';
 
 function App() {
   const [user, setUser] = useState({});
-  const [userPaymentMethod, setUserPaymentMethod] = useState({});
+  // const [userPaymentMethod, setUserPaymentMethod] = useState({});
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userInfo) => {
@@ -21,11 +21,9 @@ function App() {
         setUser(false);
       }
     });
-  }, []);
 
-  useEffect(() => {
-    getPaymentMethodByUserId()
-  }, [])
+    // getPaymentMethodByUserId(user.id).then(setUserPaymentMethod);
+  }, []);
 
   return (
     <div className='App'>

@@ -15,7 +15,6 @@ const createNewUser = (userInfo) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-
 const getUsers = () => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/Users`)
     .then((response) => resolve(Object.values(response.data)))
