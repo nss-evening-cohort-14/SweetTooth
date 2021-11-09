@@ -1,88 +1,118 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 import {
   Button,
   Col, Container, Form, FormGroup, Input, Label
 } from 'reactstrap';
+import createNewUserAddress from '../../helpers/data/userAddressData';
 // import { signInUser } from '../../helpers/auth';
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  console.warn('you clicked submit');
-  // if (userObject.firebaseId) {
-  //   updateUser(project)
-  //     .then((response) => setUser(response));
-  // } else {
-  //   signInUser(user).then((userArray) => (setProjects(usersArray)));
-  // }
-};
 function LandingPageForm() {
+  const [userAddressObj, setUserAddressObj] = useState({});
+  const [userAddress, setUserAddress] = useState({
+    street: userAddressObj?.street || '',
+    city: userAddressObj?.city || '',
+    state: userAddressObj?.state || '',
+    zip: userAddressObj?.zip || ''
+  });
+
+  const handleInputChange = (e) => {
+    setUserAddress((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.warn(userAddress);
+    console.warn(setUserAddressObj);
+    createNewUserAddress(userAddress);
+    // if (userObject.firebaseId) {
+    //   updateUser(project)
+    //     .then((response) => setUser(response));
+    // } else {
+    //   signInUser(user).then((userArray) => (setProjects(usersArray)));
+    // }
+  };
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
         <FormGroup row>
-          <Label for="exampleAddress" sm={2}>
+          <Label for="street" sm={2}>
             Address
           </Label>
           <Col sm={10}>
           <Input
-            id="exampleAddress"
-            name="address"
+            id="street"
+            name="street"
             placeholder="1234 Main St"
+            value={userAddressObj.street}
+            onChange={handleInputChange}
+
           />
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label for="exampleCity" sm={2}>
+          <Label for="city" sm={2}>
             City
           </Label>
           <Col sm={10}>
             <Input
-              id="exampleCity"
+              id="city"
               name="city"
               placeholder="City"
+              onChange={handleInputChange}
+              value={userAddressObj.city}
             />
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label for="exampleState" sm={2}>
+          <Label for="state" sm={2}>
             State
           </Label>
           <Col sm={3}>
           <Input
-            id="exampleState"
+            id="state"
             name="state"
             placeholder="TN"
+            onChange={handleInputChange}
+              value={userAddressObj.state}
           />
           </Col>
-          <Label for="exampleZip" sm={1}>
+          <Label for="zip" sm={1}>
             Zip
           </Label>
           <Col sm={6}>
           <Input
-            id="exampleZip"
+            id="zip"
             name="zip"
             placeholder="37217"
+            onChange={handleInputChange}
+            value={userAddressObj.zip}
           />
           </Col>
         </FormGroup>
         <hr/>
+        {/* paymentInfo form starts here */}
         <FormGroup row>
-          <Label for="CardNumber" sm={2}>
+          <Label for="cardNumber" sm={2}>
             Number
           </Label>
           <Col sm={6}>
           <Input
-            id="CardNumber"
-            name="number"
+            id="cardNumber"
+            name="cardNumber"
             placeholder="1234567890123456"
+            onChange={handleInputChange}
           />
           </Col>
           <Col sm={4}>
             <Input
-              id="exampleSelect"
-              name="select"
+              id="paymentMethod"
+              name="method"
               type="select"
+              onChange={handleInputChange}
             >
               <option>
                 Credit
@@ -94,7 +124,7 @@ function LandingPageForm() {
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label for="exampleDate" sm={2}>
+          <Label for="expDate" sm={2}>
             ExpDate
           </Label>
           <Col sm={4}>
@@ -102,9 +132,10 @@ function LandingPageForm() {
             id="expDate"
             name="expDate"
             placeholder="mmyy"
+            onChange={handleInputChange}
           />
           </Col>
-          <Label for="exampleDate" sm={2}>
+          <Label for="securityCode" sm={2}>
             CVC
           </Label>
           <Col sm={4}>
@@ -112,6 +143,7 @@ function LandingPageForm() {
             id="securityCode"
             name="securityCode"
             placeholder="####"
+            onChange={handleInputChange}
           />
           </Col>
         </FormGroup>

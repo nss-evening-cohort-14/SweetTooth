@@ -26,6 +26,7 @@ namespace SweetTooth.Models
             return Ok(_repo.GetAll());
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult GetUserById(Guid id)
         {
