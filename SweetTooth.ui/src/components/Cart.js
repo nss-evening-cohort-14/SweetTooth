@@ -22,19 +22,16 @@ function Cart({ user }) {
   const [orderItems, setOrderItems] = useState([]);
 
   useEffect(() => {
-    getOrderByUserId('b1a01661-4331-ec11-8172-0800275f12c6').then((res) => {
+    getOrderByUserId(user.firebaseId).then((res) => {
       setOrder(res);
       setOrderItems(res.orderItems);
     });
   }, []);
 
-  console.warn('orderItems', orderItems);
-  console.warn(user);
-
   return (
     <div>
      {
-        order.orderItems.map((item, i) => (
+        orderItems.map((item, i) => (
           <OrderItemCard
           key={i}
           quantity={item.quantity}
