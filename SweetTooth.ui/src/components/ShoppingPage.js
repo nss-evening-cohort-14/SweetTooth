@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import {
+  Container
+} from 'reactstrap';
 import styled from 'styled-components';
-import { Container } from 'reactstrap';
 import { getSnacks } from '../helpers/data/SnackData';
 import '../styles/shoppingPage.scss';
 import SnackCard from './SnackCard';
@@ -8,12 +11,13 @@ import SnackCard from './SnackCard';
 const Div = styled.div`
   overflow-x: auto;
 `;
-export default function ShoppingPage() {
+export default function ShoppingPage({ user }) {
   const [snacks, setSnacks] = useState([]);
   useEffect(() => {
     getSnacks().then(setSnacks);
   }, []);
 
+  console.warn('Shopping page', user);
   return (
     <>
       <div className="shoppingPage d-flex flex-column justify-content-around">
@@ -58,3 +62,7 @@ export default function ShoppingPage() {
     </>
   );
 }
+
+ShoppingPage.propTypes = {
+  user: PropTypes.any,
+};

@@ -14,9 +14,9 @@ function App() {
     firebase.auth().onAuthStateChanged((userInfo) => {
       if (userInfo) {
         // eslint-disable-next-line no-undef
-        userInfo.getIdToken().then((token) => sessionStorage.setItem('token', token));
-        getUserByFirebaseId(userInfo.uid).then((resp) => setUser(resp));
-        console.warn(userInfo.uid);
+        userInfo.getIdToken()
+          .then((token) => sessionStorage.setItem('token', token))
+          .then(getUserByFirebaseId(userInfo.uid).then((resp) => setUser(resp)));
       } else {
         setUser(false);
       }
@@ -28,8 +28,8 @@ function App() {
   return (
     <div className='App'>
       <Router>
-          <NavbarSweetTooth user={user}/>
-          <Routes user={user}/>
+        <NavbarSweetTooth user={user} />
+        <Routes user={user} />
       </Router>
     </div>
   );

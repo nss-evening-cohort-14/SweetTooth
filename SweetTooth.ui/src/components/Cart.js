@@ -28,8 +28,7 @@ function Cart({ user }) {
     });
   }, []);
 
-  console.warn(order);
-
+  console.warn('Cart page', order);
   return (
     <div>
      {
