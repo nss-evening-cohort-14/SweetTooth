@@ -12,22 +12,25 @@ function App() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userInfo) => {
       if (userInfo) {
+        console.warn(userInfo);
         // when still logged in but refresh page, user remains empty instead of changing state.
         // eslint-disable-next-line no-undef
-        userInfo.getIdToken().then((token) => sessionStorage.setItem('token', token));
-        getUserByFirebaseId(userInfo.uid).then((resp) => setUser(resp));
-        console.warn('user', user);
+        userInfo.getIdToken().then((token) => sessionStorage.setItem('token', token))
+          .then(getUserByFirebaseId(userInfo.uid).then((resp) => setUser(resp)));
       } else {
         setUser(false);
       }
     });
   }, []);
 
+  console.warn('user', user);
+
   return (
     <div className='App'>
       <Router>
           <NavbarSweetTooth user={user}/>
-          <Routes user={user}/>
+          <Routes user={user}
+          />
       </Router>
     </div>
   );
