@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { getOrderByUserId } from '../helpers/data/OrderData';
+import {
+  Card,
+  CardTitle,
+  CardText,
+  CardBody,
+  FormGroup,
+  Label,
+  Input
+} from 'reactstrap';
+import { getUnprocessedOrderByUserId } from '../helpers/data/OrderData';
 import OrderItemCard from './OrderItemCard';
 
 function Cart({ user }) {
@@ -19,16 +28,17 @@ function Cart({ user }) {
     }
   );
 
+  console.warn(order);
+
   const [orderItems, setOrderItems] = useState([]);
 
   useEffect(() => {
-    getOrderByUserId(user.id).then((res) => {
+    getUnprocessedOrderByUserId(user.id).then((res) => {
       setOrder(res);
       setOrderItems(res.orderItems);
     });
   }, []);
 
-  console.warn('Cart page', order);
   return (
     <div>
      {
@@ -42,7 +52,52 @@ function Cart({ user }) {
           />
         ))
       }
-    </div>
+      <div>
+      <div>
+      <Card
+      color="light"
+      >
+      <CardBody>
+        <CardTitle tag="h5">
+          Select a Payment Method
+        </CardTitle>
+        <CardText>
+          {
+            user.paymentMethods?.map((pm, i) => (
+              <FormGroup check
+              key={i}>
+              <Input
+                id="checkbox1"
+                type="checkbox"
+              />
+              <Label check>
+              {pm.cardNumber}
+              </Label>
+            </FormGroup>
+            ))
+          }
+        </CardText>
+        <CardText>
+          {
+            user.addresses?.map((ad, i) => (
+              <FormGroup check
+              key={i}>
+              <Input
+                id="checkbox1"
+                type="checkbox"
+              />
+              <Label check>
+              <p>{ad.street} {ad.city}, {ad.state}, {ad.zip}</p>
+              </Label>
+            </FormGroup>
+            ))
+          }
+        </CardText>
+      </CardBody>
+      </Card>
+      </div>
+        </div>
+      </div>
   );
 }
 
