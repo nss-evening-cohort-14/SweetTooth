@@ -1,4 +1,3 @@
-import { useHistory } from 'react-router-dom';
 import firebase from 'firebase/';
 import axios from 'axios';
 import { createNewUser } from './data/userData';
@@ -29,9 +28,7 @@ const signInUser = () => {
         moodId: 'c4892c07-e999-4bfc-aef6-50b4989a2544'
       };
       createNewUser(userInfo);
-
-      const history = useHistory();
-      history.push('/create-account');
+      window.location.href = '/';
     }
   });
 };

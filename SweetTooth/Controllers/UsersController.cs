@@ -19,6 +19,7 @@ namespace SweetTooth.Models
             _repo = repo;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetAllUsers()
         {

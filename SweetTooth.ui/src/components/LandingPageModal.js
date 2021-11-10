@@ -10,7 +10,7 @@ function LandingPageModal() {
   const toggle = () => setModal(!modal);
   return (
     <div>
-  <Button outline color='info' onClick={toggle}>Create your Account</Button>
+  {/* <Button outline color='info' onClick={toggle}>Create your Account</Button> */}
   <Modal
     isOpen={modal} toggle={toggle}
   >
