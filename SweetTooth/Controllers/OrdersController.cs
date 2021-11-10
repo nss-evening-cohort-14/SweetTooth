@@ -151,5 +151,16 @@ namespace SweetTooth.Controllers
             }
             return Ok(order);
         }
+
+        [HttpGet("unprocessed/{userId}")]
+        public IActionResult GetUnprocessedOrderByUserId(Guid userId)
+        {
+            var order = _repo.GetUnprocessedOrderByUserId(userId);
+            if (order == null)
+            {
+                return NotFound("No order was found.");
+            }
+            return Ok(order);
+        }
     }
 }

@@ -20,6 +20,17 @@ const getOrderByUserId = (userId) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
+const getUnprocessedOrderByUserId = (userId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/orders/unprocessed/${userId}`)
+    .then((response) => {
+      if (response.data) {
+        resolve(response.data);
+      } else {
+        resolve([]);
+      }
+    }).catch((error) => reject(error));
+});
+
 const getOrderItems = (orderId) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/orders/${orderId}orderItems`)
     .then((res) => {
@@ -41,5 +52,6 @@ export {
   getSingleOder,
   getOrderByUserId,
   getOrderItems,
-  getOrders
+  getOrders,
+  getUnprocessedOrderByUserId
 };
