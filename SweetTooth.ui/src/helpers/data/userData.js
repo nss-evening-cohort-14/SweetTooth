@@ -28,5 +28,5 @@ const getUsers = () => new Promise((resolve, reject) => {
 });
 
 export {
-  createNewUser, getUsers, getUserByFirebaseId, getUserByUserId 
+  createNewUser, getUsers, getUserByFirebaseId, getUserByUserId
 };

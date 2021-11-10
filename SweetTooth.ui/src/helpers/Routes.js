@@ -9,6 +9,7 @@ import Cart from '../components/Cart';
 import LandingPage from '../components/LandingPage';
 import ShoppingPage from '../components/ShoppingPage';
 import UserProfile from '../components/UserProfile';
+import LandingPageModal from '../components/LandingPageModal';
 
 // will need to add private routes once auth is done.
 // Admin and user hook
@@ -20,6 +21,12 @@ export default function Routes({ user }) {
         <Route
         exact path="/"
         component={() => <LandingPage
+          user={user}
+        />}
+        />
+        <Route
+        exact path="/create-account"
+        component={() => <LandingPageModal
           user={user}
         />}
         />

@@ -19,14 +19,12 @@ namespace SweetTooth.Models
             _repo = repo;
         }
 
-        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetAllUsers()
         {
             return Ok(_repo.GetAll());
         }
 
-        [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult GetUserById(Guid id)
         {
