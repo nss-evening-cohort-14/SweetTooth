@@ -4,7 +4,7 @@ import firebase from 'firebase';
 import NavbarSweetTooth from '../components/Navbar';
 import Routes from '../helpers/Routes';
 import './App.scss';
-import { getUserByFirebaseId } from '../helpers/data/userData';
+// import { getUserByFirebaseId } from '../helpers/data/userData';
 
 function App() {
   const [user, setUser] = useState({});
@@ -15,8 +15,8 @@ function App() {
         console.warn(userInfo);
         // when still logged in but refresh page, user remains empty instead of changing state.
         // eslint-disable-next-line no-undef
-        userInfo.getIdToken().then((token) => sessionStorage.setItem('token', token))
-          .then(getUserByFirebaseId(userInfo.uid).then((resp) => setUser(resp)));
+        userInfo.getIdToken().then((token) => sessionStorage.setItem('token', token));
+        // .then(getUserByFirebaseId(userInfo.uid).then((resp) => setUser(resp)));
       } else {
         setUser(false);
       }
