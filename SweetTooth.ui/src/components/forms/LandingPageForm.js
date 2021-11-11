@@ -10,10 +10,10 @@ import createNewUserAddress from '../../helpers/data/userAddressData';
 function LandingPageForm({ user }) {
   const [userAddressFormObj, setUserAddressFormObj] = useState({
     userId: null,
-    street: '',
-    city: '',
-    state: '',
-    zip: ''
+    street: userAddressFormObj?.street || '',
+    city: userAddressFormObj?.city || '',
+    state: userAddressFormObj?.state || '',
+    zip: userAddressFormObj?.zip || ''
   });
 
   const handleInputChange = (e) => {
