@@ -55,7 +55,7 @@ function LandingPage({ user }) {
           {user ? '' : <h5>New to SweetTooth? Then you&#39;re in for a treat!</h5>}
         {
           user
-            ? <LandingPageModal/>
+            ? <LandingPageModal user={user}/>
             : <Button outline color='info' onClick={signInUser}>Create your Account</Button>
         }
       </Container>

@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {
+  Alert,
   Button,
   Col, Container, Form, FormGroup, Input, Label
 } from 'reactstrap';
 import createNewUserAddress from '../../helpers/data/userAddressData';
 // import { signInUser } from '../../helpers/auth';
-
-function LandingPageForm() {
-  const [userAddressObj, setUserAddressObj] = useState({});
-  const [userAddress, setUserAddress] = useState({
-    street: userAddressObj?.street || '',
-    city: userAddressObj?.city || '',
-    state: userAddressObj?.state || '',
-    zip: userAddressObj?.zip || ''
+function LandingPageForm({ user }) {
+  const [userAddressFormObj, setUserAddressFormObj] = useState({
+    userId: null,
+    street: '',
+    city: '',
+    state: '',
+    zip: ''
   });
 
   const handleInputChange = (e) => {
-    setUserAddress((prevState) => ({
+    setUserAddressFormObj((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -25,9 +25,12 @@ function LandingPageForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.warn(userAddress);
-    console.warn(setUserAddressObj);
-    createNewUserAddress(userAddress);
+    Alert('You Submitted a form');
+    // console.warn(userAddresses);
+    // console.warn(setUserAddresses);
+    createNewUserAddress(userAddressFormObj, user.id)
+      // .then((response) => (setUserAddresses(response)))
+      .then((response) => console.warn(response));
     // if (userObject.firebaseId) {
     //   updateUser(project)
     //     .then((response) => setUser(response));
@@ -47,7 +50,7 @@ function LandingPageForm() {
             id="street"
             name="street"
             placeholder="1234 Main St"
-            value={userAddressObj.street}
+            value={userAddressFormObj.street}
             onChange={handleInputChange}
 
           />
@@ -63,7 +66,7 @@ function LandingPageForm() {
               name="city"
               placeholder="City"
               onChange={handleInputChange}
-              value={userAddressObj.city}
+              value={userAddressFormObj.city}
             />
           </Col>
         </FormGroup>
@@ -77,7 +80,7 @@ function LandingPageForm() {
             name="state"
             placeholder="TN"
             onChange={handleInputChange}
-              value={userAddressObj.state}
+              value={userAddressFormObj.state}
           />
           </Col>
           <Label for="zip" sm={1}>
@@ -89,13 +92,13 @@ function LandingPageForm() {
             name="zip"
             placeholder="37217"
             onChange={handleInputChange}
-            value={userAddressObj.zip}
+            value={userAddressFormObj.zip}
           />
           </Col>
         </FormGroup>
         <hr/>
-        {/* paymentInfo form starts here */}
-        <FormGroup row>
+        {/* ///////////// paymentInfo form starts here /////////// */}
+        {/* <FormGroup row>
           <Label for="cardNumber" sm={2}>
             Number
           </Label>
@@ -146,7 +149,7 @@ function LandingPageForm() {
             onChange={handleInputChange}
           />
           </Col>
-        </FormGroup>
+        </FormGroup> */}
         <Button color= 'primary' type='submit'>
           Submit
         </Button>
@@ -156,7 +159,7 @@ function LandingPageForm() {
 }
 
 LandingPageForm.propTypes = {
-
+  user: PropTypes.any,
 };
 
 export default LandingPageForm;
