@@ -18,7 +18,7 @@ namespace SweetTooth.DataAccess
             _connectionString = config.GetConnectionString("SweetTooth");
         }
 
-        internal UserAddress GetByUserId(Guid id)
+        internal IEnumerable<UserAddress> GetByUserId(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
 
@@ -26,9 +26,9 @@ namespace SweetTooth.DataAccess
                             From UserAddress
                             Where UserId = @userId";
 
-            var userAddress = db.QueryFirstOrDefault<UserAddress>(addrSql, new { userId = id });
+            var allUserAddresses = db.Query<UserAddress>(addrSql, new { userId = id });
 
-            return userAddress;
+            return allUserAddresses;
         }
         
         internal UserAddress GetByAddressId(Guid id)

@@ -4,11 +4,33 @@ import firebaseConfig from '../apiKeys';
 
 const dbUrl = firebaseConfig.databaseURL;
 
+const getAllAddresses = () => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/userAddresses`)
+    .then((response) => {
+      if (response.data) {
+        resolve(response.data);
+      } else {
+        resolve([]);
+      }
+    }).catch((error) => reject(error));
+});
+
+const getAllAddressesByUserId = (userId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/userAddresses/${userId}`)
+    .then((response) => {
+      if (response.data) {
+        resolve(Object.values(response.data));
+      } else {
+        resolve([]);
+      }
+    }).catch((error) => reject(error));
+});
+
 const createNewUserAddress = (userAddressInfo) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/userAddresses`, userAddressInfo)
-    .then((response) => resolve(response.data))
-    // .then(() => getUserByUserId(userAddressInfo.userId)).then((resp) => resolve(resp))
+    .then(getAllAddressesByUserId(userAddressInfo.userId))
+    .then((response) => resolve(Object.values(response.data)))
     .catch((error) => reject(error));
 });
 
-export default createNewUserAddress;
+export { getAllAddresses, getAllAddressesByUserId, createNewUserAddress };

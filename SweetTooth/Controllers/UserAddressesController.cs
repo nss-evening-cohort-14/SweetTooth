@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SweetTooth.DataAccess;
 using SweetTooth.Models;
@@ -10,6 +11,8 @@ namespace SweetTooth.Controllers
 {
     [Route("api/UserAddresses")]
     [ApiController]
+    [Authorize]
+
     public class UserAddressesController : ControllerBase
     {
         private UserAddressRepo _repo;
