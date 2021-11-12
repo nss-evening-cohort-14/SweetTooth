@@ -4,7 +4,9 @@ import {
   Button,
   Card,
   CardText,
-  CardTitle
+  CardTitle,
+  Row,
+  Col
 } from 'reactstrap';
 import styled from 'styled-components';
 
@@ -27,8 +29,14 @@ function SnackCard({
           ${price}
         </CardText>
         <Image src={image} alt={name}/>
-        <Button>Plus1</Button>
-        <Button>Minus1</Button>
+        <Row>
+          <Col>
+            <Button><i className='fas fa-plus fa-2x'></i></Button>
+          </Col>
+          <Col>
+            <Button><i className='fas fa-minus fa-2x'></i></Button>
+          </Col>
+        </Row>
       </Card>
     </div>
   );
