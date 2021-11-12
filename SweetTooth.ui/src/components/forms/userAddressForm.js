@@ -23,15 +23,16 @@ function LandingPageForm({
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    // e.preventDefault();
     createNewUserAddress(userAddressFormObj)
       .then((response) => (setUserAddresses(response)));
-    // if (userObject.firebaseId) {
-    //   updateUser(project)
-    //     .then((response) => setUser(response));
+    // if (userAddressFormObj.id) {
+    //   updateUser(userAddressFormObj)
+    //     .then((response) => setUserAddresses(response));
     // } else {
-    //   signInUser(user).then((userArray) => (setProjects(usersArray)));
+    //   createNewUserAddress(userAddressFormObj)
+    //     .then((response) => (setUserAddresses(response)));
     // }
   };
   return (
