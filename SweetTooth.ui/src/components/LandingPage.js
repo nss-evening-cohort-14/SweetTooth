@@ -55,16 +55,17 @@ function LandingPage({ user }) {
         <Container fluid="sm">
           {user ? '' : <h4>Already have an Account?</h4>}
           {authButtons()}
-        </Container>
-        {user ? '' : <h5>New to SweetTooth? Then you&#39;re in for a treat!</h5>}
-        {user
-          ? <Button tag={Link} to={'/user-profile'}
-              outline color='info'>
-              View Your Profile</Button>
 
-          : <Button outline color='info' onClick={signInUser}>
-            Create an Account</Button>
-        }
+          {user ? '' : <h5>New to SweetTooth? Then you&#39;re in for a treat!</h5>}
+          {user
+            ? <Button tag={Link} to={'/user-profile'}
+                outline color='info'>
+                View Your Profile</Button>
+
+            : <Button outline color='info' onClick={signInUser}>
+              Create an Account</Button>
+          }
+        </Container>
       </Container>
     </LandingPageContainer>
   );
