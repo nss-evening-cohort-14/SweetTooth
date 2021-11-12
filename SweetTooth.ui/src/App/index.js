@@ -28,12 +28,6 @@ function App() {
     });
   }, []);
 
-  // useEffect(() => {
-  //   getAllAddressesByUserId(user.id).then((response) => {
-  //     setUserAddresses(response);
-  //   });
-  // }, []);
-
   return (
     <div className='App'>
       <Router>
