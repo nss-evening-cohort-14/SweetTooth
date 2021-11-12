@@ -38,7 +38,26 @@ function Cart({ user }) {
     });
   }, []);
 
-  console.warn(order);
+  const calculate = (number, bool) => {
+    // if bool is false, it will calculate the tax and add a zero if necessary
+    // if bool is true, it will calculate the total
+
+    let result = '';
+    if (bool === false) {
+      if ((number * 0.07).toString().split('.')[1].length === 1) {
+        result = (number * 0.07).toString() + 0;
+      } else {
+        result = `${(number * 0.07).toString().split('.')[0]}.${(number * 0.07).toString().split('.')[1].slice(0, 2)}`;
+      }
+    } else if (bool === true) {
+      if ((number * 0.07).toString().split('.').length === 1) {
+        result = (number + 10 + (number * 0.07)).toString() + 0;
+      } else {
+        result = (number + 10 + (number * 0.07)).toString();
+      }
+    }
+    return result;
+  };
 
   return (
     <div>
@@ -65,13 +84,13 @@ function Cart({ user }) {
             SubTotal: {order.total}
           </div>
           <div>
-            Tax: 12.99
+            Sales Tax: {order.total !== 0 ? calculate(order.total, false) : ''}
           </div>
           <div>
-            Shipping: $5
+            Shipping: $10
           </div>
           <div>
-            Total: 24
+            Total: {order.total !== 0 ? calculate(order.total, true) : ''}
           </div>
         </InfoContainer>
         <InfoContainer
