@@ -8,23 +8,39 @@ const CartHeader = styled.div`
 `;
 
 const OrderItemCardStyled = styled.div`
-  width: 70%;
-  height: Auto;
+  width: 30%;
+  height: 35%;
   margin: 2%;
 `;
 
+const CardItemImg = styled.img`
+  height: 150px;
+`;
+
 const ItemsContainer = styled.div`
-  width: 25%;
+  width: 50%;
+  display: flex;
 `;
 
 const CartContainer = styled.div`
   display: flex;
-  justify-content: space-around;
-  margin: 3%;
+  justify-content: center;
+  margin: 3%;;
 `;
 
 const InfoContainer = styled(Card)`
   margin: 3%;
+`;
+
+const TotalInfoContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 5%;
+  font-size: 19px;
+`;
+
+const TotalInfoTitle = styled.div`
+  font-weight: bold; 
 `;
 
 export {
@@ -32,5 +48,8 @@ export {
   CartContainer,
   ItemsContainer,
   InfoContainer,
-  CartHeader
+  CartHeader,
+  TotalInfoContainer,
+  TotalInfoTitle,
+  CardItemImg
 };

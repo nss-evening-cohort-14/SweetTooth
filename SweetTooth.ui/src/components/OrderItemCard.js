@@ -4,10 +4,12 @@ import {
   Card,
   CardBody,
   CardTitle,
-  CardSubtitle,
-  CardText
 } from 'reactstrap';
-import { OrderItemCardStyled } from '../styles/OrderStyled';
+import {
+  CardItemImg,
+  OrderItemCardStyled,
+  TotalInfoContainer,
+} from '../styles/OrderStyled';
 
 function OrderItemCard({
   quantity, name, image, price
@@ -19,17 +21,24 @@ function OrderItemCard({
           <CardTitle tag="h5">
             {name}
           </CardTitle>
-          <CardSubtitle
-            className="mb-2 text-muted"
-            tag="h6"
-          >
-            {`$${price}`}
-          </CardSubtitle>
-          <CardText>
-            {quantity}
-          </CardText>
+          <TotalInfoContainer>
+            <div>
+              Price
+            </div>
+            <div>
+              {`$${price}`}
+            </div>
+          </TotalInfoContainer>
+          <TotalInfoContainer>
+            <div>
+              Quantity
+            </div>
+            <div>
+              {quantity}
+            </div>
+          </TotalInfoContainer>
         </CardBody>
-        <img
+        <CardItemImg
           alt="Card image cap"
           src={image}
           width="100%"

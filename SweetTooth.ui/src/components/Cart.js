@@ -13,7 +13,9 @@ import {
   CartContainer,
   CartHeader,
   InfoContainer,
-  ItemsContainer
+  ItemsContainer,
+  TotalInfoContainer,
+  TotalInfoTitle
 } from '../styles/OrderStyled';
 
 function Cart({ user }) {
@@ -41,7 +43,6 @@ function Cart({ user }) {
   const calculate = (number, bool) => {
     // if bool is false, it will calculate the tax and add a zero if necessary
     // if bool is true, it will calculate the total
-
     let result = '';
     if (bool === false) {
       if ((number * 0.07).toString().split('.')[1].length === 1) {
@@ -80,18 +81,38 @@ function Cart({ user }) {
       </ItemsContainer>
       <div>
       <InfoContainer>
-          <div>
-            SubTotal: {order.total}
-          </div>
-          <div>
-            Sales Tax: {order.total !== 0 ? calculate(order.total, false) : ''}
-          </div>
-          <div>
-            Shipping: $10
-          </div>
-          <div>
-            Total: {order.total !== 0 ? calculate(order.total, true) : ''}
-          </div>
+          <TotalInfoContainer>
+            <TotalInfoTitle>
+            Subtotal
+            </TotalInfoTitle>
+            <div>
+              ${order.total}
+            </div>
+          </TotalInfoContainer>
+          <TotalInfoContainer>
+            <TotalInfoTitle>
+              Sales Tax
+            </TotalInfoTitle>
+            <div>
+              ${order.total !== 0 ? calculate(order.total, false) : ''}
+            </div>
+          </TotalInfoContainer>
+          <TotalInfoContainer>
+            <TotalInfoTitle>
+              Shipping
+            </TotalInfoTitle>
+            <div>
+            $10
+            </div>
+          </TotalInfoContainer>
+          <TotalInfoContainer>
+            <TotalInfoTitle>
+            Total
+            </TotalInfoTitle>
+            <div>
+            ${order.total !== 0 ? calculate(order.total, true) : ''}
+            </div>
+          </TotalInfoContainer>
         </InfoContainer>
         <InfoContainer
         color="light"
