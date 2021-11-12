@@ -6,7 +6,7 @@ import {
   Col, Container, Form, FormGroup, Input, Label
 } from 'reactstrap';
 import createNewUserAddress from '../../helpers/data/userAddressData';
-// import { signInUser } from '../../helpers/auth';
+
 function LandingPageForm({
   user, userAddresses, setUserAddresses, ...userAddressInfo
 }) {
@@ -28,10 +28,8 @@ function LandingPageForm({
   const handleSubmit = (e) => {
     e.preventDefault();
     Alert('You Submitted a form');
-    console.warn(userAddresses);
-    console.warn(setUserAddresses);
-    createNewUserAddress(userAddressFormObj, user.id);
-    // .then((response) => (setUserAddresses(response)));
+    createNewUserAddress(userAddressFormObj)
+      .then((response) => (setUserAddresses(response)));
     // if (userObject.firebaseId) {
     //   updateUser(project)
     //     .then((response) => setUser(response));
