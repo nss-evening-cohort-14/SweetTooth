@@ -1,8 +1,24 @@
 import styled from 'styled-components';
 
 const OrderItemCardStyled = styled.div`
-  Width: 25%;
-  Height: Auto;
+  width: 100%
+  height: Auto;
 `;
 
-export default OrderItemCardStyled;
+const ItemsContainer = styled.div`
+  width: 25%;
+`;
+
+const CartContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin: 2%;
+`;
+
+const InfoContainer = styled.div`
+  margin: 2%;
+`;
+
+export {
+  OrderItemCardStyled, CartContainer, ItemsContainer, InfoContainer
+};

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {
   Card,
   CardTitle,
-  CardText,
   CardBody,
   FormGroup,
   Label,
@@ -11,6 +10,7 @@ import {
 } from 'reactstrap';
 import { getUnprocessedOrderByUserId } from '../helpers/data/OrderData';
 import OrderItemCard from './OrderItemCard';
+import { CartContainer, ItemsContainer } from '../styles/OrderStyled';
 
 function Cart({ user }) {
   const [order, setOrder] = useState(
@@ -40,64 +40,71 @@ function Cart({ user }) {
   }, []);
 
   return (
-    <div>
-     {
-        orderItems.map((item, i) => (
-          <OrderItemCard
-          key={i}
-          quantity={item.quantity}
-          name={item.itemSnack.name}
-          price={item.itemSnack.price}
-          image={item.itemSnack.image}
-          />
-        ))
-      }
+    <CartContainer>
+      <ItemsContainer>
+      {
+          orderItems.map((item, i) => (
+            <OrderItemCard
+            key={i}
+            quantity={item.quantity}
+            name={item.itemSnack.name}
+            price={item.itemSnack.price}
+            image={item.itemSnack.image}
+            />
+          ))
+        }
+      </ItemsContainer>
       <div>
-      <div>
-      <Card
-      color="light"
-      >
-      <CardBody>
-        <CardTitle tag="h5">
-          Select a Payment Method
-        </CardTitle>
-        <CardText>
-          {
-            user.paymentMethods?.map((pm, i) => (
-              <FormGroup check
-              key={i}>
-              <Input
-                id="checkbox1"
-                type="checkbox"
-              />
-              <Label check>
-              {pm.cardNumber}
-              </Label>
-            </FormGroup>
-            ))
-          }
-        </CardText>
-        <CardText>
-          {
-            user.addresses?.map((ad, i) => (
-              <FormGroup check
-              key={i}>
-              <Input
-                id="checkbox1"
-                type="checkbox"
-              />
-              <Label check>
-              <p>{ad.street} {ad.city}, {ad.state}, {ad.zip}</p>
-              </Label>
-            </FormGroup>
-            ))
-          }
-        </CardText>
-      </CardBody>
-      </Card>
+        <Card
+        color="light"
+        >
+        <CardBody>
+          <CardTitle tag="h5">
+            Select a Payment Method
+          </CardTitle>
+          <div>
+            {
+              user.paymentMethods?.map((pm, i) => (
+                <FormGroup check
+                key={i}>
+                <Input
+                  id="checkbox1"
+                  type="checkbox"
+                />
+                <Label check>
+                **** **** **** {pm.cardNumber.slice([-4])}
+                </Label>
+              </FormGroup>
+              ))
+            }
+          </div>
+        </CardBody>
+        </Card>
+        <Card>
+          <CardBody>
+          <CardTitle tag="h5">
+            Select an Address
+          </CardTitle>
+          <div>
+            {
+              user.addresses?.map((ad, i) => (
+                <FormGroup check
+                key={i}>
+                <Input
+                  id="checkbox1"
+                  type="checkbox"
+                />
+                <Label check>
+                <p>{ad.street} {ad.city}, {ad.state}, {ad.zip}</p>
+                </Label>
+              </FormGroup>
+              ))
+            }
+          </div>
+          </CardBody>
+        </Card>
       </div>
-        </div>
-      </div>
+    </CartContainer>
   );
 }
 

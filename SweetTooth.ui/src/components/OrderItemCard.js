@@ -7,7 +7,7 @@ import {
   CardSubtitle,
   CardText
 } from 'reactstrap';
-import OrderItemCardStyled from '../styles/OrderStyled';
+import { OrderItemCardStyled } from '../styles/OrderStyled';
 
 function OrderItemCard({
   quantity, name, image, price
