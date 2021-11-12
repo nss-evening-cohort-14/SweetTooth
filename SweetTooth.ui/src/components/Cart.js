@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Card,
   CardTitle,
   CardBody,
   FormGroup,
@@ -10,7 +9,12 @@ import {
 } from 'reactstrap';
 import { getUnprocessedOrderByUserId } from '../helpers/data/OrderData';
 import OrderItemCard from './OrderItemCard';
-import { CartContainer, ItemsContainer } from '../styles/OrderStyled';
+import {
+  CartContainer,
+  CartHeader,
+  InfoContainer,
+  ItemsContainer
+} from '../styles/OrderStyled';
 
 function Cart({ user }) {
   const [order, setOrder] = useState(
@@ -40,6 +44,10 @@ function Cart({ user }) {
   }, []);
 
   return (
+    <div>
+      <CartHeader>
+        {user.firstName}, here&apos;s what&apos;s in your cart
+      </CartHeader>
     <CartContainer>
       <ItemsContainer>
       {
@@ -55,7 +63,7 @@ function Cart({ user }) {
         }
       </ItemsContainer>
       <div>
-        <Card
+        <InfoContainer
         color="light"
         >
         <CardBody>
@@ -79,8 +87,8 @@ function Cart({ user }) {
             }
           </div>
         </CardBody>
-        </Card>
-        <Card>
+        </InfoContainer>
+        <InfoContainer>
           <CardBody>
           <CardTitle tag="h5">
             Select an Address
@@ -102,9 +110,10 @@ function Cart({ user }) {
             }
           </div>
           </CardBody>
-        </Card>
+        </InfoContainer>
       </div>
     </CartContainer>
+    </div>
   );
 }
 

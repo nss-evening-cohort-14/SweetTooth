@@ -1,8 +1,16 @@
 import styled from 'styled-components';
+import { Card } from 'reactstrap';
+
+const CartHeader = styled.div`
+  font-size: 40px;
+  padding-top: 3%;
+  font-weight: bold;
+`;
 
 const OrderItemCardStyled = styled.div`
-  width: 100%
+  width: 70%;
   height: Auto;
+  margin: 2%;
 `;
 
 const ItemsContainer = styled.div`
@@ -12,13 +20,17 @@ const ItemsContainer = styled.div`
 const CartContainer = styled.div`
   display: flex;
   justify-content: space-around;
-  margin: 2%;
+  margin: 3%;
 `;
 
-const InfoContainer = styled.div`
-  margin: 2%;
+const InfoContainer = styled(Card)`
+  margin: 3%;
 `;
 
 export {
-  OrderItemCardStyled, CartContainer, ItemsContainer, InfoContainer
+  OrderItemCardStyled,
+  CartContainer,
+  ItemsContainer,
+  InfoContainer,
+  CartHeader
 };
