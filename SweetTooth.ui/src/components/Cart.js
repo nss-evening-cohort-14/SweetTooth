@@ -32,16 +32,13 @@ function Cart({ user }) {
     }
   );
 
-  console.warn(order);
-
-  const [orderItems, setOrderItems] = useState([]);
-
   useEffect(() => {
     getUnprocessedOrderByUserId(user.id).then((res) => {
       setOrder(res);
-      setOrderItems(res.orderItems);
     });
   }, []);
+
+  console.warn(order);
 
   return (
     <div>
@@ -51,7 +48,7 @@ function Cart({ user }) {
     <CartContainer>
       <ItemsContainer>
       {
-          orderItems.map((item, i) => (
+          order.orderItems?.map((item, i) => (
             <OrderItemCard
             key={i}
             quantity={item.quantity}
@@ -63,6 +60,20 @@ function Cart({ user }) {
         }
       </ItemsContainer>
       <div>
+      <InfoContainer>
+          <div>
+            SubTotal: {order.total}
+          </div>
+          <div>
+            Tax: 12.99
+          </div>
+          <div>
+            Shipping: $5
+          </div>
+          <div>
+            Total: 24
+          </div>
+        </InfoContainer>
         <InfoContainer
         color="light"
         >
