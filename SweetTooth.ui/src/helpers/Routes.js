@@ -30,13 +30,15 @@ export default function Routes({ user }) {
         <Route
         exact path="/cart"
         component={() => <Cart
-        user={user}
+          user={user}
         />
       }
         />
         <Route
         exact path="/user-profile"
-        component={UserProfile}
+        component={() => <UserProfile
+          user={user}
+        />}
         />
         <Route
         exact path="/admin-dashboard"

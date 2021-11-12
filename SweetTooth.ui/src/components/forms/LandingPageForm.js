@@ -7,13 +7,15 @@ import {
 } from 'reactstrap';
 import createNewUserAddress from '../../helpers/data/userAddressData';
 // import { signInUser } from '../../helpers/auth';
-function LandingPageForm({ user }) {
+function LandingPageForm({
+  user, userAddresses, setUserAddresses, ...userAddressInfo
+}) {
   const [userAddressFormObj, setUserAddressFormObj] = useState({
-    userId: null,
-    street: userAddressFormObj?.street || '',
-    city: userAddressFormObj?.city || '',
-    state: userAddressFormObj?.state || '',
-    zip: userAddressFormObj?.zip || ''
+    userId: user.id || null,
+    street: userAddressInfo?.street || '',
+    city: userAddressInfo?.city || '',
+    state: userAddressInfo?.state || '',
+    zip: userAddressInfo?.zip || ''
   });
 
   const handleInputChange = (e) => {
@@ -26,11 +28,10 @@ function LandingPageForm({ user }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     Alert('You Submitted a form');
-    // console.warn(userAddresses);
-    // console.warn(setUserAddresses);
-    createNewUserAddress(userAddressFormObj, user.id)
-      // .then((response) => (setUserAddresses(response)))
-      .then((response) => console.warn(response));
+    console.warn(userAddresses);
+    console.warn(setUserAddresses);
+    createNewUserAddress(userAddressFormObj, user.id);
+    // .then((response) => (setUserAddresses(response)));
     // if (userObject.firebaseId) {
     //   updateUser(project)
     //     .then((response) => setUser(response));
@@ -160,6 +161,8 @@ function LandingPageForm({ user }) {
 
 LandingPageForm.propTypes = {
   user: PropTypes.any,
+  userAddresses: PropTypes.array,
+  setUserAddresses: PropTypes.func
 };
 
 export default LandingPageForm;

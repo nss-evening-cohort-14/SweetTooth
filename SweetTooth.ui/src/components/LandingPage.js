@@ -6,7 +6,6 @@ import {
 import styled from 'styled-components';
 import logo from '../Assets/SweetToothLogo.png';
 import { signInUser, signOutUser } from '../helpers/auth';
-import LandingPageModal from './LandingPageModal';
 
 const LandingPageContainer = styled.div`
   display: flex;
@@ -55,7 +54,7 @@ function LandingPage({ user }) {
           {user ? '' : <h5>New to SweetTooth? Then you&#39;re in for a treat!</h5>}
         {
           user
-            ? <LandingPageModal user={user}/>
+            ? ''
             : <Button outline color='info' onClick={signInUser}>Create your Account</Button>
         }
       </Container>
