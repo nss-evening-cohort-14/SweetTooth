@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row } from 'reactstrap';
 import LandingPageForm from './forms/LandingPageForm';
 
-export default function UserProfile({ user }) {
-  const [userAddresses, setUserAddresses] = useState([]);
-
+export default function UserProfile({
+  user, userAddresses, setUserAddresses
+}) {
   return (
     <div>
       <h1>User Profile</h1>
-      <LandingPageForm user={user} />
+      <LandingPageForm
+        user={user}
+        userAddresses={userAddresses}
+        setUserAddresses={setUserAddresses}
+      />
 
       {
-        userAddresses?.map((userAddressInfo) => (
+        userAddresses.map((userAddressInfo, i) => (
           <Container
-            key={userAddressInfo.id}
+            key={i}
             setUserAddresses={setUserAddresses}
             {...userAddressInfo}
           >

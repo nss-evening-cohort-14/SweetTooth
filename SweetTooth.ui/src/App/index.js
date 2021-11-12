@@ -8,6 +8,7 @@ import './App.scss';
 
 function App() {
   const [user, setUser] = useState({});
+  const [userAddresses, setUserAddresses] = useState([]);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userInfo) => {
@@ -29,7 +30,10 @@ function App() {
     <div className='App'>
       <Router>
           <NavbarSweetTooth user={user}/>
-          <Routes user={user}
+          <Routes
+            user={user}
+            userAddresses={userAddresses}
+            setUserAddresses={setUserAddresses}
           />
       </Router>
     </div>

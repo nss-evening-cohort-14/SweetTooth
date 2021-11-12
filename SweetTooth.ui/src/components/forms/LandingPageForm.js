@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Alert,
-  Button,
-  Col, Container, Form, FormGroup, Input, Label
+  Button, Col, Container, Form, FormGroup, Input, Label
 } from 'reactstrap';
 import createNewUserAddress from '../../helpers/data/userAddressData';
 
@@ -11,7 +9,7 @@ function LandingPageForm({
   user, userAddresses, setUserAddresses, ...userAddressInfo
 }) {
   const [userAddressFormObj, setUserAddressFormObj] = useState({
-    userId: user.id || null,
+    userId: user?.id,
     street: userAddressInfo?.street || '',
     city: userAddressInfo?.city || '',
     state: userAddressInfo?.state || '',
@@ -27,7 +25,6 @@ function LandingPageForm({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    Alert('You Submitted a form');
     createNewUserAddress(userAddressFormObj)
       .then((response) => (setUserAddresses(response)));
     // if (userObject.firebaseId) {
