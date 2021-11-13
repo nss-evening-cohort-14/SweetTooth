@@ -23,10 +23,11 @@ function LandingPageForm({
     }));
   };
 
-  const handleSubmit = () => {
-    // e.preventDefault();
-    createNewUserAddress(userAddressFormObj)
-      .then((response) => (setUserAddresses(response)));
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createNewUserAddress(userAddressFormObj).then((resp) => {
+      setUserAddresses(resp);
+    });
     // if (userAddressFormObj.id) {
     //   updateUser(userAddressFormObj)
     //     .then((response) => setUserAddresses(response));
