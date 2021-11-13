@@ -28,7 +28,6 @@ export default function App() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userInfo) => {
       if (userInfo) {
-        console.warn('userinfo:', userInfo);
         // when still logged in but refresh page, user remains empty instead of changing state.
         userInfo.getIdToken()
         // eslint-disable-next-line no-undef
@@ -41,9 +40,6 @@ export default function App() {
                   .then((res) => {
                     setOrder(res);
                     setOrderItems(res.orderItems);
-                    console.warn('order', order);
-                    console.warn('orderItems', orderItems);
-                    console.warn('user', user);
                   });
               })
           );

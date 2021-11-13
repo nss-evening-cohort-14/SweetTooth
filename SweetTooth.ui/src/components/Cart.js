@@ -148,6 +148,7 @@ function Cart({ user, order, orderItems }) {
     </div>
   );
 }
+
 Cart.propTypes = {
   user: PropTypes.any,
   order: PropTypes.object,
