@@ -31,20 +31,22 @@ function Routes({ user }) {
     <div>
       <Switch>
         <Route
-        exact path="/"
-        component={() => <LandingPage
-          user={user}
-        />}
+          exact path="/"
+          component={() => <LandingPage
+            user={user}
+          />}
         />
         <PrivateRoute
         exact path="/shop"
-        component={ShoppingPage}
+        component={() => <ShoppingPage
+          user={user}
+        />}
         user={user}
         />
         <PrivateRoute
-        exact path="/cart"
-        component={() => <Cart
-        user={user}
+          exact path="/cart"
+          component={() => <Cart
+            user={user}
         />
       }
         user={user}

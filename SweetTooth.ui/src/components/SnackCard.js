@@ -1,34 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
   Card,
   CardText,
-  CardTitle
+  CardTitle,
+  Row,
+  Col
 } from 'reactstrap';
-import styled from 'styled-components';
-
-const Image = styled.img`
-  max-height: 200px;
-  border-radius: 50%;
-  width: 200px;
-`;
+import SnackImage from '../styles/ShoppingPageStyled';
 
 function SnackCard({
   name, category, price, description, image
 }) {
+  const [counter, setCounter] = useState('0');
+  const plusOne = () => {
+    let increase = Number(counter);
+    increase += 1;
+    setCounter(increase.toString());
+  };
+  const minusOne = () => {
+    let decrease = Number(counter);
+    if (decrease > 0) {
+      decrease -= 1;
+    }
+    setCounter(decrease.toString());
+  };
+
   return (
     <div className="col-sm-4">
-      <Card body>
+      <Card className='d-flex justify-content-center' body>
         <CardTitle tag='h5'>{name}</CardTitle>
-        <CardText>
+        <CardText style={{ minHeight: 70 }}>
           {category}<br/>
           {description}<br/>
-          ${price}
         </CardText>
-        <Image src={image} alt={name}/>
-        <Button>Plus1</Button>
-        <Button>Minus1</Button>
+        ${price}
+        <SnackImage className='m-auto img-thumbnail' src={image} alt={name}/>
+        <Row>
+          <Col>
+            <Button onClick={minusOne}><i className='fas fa-minus fa-2x'></i></Button>
+          </Col>
+          <Col className='m-auto'>
+            {counter}
+          </Col>
+          <Col>
+            <Button onClick={plusOne}><i className='fas fa-plus fa-2x'></i></Button>
+          </Col>
+        </Row>
       </Card>
     </div>
   );
