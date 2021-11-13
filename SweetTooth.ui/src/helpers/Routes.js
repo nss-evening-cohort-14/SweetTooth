@@ -13,7 +13,9 @@ import UserProfile from '../components/UserProfile';
 // will need to add private routes once auth is done.
 // Admin and user hook
 
-export default function Routes({ user, order, orderItems }) {
+export default function Routes({
+  user, userAddresses, setUserAddresses, order, orderItems
+}) {
   return (
     <div>
       <Switch>
@@ -42,7 +44,11 @@ export default function Routes({ user, order, orderItems }) {
         />
         <Route
         exact path="/user-profile"
-        component={UserProfile}
+        component={() => <UserProfile
+          user={user}
+          userAddresses={userAddresses}
+          setUserAddresses={setUserAddresses}
+        />}
         />
         <Route
         exact path="/admin-dashboard"
@@ -56,5 +62,7 @@ export default function Routes({ user, order, orderItems }) {
 Routes.propTypes = {
   user: PropTypes.any,
   order: PropTypes.object,
-  orderItems: PropTypes.array
+  orderItems: PropTypes.array,
+  userAddresses: PropTypes.array,
+  setUserAddresses: PropTypes.func
 };

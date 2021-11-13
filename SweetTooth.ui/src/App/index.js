@@ -9,6 +9,7 @@ import { getUnprocessedOrderByUserId } from '../helpers/data/OrderData';
 
 export default function App() {
   const [user, setUser] = useState({});
+  const [userAddresses, setUserAddresses] = useState([]);
   const [order, setOrder] = useState(
     {
       id: '',
@@ -31,8 +32,7 @@ export default function App() {
         console.warn('userinfo:', userInfo);
         // when still logged in but refresh page, user remains empty instead of changing state.
         // eslint-disable-next-line no-undef
-        userInfo.getIdToken()
-          .then((token) => sessionStorage.setItem('token', token))
+        userInfo.getIdToken().then((token) => sessionStorage.setItem('token', token))
           .then(
             getUserByFirebaseId(userInfo.uid)
               .then((resp) => {
@@ -41,6 +41,8 @@ export default function App() {
                   .then((res) => {
                     setOrder(res);
                     setOrderItems(res.orderItems);
+                    setUser(resp);
+                    setUserAddresses(resp.addresses);
                     console.warn('order', order);
                     console.warn('orderItems', orderItems);
                     console.warn('user', user);
@@ -61,6 +63,8 @@ export default function App() {
           user={user}
           order={order}
           orderItems={orderItems}
+          userAddresses={userAddresses}
+          setUserAddresses={setUserAddresses}
         />
       </Router>
     </div>
