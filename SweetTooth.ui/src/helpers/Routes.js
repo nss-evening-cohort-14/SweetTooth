@@ -14,7 +14,7 @@ import UserProfile from '../components/UserProfile';
 // Admin and user hook
 
 export default function Routes({
-  user, userAddresses, setUserAddresses
+  user, userAddresses, setUserAddresses, order, orderItems
 }) {
   return (
     <div>
@@ -29,12 +29,16 @@ export default function Routes({
           exact path="/shop"
           component={() => <ShoppingPage
             user={user}
+            order={order}
+            orderItems={orderItems}
           />}
         />
         <Route
           exact path="/cart"
           component={() => <Cart
             user={user}
+            order={order}
+            orderItems={orderItems}
         />
       }
         />
@@ -57,6 +61,8 @@ export default function Routes({
 
 Routes.propTypes = {
   user: PropTypes.any,
+  order: PropTypes.object,
+  orderItems: PropTypes.array,
   userAddresses: PropTypes.array,
   setUserAddresses: PropTypes.func
 };
