@@ -5,8 +5,8 @@ import {
 } from 'reactstrap';
 import { getSnacks } from '../helpers/data/SnackData';
 import '../styles/shoppingPage.scss';
-import SnackCard from './SnackCard';
 import { Div } from '../styles/ShoppingPageStyled';
+import SnackCard from './SnackCard';
 
 export default function ShoppingPage({ user, order, orderItems }) {
   const [snacks, setSnacks] = useState([]);
