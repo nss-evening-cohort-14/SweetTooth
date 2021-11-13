@@ -26,7 +26,7 @@ PrivateRoute.propTypes = {
   component: PropTypes.func,
   user: PropTypes.any
 };
-function Routes({ user }) {
+function Routes({ user, order, orderItems }) {
   return (
     <div>
       <Switch>
@@ -36,17 +36,21 @@ function Routes({ user }) {
             user={user}
           />}
         />
-        <PrivateRoute
-        exact path="/shop"
-        component={() => <ShoppingPage
+        <Route
+          exact path="/shop"
+          component={() => <ShoppingPage
+            user={user}
+            order={order}
+            orderItems={orderItems}
+          />}
           user={user}
-        />}
-        user={user}
         />
         <PrivateRoute
           exact path="/cart"
           component={() => <Cart
             user={user}
+            order={order}
+            orderItems={orderItems}
         />
       }
         user={user}
@@ -67,7 +71,9 @@ function Routes({ user }) {
 }
 
 Routes.propTypes = {
-  user: PropTypes.any
+  user: PropTypes.any,
+  order: PropTypes.object,
+  orderItems: PropTypes.array
 };
 
 export default Routes;

@@ -6,4 +6,8 @@ const SnackImage = styled.img`
   width: 200px;
 `;
 
-export default SnackImage;
+const Div = styled.div`
+  overflow-x: auto;
+`;
+
+export { SnackImage, Div };

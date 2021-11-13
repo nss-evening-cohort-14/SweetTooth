@@ -3,20 +3,18 @@ import PropTypes from 'prop-types';
 import {
   Container
 } from 'reactstrap';
-import styled from 'styled-components';
 import { getSnacks } from '../helpers/data/SnackData';
 import '../styles/shoppingPage.scss';
 import SnackCard from './SnackCard';
+import { Div } from '../styles/ShoppingPageStyled';
 
-const Div = styled.div`
-  overflow-x: auto;
-`;
-export default function ShoppingPage({ user }) {
+export default function ShoppingPage({ user, order, orderItems }) {
   const [snacks, setSnacks] = useState([]);
   useEffect(() => {
     getSnacks().then(setSnacks);
   }, []);
-
+  console.warn('Shopping page order', order);
+  console.warn('Shopping page orderItems', orderItems);
   console.warn('Shopping page', user);
   return (
     <>
@@ -65,4 +63,6 @@ export default function ShoppingPage({ user }) {
 
 ShoppingPage.propTypes = {
   user: PropTypes.any,
+  order: PropTypes.object,
+  orderItems: PropTypes.array
 };

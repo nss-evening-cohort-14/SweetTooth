@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   CardTitle,
@@ -7,7 +7,7 @@ import {
   Label,
   Input
 } from 'reactstrap';
-import { getUnprocessedOrderByUserId } from '../helpers/data/OrderData';
+// import { getUnprocessedOrderByUserId } from '../helpers/data/OrderData';
 import OrderItemCard from './OrderItemCard';
 import {
   CartContainer,
@@ -18,28 +18,7 @@ import {
   TotalInfoTitle
 } from '../styles/OrderStyled';
 
-function Cart({ user }) {
-  const [order, setOrder] = useState(
-    {
-      id: '',
-      orderDate: '',
-      orderItems: [],
-      orderNumber: 0,
-      paymentMethod: null,
-      paymentMethodId: '',
-      processed: false,
-      shipped: false,
-      total: 0,
-      userId: ''
-    }
-  );
-
-  useEffect(() => {
-    getUnprocessedOrderByUserId(user.id).then((res) => {
-      setOrder(res);
-    });
-  }, []);
-
+function Cart({ user, order, orderItems }) {
   const calculate = (number, bool) => {
     // if bool is false, it will calculate the tax and add a zero if necessary
     // if bool is true, it will calculate the total
@@ -70,15 +49,15 @@ function Cart({ user }) {
     <CartContainer>
       <ItemsContainer>
       {
-          order.orderItems?.map((item, i) => (
-            <OrderItemCard
+        orderItems.map((item, i) => (
+          <OrderItemCard
             key={i}
             quantity={item.quantity}
             name={item.itemSnack.name}
             price={item.itemSnack.price}
             image={item.itemSnack.image}
             />
-          ))
+        ))
         }
       </ItemsContainer>
       <div>
@@ -169,8 +148,10 @@ function Cart({ user }) {
     </div>
   );
 }
-
 Cart.propTypes = {
-  user: PropTypes.any
+  user: PropTypes.any,
+  order: PropTypes.object,
+  orderItems: PropTypes.array
 };
+
 export default Cart;
