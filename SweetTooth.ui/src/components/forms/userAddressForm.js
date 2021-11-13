@@ -5,7 +5,7 @@ import {
 } from 'reactstrap';
 import { createNewUserAddress } from '../../helpers/data/userAddressData';
 
-function LandingPageForm({
+function UserAddressForm({
   user, userAddresses, setUserAddresses, ...userAddressInfo
 }) {
   const [userAddressFormObj, setUserAddressFormObj] = useState({
@@ -103,10 +103,10 @@ function LandingPageForm({
   );
 }
 
-LandingPageForm.propTypes = {
+UserAddressForm.propTypes = {
   user: PropTypes.any,
   userAddresses: PropTypes.array,
   setUserAddresses: PropTypes.func
 };
 
-export default LandingPageForm;
+export default UserAddressForm;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row } from 'reactstrap';
-import LandingPageForm from './forms/userAddressForm';
+import UserAddressForm from './forms/userAddressForm';
 
 export default function UserProfile({
   user, userAddresses, setUserAddresses
@@ -9,7 +9,7 @@ export default function UserProfile({
   return (
     <div>
       <h1>User Profile</h1>
-      <LandingPageForm
+      <UserAddressForm
         user={user}
         userAddresses={userAddresses}
         setUserAddresses={setUserAddresses}
