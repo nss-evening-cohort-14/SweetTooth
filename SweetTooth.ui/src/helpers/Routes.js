@@ -20,19 +20,21 @@ export default function Routes({
     <div>
       <Switch>
         <Route
-        exact path="/"
-        component={() => <LandingPage
-          user={user}
-        />}
+          exact path="/"
+          component={() => <LandingPage
+            user={user}
+          />}
         />
         <Route
-        exact path="/shop"
-        component={ShoppingPage}
+          exact path="/shop"
+          component={() => <ShoppingPage
+            user={user}
+          />}
         />
         <Route
-        exact path="/cart"
-        component={() => <Cart
-          user={user}
+          exact path="/cart"
+          component={() => <Cart
+            user={user}
         />
       }
         />
