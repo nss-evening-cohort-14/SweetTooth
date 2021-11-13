@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { arrayOf } from 'prop-types';
 import {
   Button,
   Card,
@@ -11,13 +11,36 @@ import {
 import { SnackImage } from '../styles/ShoppingPageStyled';
 
 function SnackCard({
-  name, category, price, description, image
+  id, name, category, price, description, image, orderItems
 }) {
+
+  
+    const [orderItemsHook, setOrderItemsHook] = useState(orderItems || {});
+    
+    const [newOrderItem, setNewOrderItem] = useState({
+    id: '',
+    orderId: '',
+    snackId: '',
+    quantity: 0,
+    itemSnack: {
+      id: '',
+      name: '',
+      category: '',
+      price: 0,
+      description: '',
+      image: '',
+      softDelete: false
+    }
+  });
+
+  const snackExistsInOrderItems = (orderItemsArray, snackId) => (orderItemsArray.map(orderItemsArray => orderItemsArray.snackId).includes(snackId));
+  
   const [counter, setCounter] = useState('0');
   const plusOne = () => {
     let increase = Number(counter);
     increase += 1;
     setCounter(increase.toString());
+    snackExistsInOrderItems(orderItems, id);
   };
   const minusOne = () => {
     let decrease = Number(counter);
@@ -26,6 +49,10 @@ function SnackCard({
     }
     setCounter(decrease.toString());
   };
+  
+ 
+
+  }
 
   return (
     <div className="col-sm-4">
@@ -54,10 +81,12 @@ function SnackCard({
 }
 
 SnackCard.propTypes = {
+  id: PropTypes.string,
   name: PropTypes.string,
   category: PropTypes.string,
   price: PropTypes.number,
   description: PropTypes.string,
-  image: PropTypes.string
+  image: PropTypes.string,
+  orderItems: PropTypes.array
 };
 export default SnackCard;

@@ -31,6 +31,7 @@ export default function ShoppingPage({ user, order, orderItems }) {
                     category={snack.category}
                     description={snack.description}
                     image={snack.image}
+                    orderItems={orderItems}
                   />
                 ))}
               </Div>
@@ -43,11 +44,13 @@ export default function ShoppingPage({ user, order, orderItems }) {
                 {snacks.map((snack) => (
                   <SnackCard
                     key={snack.id}
+                    id={snack.id}
                     name={snack.name}
                     price={snack.price}
                     category={snack.category}
                     description={snack.description}
                     image={snack.image}
+                    orderItems={orderItems}
                   />
                 ))}
               </Div>
