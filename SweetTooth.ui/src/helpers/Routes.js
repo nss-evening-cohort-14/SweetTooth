@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   Switch,
-  Route
+  Route,
+  Redirect
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AdminDashboard from '../components/AdminDashboard';
@@ -13,7 +14,19 @@ import UserProfile from '../components/UserProfile';
 // will need to add private routes once auth is done.
 // Admin and user hook
 
-export default function Routes({ user }) {
+const PrivateRoute = ({ component: Component, user, ...rest }) => {
+  const routeChecker = (remainder) => (user
+    ? (<Component {...remainder} user={user} />)
+    : (<Redirect to={{ pathname: '/', state: { from: remainder.location } }} />));
+
+  return <Route {...rest} render={(props) => routeChecker(props)} />;
+};
+
+PrivateRoute.propTypes = {
+  component: PropTypes.func,
+  user: PropTypes.any
+};
+function Routes({ user }) {
   return (
     <div>
       <Switch>
@@ -23,24 +36,28 @@ export default function Routes({ user }) {
           user={user}
         />}
         />
-        <Route
+        <PrivateRoute
         exact path="/shop"
         component={ShoppingPage}
+        user={user}
         />
-        <Route
+        <PrivateRoute
         exact path="/cart"
         component={() => <Cart
         user={user}
         />
       }
+        user={user}
         />
-        <Route
+        <PrivateRoute
         exact path="/user-profile"
         component={UserProfile}
+        user={user}
         />
-        <Route
+        <PrivateRoute
         exact path="/admin-dashboard"
         component={AdminDashboard}
+        user={user}
         />
       </Switch>
     </div>
@@ -50,3 +67,5 @@ export default function Routes({ user }) {
 Routes.propTypes = {
   user: PropTypes.any
 };
+
+export default Routes;
