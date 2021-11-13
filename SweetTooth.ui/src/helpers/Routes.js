@@ -26,7 +26,13 @@ PrivateRoute.propTypes = {
   component: PropTypes.func,
   user: PropTypes.any
 };
-function Routes({ user, order, orderItems }) {
+function Routes({
+  user,
+  order,
+  orderItems,
+  userAddresses,
+  setUserAddresses
+}) {
   return (
     <div>
       <Switch>
@@ -57,7 +63,11 @@ function Routes({ user, order, orderItems }) {
         />
         <PrivateRoute
         exact path="/user-profile"
-        component={UserProfile}
+        component={() => <UserProfile
+          user={user}
+          userAddresses={userAddresses}
+          setUserAddresses={setUserAddresses}
+        />}
         user={user}
         />
         <PrivateRoute
@@ -73,7 +83,9 @@ function Routes({ user, order, orderItems }) {
 Routes.propTypes = {
   user: PropTypes.any,
   order: PropTypes.object,
-  orderItems: PropTypes.array
+  orderItems: PropTypes.array,
+  userAddresses: PropTypes.array,
+  setUserAddresses: PropTypes.func
 };
 
 export default Routes;

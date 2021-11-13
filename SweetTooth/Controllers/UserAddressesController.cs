@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SweetTooth.DataAccess;
 using SweetTooth.Models;
@@ -10,13 +11,19 @@ namespace SweetTooth.Controllers
 {
     [Route("api/UserAddresses")]
     [ApiController]
+    [Authorize]
+
     public class UserAddressesController : ControllerBase
     {
         private UserAddressRepo _repo;
+        private readonly UserRepo _userRepo;
 
-        public UserAddressesController(UserAddressRepo repo)
+        User CurrentUser =>  _userRepo.GetUserByUid(User.FindFirst((claim) => claim.Type == "user_id").Value);
+
+        public UserAddressesController(UserAddressRepo repo, UserRepo userRepo)
         {
             _repo = repo;
+            _userRepo = userRepo;
         }
 
         [HttpGet]
@@ -49,7 +56,9 @@ namespace SweetTooth.Controllers
                 )
             {
                 return BadRequest("Field is required.");
-            }
+            }            
+
+            newAddress.UserId = CurrentUser.Id;
 
             _repo.AddAddress(newAddress);
             return Created($"api/users/address/{newAddress.Id}", newAddress);

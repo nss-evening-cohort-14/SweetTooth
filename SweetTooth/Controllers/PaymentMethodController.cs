@@ -13,10 +13,14 @@ namespace SweetTooth.Controllers
     public class PaymentMethodController : ControllerBase
     {
         PaymentMethodRepo _repo;
+        private readonly UserRepo _userRepo;
 
-        public PaymentMethodController(PaymentMethodRepo repo)
+        User CurrentUser => _userRepo.GetUserByUid(User.FindFirst((claim) => claim.Type == "user_id").Value);
+
+        public PaymentMethodController(PaymentMethodRepo repo, UserRepo userRepo)
         {
             _repo = repo;
+            _userRepo = userRepo;
         }
 
         [HttpGet("userId/{userId}")]
@@ -57,6 +61,9 @@ namespace SweetTooth.Controllers
             {
                 return BadRequest("CardNumber must be length 16, ExpDate must be length 4, or SecurityCode must be length 3 or 4.");
             }
+
+            newMethod.UserId = CurrentUser.Id;
+
             _repo.Add(newMethod);
 
             return Created($"/api/paymentMethod/{newMethod.Id}", newMethod);
