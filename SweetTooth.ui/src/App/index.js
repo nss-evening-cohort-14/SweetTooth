@@ -29,7 +29,6 @@ export default function App() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userInfo) => {
       if (userInfo) {
-        console.warn('userinfo:', userInfo);
         // when still logged in but refresh page, user remains empty instead of changing state.
         // eslint-disable-next-line no-undef
         userInfo.getIdToken().then((token) => sessionStorage.setItem('token', token))
@@ -37,12 +36,11 @@ export default function App() {
             getUserByFirebaseId(userInfo.uid)
               .then((resp) => {
                 setUser(resp);
+                setUserAddresses(resp.addresses);
                 getUnprocessedOrderByUserId(resp.id)
                   .then((res) => {
                     setOrder(res);
                     setOrderItems(res.orderItems);
-                    setUser(resp);
-                    setUserAddresses(resp.addresses);
                     console.warn('order', order);
                     console.warn('orderItems', orderItems);
                     console.warn('user', user);

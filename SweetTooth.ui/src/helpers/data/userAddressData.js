@@ -30,7 +30,6 @@ const createNewUserAddress = (userAddressInfo) => new Promise((resolve, reject) 
   axios.post(`${dbUrl}/userAddresses`, userAddressInfo)
     .then(() => getAllAddressesByUserId(userAddressInfo.userId)).then((response) => {
       resolve(response);
-      console.warn('promise reponse', response);
     })
     .catch((error) => reject(error));
 });

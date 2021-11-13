@@ -25,7 +25,7 @@ export default function NavbarSweetTooth({ user }) {
         && <>
           {
             user
-              ? <Button outline color='danger' onClick={signOutUser}>Logout</Button>
+              ? <Button outline color='light' onClick={signOutUser}><i className="fas fa-sign-out-alt"></i></Button>
               : ''
           }
         </>
@@ -35,37 +35,37 @@ export default function NavbarSweetTooth({ user }) {
   return (
     <div>
       <Navbar
-        color="light"
+        style={{ backgroundColor: '#6bab90' }}
         expand="md"
         light
       >
-        <NavbarBrand href="/">
+        <NavbarBrand href="/" style={{ color: 'white', fontWeight: 'bold' }}>
           SweetTooth
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav
-            className="me-auto"
+            className="nav-bar me-auto"
             navbar
           >
             <NavItem>
                 <Link className="nav-link" to="/shop">
-                <i className="fas fa-candy-cane"></i>
+                <i className="fas fa-candy-cane" style={{ color: 'white' }}></i>
                 </Link>
             </NavItem>
             <NavItem>
                 <Link className="nav-link" to="/cart">
-                <i className="fas fa-shopping-cart"></i>
+                <i className="fas fa-shopping-cart" style={{ color: 'white' }}></i>
                 </Link>
             </NavItem>
             <NavItem>
                 <Link className="nav-link" to="user-profile">
-                <i className="fas fa-user"></i>
+                <i className="fas fa-user" style={{ color: 'white' }}></i>
                 </Link>
             </NavItem>
             <NavItem>
                 <Link className="nav-link" to="admin-dashboard">
-                Admin Dashboard
+                <i className="fas fa-user-lock" style={{ color: 'white' }}></i>
                 </Link>
             </NavItem>
             {signOutButton()}
