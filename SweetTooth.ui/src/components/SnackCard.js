@@ -8,7 +8,7 @@ import {
   Row,
   Col
 } from 'reactstrap';
-import SnackImage from '../styles/ShoppingPageStyled';
+import { SnackImage } from '../styles/ShoppingPageStyled';
 
 function SnackCard({
   name, category, price, description, image

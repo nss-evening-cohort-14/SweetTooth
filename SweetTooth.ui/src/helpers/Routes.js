@@ -13,7 +13,7 @@ import UserProfile from '../components/UserProfile';
 // will need to add private routes once auth is done.
 // Admin and user hook
 
-export default function Routes({ user }) {
+export default function Routes({ user, order, orderItems }) {
   return (
     <div>
       <Switch>
@@ -27,12 +27,16 @@ export default function Routes({ user }) {
           exact path="/shop"
           component={() => <ShoppingPage
             user={user}
+            order={order}
+            orderItems={orderItems}
           />}
         />
         <Route
           exact path="/cart"
           component={() => <Cart
             user={user}
+            order={order}
+            orderItems={orderItems}
         />
       }
         />
@@ -50,5 +54,7 @@ export default function Routes({ user }) {
 }
 
 Routes.propTypes = {
-  user: PropTypes.any
+  user: PropTypes.any,
+  order: PropTypes.object,
+  orderItems: PropTypes.array
 };
