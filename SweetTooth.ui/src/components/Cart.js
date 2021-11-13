@@ -63,7 +63,9 @@ function Cart({ user }) {
   return (
     <div>
       <CartHeader>
+        <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
         {user.firstName}, here&apos;s what&apos;s in your cart
+        <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
       </CartHeader>
     <CartContainer>
       <ItemsContainer>

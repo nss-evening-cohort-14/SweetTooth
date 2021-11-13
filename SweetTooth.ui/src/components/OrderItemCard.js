@@ -16,7 +16,7 @@ function OrderItemCard({
 }) {
   return (
     <OrderItemCardStyled>
-       <Card>
+       <Card className="border-0">
         <CardBody>
           <CardTitle tag="h5">
             {name}
@@ -42,6 +42,7 @@ function OrderItemCard({
           alt="Card image cap"
           src={image}
           width="100%"
+          className="rounded"
         />
     </Card>
     </OrderItemCardStyled>
