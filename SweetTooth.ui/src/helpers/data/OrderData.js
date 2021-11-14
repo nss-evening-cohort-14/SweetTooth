@@ -3,7 +3,7 @@ import firebaseConfig from '../apiKeys';
 
 const dbUrl = firebaseConfig.databaseURL;
 
-const getSingleOder = (orderId) => new Promise((resolve, reject) => {
+const getSingleOrder = (orderId) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/orders/${orderId}`)
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
@@ -55,7 +55,7 @@ const postOrderItems = (orderItem) => new Promise((resolve, reject) => {
 });
 
 export {
-  getSingleOder,
+  getSingleOrder,
   getOrderByUserId,
   getOrderItems,
   getOrders,

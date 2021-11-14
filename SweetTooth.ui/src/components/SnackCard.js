@@ -13,7 +13,6 @@ import { SnackImage } from '../styles/ShoppingPageStyled';
 function SnackCard({
   id, name, category, price, description, image, orderItems
 }) {
-  // console.warn(orderItems);
   // const [orderItemsHook, setOrderItemsHook] = useState(orderItems || {});
   // console.warn(orderItemsHook);
 
@@ -35,15 +34,11 @@ function SnackCard({
 
   const snackExistsInOrderItems = (orderItemsArray, snackId) => {
     if (orderItemsArray.map((orderItem) => (orderItem.snackId)).includes(snackId)) {
-      // update orderItems
-      // console.warn(name, true);
-      // console.warn('orderItems', orderItems);
-      // console.warn('id', id);
+      // const updatedOrder = buildOrderItem(id);
+      // updateOrderItem(updatedOrder).then(set(newOrderItems));
     } else {
-      // add orderItem
-      // console.warn(name, false);
-      // console.warn('orderItems', orderItems);
-      // console.warn('id', id);
+      // const newOrder = buildOrderItem(id);
+      // addOrderItem(newOrder).then(set(newOrderItems));
     }
   };
 
