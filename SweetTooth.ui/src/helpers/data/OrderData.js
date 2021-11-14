@@ -31,34 +31,15 @@ const getUnprocessedOrderByUserId = (userId) => new Promise((resolve, reject) =>
     }).catch((error) => reject(error));
 });
 
-const getOrderItems = (orderId) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/orders/${orderId}orderItems`)
-    .then((res) => {
-      if (res.data) {
-        resolve(res.data);
-      } else {
-        resolve([]);
-      }
-    }).catch((error) => reject(error));
-});
-
 const getOrders = () => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/orders`)
     .then((response) => resolve(Object.values(response.data)))
     .catch((error) => reject(error));
 });
 
-const postOrderItems = (orderItem) => new Promise((resolve, reject) => {
-  axios.post(`${dbUrl}/orders/orderItems`, orderItem)
-    .then(getOrderItems(orderItem.orderId))
-    .catch((error) => reject(error));
-});
-
 export {
   getSingleOrder,
   getOrderByUserId,
-  getOrderItems,
   getOrders,
   getUnprocessedOrderByUserId,
-  postOrderItems
 };
