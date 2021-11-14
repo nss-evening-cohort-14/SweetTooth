@@ -57,23 +57,23 @@ function Routes({
             user={user}
             order={order}
             orderItems={orderItems}
-        />
-      }
-        user={user}
-        />
-        <PrivateRoute
-        exact path="/user-profile"
-        component={() => <UserProfile
+          />
+          }
           user={user}
-          userAddresses={userAddresses}
-          setUserAddresses={setUserAddresses}
-        />}
-        user={user}
         />
         <PrivateRoute
-        exact path="/admin-dashboard"
-        component={AdminDashboard}
-        user={user}
+          exact path="/user-profile"
+          component={() => <UserProfile
+            user={user}
+            userAddresses={userAddresses}
+            setUserAddresses={setUserAddresses}
+          />}
+          user={user}
+        />
+        <PrivateRoute
+          exact path="/admin-dashboard"
+          component={AdminDashboard}
+          user={user}
         />
       </Switch>
     </div>

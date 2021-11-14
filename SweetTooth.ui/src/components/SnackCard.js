@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -13,8 +13,10 @@ import { SnackImage } from '../styles/ShoppingPageStyled';
 function SnackCard({
   id, name, category, price, description, image, orderItems
 }) {
-  console.warn(id);
-  console.warn(orderItems);
+  useEffect(() => {
+    console.warn(id);
+  }, []);
+  // console.warn(orderItems);
   // const [orderItemsHook, setOrderItemsHook] = useState(orderItems || {});
   // console.warn(orderItemsHook);
 
@@ -34,14 +36,23 @@ function SnackCard({
   //   }
   // });
 
-  // const snackExistsInOrderItems = (orderItemsArray, snackId) => ((orderItemsArray.map((orderItemsArray) => (orderItemsArray.snackId)).includes(snackId)));
+  const snackExistsInOrderItems = (orderItemsArray, snackId) => {
+    if (orderItemsArray.map((orderItem) => (orderItem.snackId)).includes(snackId)) {
+      // update orderItems
+      console.warn(name, true);
+      console.warn('orderItems', orderItems);
+      console.warn('id', id);
+    } console.warn(name, false);
+    console.warn('orderItems', orderItems);
+    console.warn('id', id);
+  };
 
   const [counter, setCounter] = useState('0');
   const plusOne = () => {
     let increase = Number(counter);
     increase += 1;
     setCounter(increase.toString());
-    // snackExistsInOrderItems(orderItems, id);
+    snackExistsInOrderItems(orderItems, id);
   };
   const minusOne = () => {
     let decrease = Number(counter);
@@ -49,6 +60,7 @@ function SnackCard({
       decrease -= 1;
     }
     setCounter(decrease.toString());
+    snackExistsInOrderItems(orderItems, id);
   };
 
   return (
