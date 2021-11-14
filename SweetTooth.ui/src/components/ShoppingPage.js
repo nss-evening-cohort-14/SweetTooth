@@ -26,6 +26,7 @@ export default function ShoppingPage({ user, order, orderItems }) {
                 {snacks.map((snack) => (
                   <SnackCard
                     key={snack.id}
+                    id={snack.id}
                     name={snack.name}
                     price={snack.price}
                     category={snack.category}
@@ -41,7 +42,7 @@ export default function ShoppingPage({ user, order, orderItems }) {
           <h1>All Snacks (Filtered by Category)</h1>
             <div className="row pt-5">
               <Div className="col-12 d-flex align-items-stretch">
-                {snacks.map((snack) => (
+                {/* {snacks.map((snack) => (
                   <SnackCard
                     key={snack.id}
                     id={snack.id}
@@ -52,7 +53,7 @@ export default function ShoppingPage({ user, order, orderItems }) {
                     image={snack.image}
                     orderItems={orderItems}
                   />
-                ))}
+                ))} */}
               </Div>
             </div>
         </Container>
