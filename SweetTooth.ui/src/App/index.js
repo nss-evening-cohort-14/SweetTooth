@@ -9,6 +9,7 @@ import { getUnprocessedOrderByUserId } from '../helpers/data/OrderData';
 
 export default function App() {
   const [user, setUser] = useState({});
+  const [userAddresses, setUserAddresses] = useState([]);
   const [order, setOrder] = useState(
     {
       id: '',
@@ -28,19 +29,24 @@ export default function App() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userInfo) => {
       if (userInfo) {
-        console.warn(userInfo);
         // when still logged in but refresh page, user remains empty instead of changing state.
         // eslint-disable-next-line no-undef
-        userInfo.getIdToken()
-          .then((token) => sessionStorage.setItem('token', token))
-          .then(getUserByFirebaseId(userInfo.uid).then((resp) => setUser(resp)))
-          .then(getUnprocessedOrderByUserId(user.id).then((res) => {
-            setOrder(res);
-            setOrderItems(res.orderItems);
-          }));
-        console.warn('order', order);
-        console.warn('orderItems', orderItems);
-        console.warn('user', user);
+        userInfo.getIdToken().then((token) => sessionStorage.setItem('token', token))
+          .then(
+            getUserByFirebaseId(userInfo.uid)
+              .then((resp) => {
+                setUser(resp);
+                setUserAddresses(resp.addresses);
+                getUnprocessedOrderByUserId(resp.id)
+                  .then((res) => {
+                    setOrder(res);
+                    setOrderItems(res.orderItems);
+                    console.warn('order', order);
+                    console.warn('orderItems', orderItems);
+                    console.warn('user', user);
+                  });
+              })
+          );
       } else {
         setUser(false);
       }
@@ -55,6 +61,8 @@ export default function App() {
           user={user}
           order={order}
           orderItems={orderItems}
+          userAddresses={userAddresses}
+          setUserAddresses={setUserAddresses}
         />
       </Router>
     </div>

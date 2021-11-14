@@ -13,9 +13,9 @@ export default function ShoppingPage({ user, order, orderItems }) {
   useEffect(() => {
     getSnacks().then(setSnacks);
   }, []);
-  console.warn('Shopping page order', order);
-  console.warn('Shopping page orderItems', orderItems);
-  console.warn('Shopping page', user);
+
+  console.warn(user, order, orderItems);
+
   return (
     <>
       <div className="shoppingPage d-flex flex-column justify-content-around">

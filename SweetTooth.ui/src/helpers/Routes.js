@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   Switch,
-  Route
+  Route,
+  Redirect
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AdminDashboard from '../components/AdminDashboard';
@@ -13,7 +14,25 @@ import UserProfile from '../components/UserProfile';
 // will need to add private routes once auth is done.
 // Admin and user hook
 
-export default function Routes({ user, order, orderItems }) {
+const PrivateRoute = ({ component: Component, user, ...rest }) => {
+  const routeChecker = (remainder) => (user
+    ? (<Component {...remainder} user={user} />)
+    : (<Redirect to={{ pathname: '/', state: { from: remainder.location } }} />));
+
+  return <Route {...rest} render={(props) => routeChecker(props)} />;
+};
+
+PrivateRoute.propTypes = {
+  component: PropTypes.func,
+  user: PropTypes.any
+};
+function Routes({
+  user,
+  order,
+  orderItems,
+  userAddresses,
+  setUserAddresses
+}) {
   return (
     <div>
       <Switch>
@@ -30,8 +49,9 @@ export default function Routes({ user, order, orderItems }) {
             order={order}
             orderItems={orderItems}
           />}
+          user={user}
         />
-        <Route
+        <PrivateRoute
           exact path="/cart"
           component={() => <Cart
             user={user}
@@ -39,14 +59,21 @@ export default function Routes({ user, order, orderItems }) {
             orderItems={orderItems}
         />
       }
+        user={user}
         />
-        <Route
+        <PrivateRoute
         exact path="/user-profile"
-        component={UserProfile}
+        component={() => <UserProfile
+          user={user}
+          userAddresses={userAddresses}
+          setUserAddresses={setUserAddresses}
+        />}
+        user={user}
         />
-        <Route
+        <PrivateRoute
         exact path="/admin-dashboard"
         component={AdminDashboard}
+        user={user}
         />
       </Switch>
     </div>
@@ -56,5 +83,9 @@ export default function Routes({ user, order, orderItems }) {
 Routes.propTypes = {
   user: PropTypes.any,
   order: PropTypes.object,
-  orderItems: PropTypes.array
+  orderItems: PropTypes.array,
+  userAddresses: PropTypes.array,
+  setUserAddresses: PropTypes.func
 };
+
+export default Routes;

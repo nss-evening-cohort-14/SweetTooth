@@ -14,10 +14,12 @@ namespace SweetTooth.Controllers
     public class OrdersController : ControllerBase
     {
         OrderRepo _repo;
+        SnackRepo _snackRepo;
 
-        public OrdersController(OrderRepo repo)
+        public OrdersController(OrderRepo repo, SnackRepo snackRepo)
         {
             _repo = repo;
+            _snackRepo = snackRepo;
         }
 
         [HttpGet]
@@ -44,6 +46,16 @@ namespace SweetTooth.Controllers
         {
             var _order = command.Order;
             var _snacks = command.SnackIdQuantityList;
+
+            decimal calculateTotal = 0;
+
+            _snacks.ForEach(snack =>
+            {
+                var foundSnack = _snackRepo.GetById(snack.SnackId);
+                calculateTotal += (foundSnack.Price * snack.Quantity);
+            });
+
+            _order.Total = calculateTotal;
 
             _repo.Add(_order, _snacks);
 

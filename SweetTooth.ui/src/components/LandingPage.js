@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Button, ButtonGroup, Container
@@ -41,6 +42,7 @@ function LandingPage({ user }) {
       }
       </div>
   );
+
   return (
     <LandingPageContainer>
       <Container
@@ -49,14 +51,21 @@ function LandingPage({ user }) {
       >
         <h1>Welcome to SweetTooth!</h1>
         <LandingPageLogo src={logo} alt="Logo"/>
+
+        <Container fluid="sm">
           {user ? '' : <h4>Already have an Account?</h4>}
           {authButtons()}
+
           {user ? '' : <h5>New to SweetTooth? Then you&#39;re in for a treat!</h5>}
-        {
-          user
-            ? ''
-            : <Button outline color='info' onClick={signInUser}>Create your Account</Button>
-        }
+          {user
+            ? <Button tag={Link} to={'/user-profile'}
+                outline color='info'>
+                View Your Profile</Button>
+
+            : <Button outline color='info' onClick={signInUser}>
+              Create an Account</Button>
+          }
+        </Container>
       </Container>
     </LandingPageContainer>
   );
