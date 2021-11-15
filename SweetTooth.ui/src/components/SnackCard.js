@@ -32,13 +32,32 @@ function SnackCard({
   //   }
   // });
 
+  // const buildOrderItem = (orderItem, newQuantity) => {
+  //   const order = {
+  //     id: orderItem.id,
+  //     orderId: orderItem.orderId,
+  //     snackId: orderItem.snackId,
+  //     quantity: newQuantity
+  //   };
+  //   return order;
+  // };
+
   const snackExistsInOrderItems = (orderItemsArray, snackId) => {
-    if (orderItemsArray.map((orderItem) => (orderItem.snackId)).includes(snackId)) {
-      // const updatedOrder = buildOrderItem(id);
+    if (orderItemsArray.map((orderItem) => (orderItem.snackId).includes(snackId))) {
+      // const orderItem = orderItemsArray.find((item) => (item.id).includes(snackId));
+      // const updatedOrder = buildOrderItem(orderItem, newQuantity);
+      // console.warn(updatedOrder);
       // updateOrderItem(updatedOrder).then(set(newOrderItems));
+      console.warn(true);
+      console.warn(snackId);
+      console.warn(orderItemsArray);
     } else {
-      // const newOrder = buildOrderItem(id);
-      // addOrderItem(newOrder).then(set(newOrderItems));
+      // const newOrder = buildOrderItem(orderItem, quantity);
+      // console.warn(newOrder);
+      console.warn(false);
+      console.warn(snackId);
+      console.warn(orderItemsArray);
+      // postOrderItems(newOrder).then(set(newOrderItems));
     }
   };
 
