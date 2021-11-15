@@ -1,30 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   Button,
   Col, Container, Form, FormGroup, Input, Label
 } from 'reactstrap';
+import { createNewPaymentMethod } from '../../helpers/data/paymentMethodData';
 
-function PaymentMethodForm() {
-  // const [paymentMethodFormObj, setPaymentMethodFormObj] = useState({
-  //   userId: user?.id,
-  //   method: paymentMethodInfo?.method || '',
-  //   cardNumber: paymentMethodInfo?.cardNumber || '',
-  //   expDate: paymentMethodInfo?.expDate || '',
-  //   secturityCode: paymentMethodInfo?.secturityCode || '',
-
-  // });
+function PaymentMethodForm({
+  user, paymentMethodsArray, setPaymentMethodsArray, ...paymentMethodInfo
+}) {
+  const [paymentMethodFormObj, setPaymentMethodFormObj] = useState({
+    userId: user?.id,
+    method: paymentMethodInfo?.method || '',
+    cardNumber: paymentMethodInfo?.cardNumber || '',
+    expDate: paymentMethodInfo?.expDate || '',
+    securityCode: paymentMethodInfo?.secturityCode || ''
+  });
 
   const handleInputChange = (e) => {
-    // setPaymentMethodFormObj((prevState) => ({
-    //   ...prevState,
-    //   [e.target.name]: e.target.value
-    // }));
-    console.warn(e);
+    setPaymentMethodFormObj((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value
+    }));
   };
 
-  const handleSubmit = () => {
-    // createNewPaymentMethod().then(() => console.warn(paymentMethod))
-    console.warn('you submitted a new payment method');
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createNewPaymentMethod(paymentMethodFormObj)
+      .then((resp) => setPaymentMethodsArray(resp));
   };
 
   return (
@@ -37,25 +40,26 @@ function PaymentMethodForm() {
           </Label>
           <Col sm={6}>
           <Input
+            required
             id="cardNumber"
             name="cardNumber"
-            placeholder="1234567890123456"
+            placeholder="Enter a 16-digit card #"
+            value={paymentMethodFormObj.cardNumber}
             onChange={handleInputChange}
           />
           </Col>
           <Col sm={4}>
             <Input
+              required
               id="paymentMethod"
               name="method"
               type="select"
+              value={paymentMethodFormObj.method}
               onChange={handleInputChange}
             >
-              <option>
-                Credit
-              </option>
-              <option>
-                Debit
-              </option>
+              <option value=''></option>
+              <option>Credit</option>
+              <option>Debit</option>
             </Input>
           </Col>
         </FormGroup>
@@ -65,9 +69,11 @@ function PaymentMethodForm() {
           </Label>
           <Col sm={4}>
           <Input
+            required
             id="expDate"
             name="expDate"
             placeholder="mmyy"
+            value={paymentMethodFormObj.expDate}
             onChange={handleInputChange}
           />
           </Col>
@@ -76,9 +82,11 @@ function PaymentMethodForm() {
           </Label>
           <Col sm={4}>
           <Input
+            required
             id="securityCode"
             name="securityCode"
-            placeholder="####"
+            placeholder="3-4 digit security code"
+            value={paymentMethodFormObj.secturityCode}
             onChange={handleInputChange}
           />
           </Col>
@@ -91,5 +99,13 @@ function PaymentMethodForm() {
     </div>
   );
 }
+
+PaymentMethodForm.propTypes = {
+  user: PropTypes.any,
+  userAddresses: PropTypes.array,
+  setUserAddresses: PropTypes.func,
+  paymentMethodsArray: PropTypes.array,
+  setPaymentMethodsArray: PropTypes.func
+};
 
 export default PaymentMethodForm;

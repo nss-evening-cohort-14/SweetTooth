@@ -10,8 +10,8 @@ const getPaymentMethodByUserId = (userId) => new Promise((resolve, reject) => {
 });
 
 const createNewPaymentMethod = (paymentMethod) => new Promise((resolve, reject) => {
-  axios.add(`${dbUrl}/paymentMethod`, paymentMethod)
-    .then((resp) => resolve(Object.values(resp.data)))
+  axios.post(`${dbUrl}/paymentMethod`, paymentMethod)
+    .then(() => getPaymentMethodByUserId(paymentMethod.userId)).then((resp) => resolve(resp))
     .catch((error) => reject(error));
 });
 

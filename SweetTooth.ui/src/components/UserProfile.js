@@ -28,6 +28,7 @@ export default function UserProfile({
           </Container>
         ))
         }
+
       <PaymentMethodForm
         user={user}
         paymentMethodsArray={paymentMethodsArray}
