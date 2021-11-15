@@ -9,7 +9,7 @@ import {
   Col
 } from 'reactstrap';
 import { SnackImage } from '../styles/ShoppingPageStyled';
-// import { updateOrderItem } from '../helpers/data/OrderData';
+import { addOrderItem, updateOrderItem } from '../helpers/data/OrderData';
 
 function SnackCard({
   id, name, category, price, description, image, orderItems, orderId
@@ -59,12 +59,12 @@ function SnackCard({
       // console.warn('newQuantity', newQuantity);
       const updatedOrder = buildOrderItem(orderItem, newQuantity);
       console.warn(updatedOrder);
-      // updateOrderItem(updatedOrder);
+      updateOrderItem(updatedOrder);
       console.warn('snackId', snackId, true);
     } else {
       const newOrder = newOrderItem(newQuantity);
       console.warn(newOrder);
-      // postOrderItems(newOrder).then(set(newOrderItems));
+      addOrderItem(newOrder);
       console.warn('snackId', snackId, false);
     }
   };
