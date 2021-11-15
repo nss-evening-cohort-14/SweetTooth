@@ -9,4 +9,10 @@ const getPaymentMethodByUserId = (userId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-export default getPaymentMethodByUserId;
+const createNewPaymentMethod = (paymentMethod) => new Promise((resolve, reject) => {
+  axios.add(`${dbUrl}/paymentMethod`, paymentMethod)
+    .then((resp) => resolve(Object.values(resp.data)))
+    .catch((error) => reject(error));
+});
+
+export { getPaymentMethodByUserId, createNewPaymentMethod };

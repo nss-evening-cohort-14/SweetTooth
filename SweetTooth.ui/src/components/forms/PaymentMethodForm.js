@@ -23,7 +23,7 @@ function PaymentMethodForm() {
   };
 
   const handleSubmit = () => {
-    // createPaymentMethod().then(() => console.warn(paymentMethod))
+    // createNewPaymentMethod().then(() => console.warn(paymentMethod))
     console.warn('you submitted a new payment method');
   };
 
