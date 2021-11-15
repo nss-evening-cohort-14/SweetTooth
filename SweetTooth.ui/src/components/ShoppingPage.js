@@ -33,6 +33,7 @@ export default function ShoppingPage({ user, order, orderItems }) {
                     description={snack.description}
                     image={snack.image}
                     orderItems={orderItems}
+                    orderId={order.id}
                   />
                 ))}
               </Div>
@@ -52,6 +53,7 @@ export default function ShoppingPage({ user, order, orderItems }) {
                     description={snack.description}
                     image={snack.image}
                     orderItems={orderItems}
+                    orderId={order.id}
                   />
                 ))} */}
               </Div>

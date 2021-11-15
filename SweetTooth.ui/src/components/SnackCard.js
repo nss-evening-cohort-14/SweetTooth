@@ -9,9 +9,10 @@ import {
   Col
 } from 'reactstrap';
 import { SnackImage } from '../styles/ShoppingPageStyled';
+// import { updateOrderItem } from '../helpers/data/OrderData';
 
 function SnackCard({
-  id, name, category, price, description, image, orderItems
+  id, name, category, price, description, image, orderItems, orderId
 }) {
   // const [orderItemsHook, setOrderItemsHook] = useState(orderItems || {});
   // console.warn(orderItemsHook);
@@ -32,11 +33,20 @@ function SnackCard({
   //   }
   // });
 
+  const newOrderItem = (quantity) => {
+    const order = {
+      orderId,
+      snackId: id,
+      quantity
+    };
+    return order;
+  };
+
   const buildOrderItem = (orderItem, newQuantity) => {
     const order = {
-      id: orderItem.id,
-      orderId: orderItem.orderId,
-      snackId: orderItem.snackId,
+      id: orderItem.id || null,
+      orderId: orderItem.orderId || orderId,
+      snackId: orderItem.snackId || id,
       quantity: newQuantity
     };
     return order;
@@ -45,21 +55,17 @@ function SnackCard({
   const snackExistsInOrderItems = (orderItemsArray, snackId, newQuantity) => {
     if (orderItemsArray.map((orderItem) => (orderItem.snackId)).includes(snackId)) {
       const orderItem = orderItemsArray.find((item) => (item.snackId).includes(snackId));
-      console.warn('orderItem', orderItem);
-      console.warn('newQuantity', newQuantity);
+      // console.warn('orderItem', orderItem);
+      // console.warn('newQuantity', newQuantity);
       const updatedOrder = buildOrderItem(orderItem, newQuantity);
       console.warn(updatedOrder);
-      // updateOrderItem(updatedOrder).then(set(newOrderItems));
-      // console.warn(true);
-      // console.warn(snackId);
-      // console.warn(orderItemsArray);
+      // updateOrderItem(updatedOrder);
+      console.warn('snackId', snackId, true);
     } else {
-      // const newOrder = buildOrderItem(orderItem, quantity);
-      // console.warn(newOrder);
+      const newOrder = newOrderItem(newQuantity);
+      console.warn(newOrder);
       // postOrderItems(newOrder).then(set(newOrderItems));
-      console.warn(false);
-      console.warn(snackId);
-      console.warn(orderItemsArray);
+      console.warn('snackId', snackId, false);
     }
   };
 
@@ -112,6 +118,7 @@ SnackCard.propTypes = {
   price: PropTypes.number,
   description: PropTypes.string,
   image: PropTypes.string,
-  orderItems: PropTypes.array
+  orderItems: PropTypes.array,
+  orderId: PropTypes.string
 };
 export default SnackCard;
