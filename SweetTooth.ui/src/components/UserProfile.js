@@ -5,7 +5,7 @@ import UserAddressForm from './forms/userAddressForm';
 import PaymentMethodForm from './forms/PaymentMethodForm';
 
 export default function UserProfile({
-  user, userAddresses, setUserAddresses
+  user, userAddresses, setUserAddresses, paymentMethodsArray, setPaymentMethodsArray
 }) {
   return (
     <div>
@@ -30,8 +30,22 @@ export default function UserProfile({
         }
       <PaymentMethodForm
         user={user}
-
+        paymentMethodsArray={paymentMethodsArray}
+        setPaymentMethodsArray={setPaymentMethodsArray}
       />
+
+      {
+        paymentMethodsArray?.map((paymentMethodInfo) => (
+          <Container
+            key={paymentMethodInfo.id}
+          >
+            <Row>{paymentMethodInfo?.method}</Row>
+            <Row>{paymentMethodInfo?.cardNumber}</Row>
+            <Row>{paymentMethodInfo?.expDate}</Row>
+            <Row>{paymentMethodInfo?.securityCode}</Row>
+          </Container>
+        ))
+      }
     </div>
   );
 }
@@ -40,5 +54,7 @@ UserProfile.propTypes = {
   user: PropTypes.any,
   userAddressInfo: PropTypes.object,
   userAddresses: PropTypes.array,
-  setUserAddresses: PropTypes.func
+  setUserAddresses: PropTypes.func,
+  paymentMethodsArray: PropTypes.array,
+  setPaymentMethodsArray: PropTypes.func
 };
