@@ -43,7 +43,7 @@ function SnackCard({
   // };
 
   const snackExistsInOrderItems = (orderItemsArray, snackId) => {
-    if (orderItemsArray.map((orderItem) => (orderItem.snackId).includes(snackId))) {
+    if (orderItemsArray.map((orderItem) => (orderItem.snackId)).includes(snackId)) {
       // const orderItem = orderItemsArray.find((item) => (item.id).includes(snackId));
       // const updatedOrder = buildOrderItem(orderItem, newQuantity);
       // console.warn(updatedOrder);
