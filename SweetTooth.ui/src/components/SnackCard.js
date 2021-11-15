@@ -32,32 +32,34 @@ function SnackCard({
   //   }
   // });
 
-  // const buildOrderItem = (orderItem, newQuantity) => {
-  //   const order = {
-  //     id: orderItem.id,
-  //     orderId: orderItem.orderId,
-  //     snackId: orderItem.snackId,
-  //     quantity: newQuantity
-  //   };
-  //   return order;
-  // };
+  const buildOrderItem = (orderItem, newQuantity) => {
+    const order = {
+      id: orderItem.id,
+      orderId: orderItem.orderId,
+      snackId: orderItem.snackId,
+      quantity: newQuantity
+    };
+    return order;
+  };
 
-  const snackExistsInOrderItems = (orderItemsArray, snackId) => {
+  const snackExistsInOrderItems = (orderItemsArray, snackId, newQuantity) => {
     if (orderItemsArray.map((orderItem) => (orderItem.snackId)).includes(snackId)) {
-      // const orderItem = orderItemsArray.find((item) => (item.id).includes(snackId));
-      // const updatedOrder = buildOrderItem(orderItem, newQuantity);
-      // console.warn(updatedOrder);
+      const orderItem = orderItemsArray.find((item) => (item.snackId).includes(snackId));
+      console.warn('orderItem', orderItem);
+      console.warn('newQuantity', newQuantity);
+      const updatedOrder = buildOrderItem(orderItem, newQuantity);
+      console.warn(updatedOrder);
       // updateOrderItem(updatedOrder).then(set(newOrderItems));
-      console.warn(true);
-      console.warn(snackId);
-      console.warn(orderItemsArray);
+      // console.warn(true);
+      // console.warn(snackId);
+      // console.warn(orderItemsArray);
     } else {
       // const newOrder = buildOrderItem(orderItem, quantity);
       // console.warn(newOrder);
+      // postOrderItems(newOrder).then(set(newOrderItems));
       console.warn(false);
       console.warn(snackId);
       console.warn(orderItemsArray);
-      // postOrderItems(newOrder).then(set(newOrderItems));
     }
   };
 
@@ -66,15 +68,15 @@ function SnackCard({
     let increase = Number(counter);
     increase += 1;
     setCounter(increase.toString());
-    snackExistsInOrderItems(orderItems, id);
+    snackExistsInOrderItems(orderItems, id, increase);
   };
   const minusOne = () => {
     let decrease = Number(counter);
     if (decrease > 0) {
       decrease -= 1;
+      setCounter(decrease.toString());
+      snackExistsInOrderItems(orderItems, id, decrease);
     }
-    setCounter(decrease.toString());
-    snackExistsInOrderItems(orderItems, id);
   };
 
   return (
