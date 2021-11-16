@@ -14,10 +14,9 @@ import { addOrderItem, updateOrderItem } from '../helpers/data/OrderData';
 function SnackCard({
   id, name, category, price, description, image, orderItems, orderId
 }) {
-  // const [orderItemsHook, setOrderItemsHook] = useState(orderItems || {});
-  // console.warn(orderItemsHook);
+  const [orderItemsHook, setOrderItemsHook] = useState(orderItems || {});
 
-  // const [newOrderItem, setNewOrderItem] = useState({
+  // orderItem Model:
   //   id: '',
   //   orderId: '',
   //   snackId: '',
@@ -31,7 +30,6 @@ function SnackCard({
   //     image: '',
   //     softDelete: false
   //   }
-  // });
 
   const newOrderItem = (quantity) => {
     const order = {
@@ -55,17 +53,15 @@ function SnackCard({
   const snackExistsInOrderItems = (orderItemsArray, snackId, newQuantity) => {
     if (orderItemsArray.map((orderItem) => (orderItem.snackId)).includes(snackId)) {
       const orderItem = orderItemsArray.find((item) => (item.snackId).includes(snackId));
-      // console.warn('orderItem', orderItem);
-      // console.warn('newQuantity', newQuantity);
       const updatedOrder = buildOrderItem(orderItem, newQuantity);
-      console.warn(updatedOrder);
-      updateOrderItem(updatedOrder);
-      console.warn('snackId', snackId, true);
+      // console.warn(updatedOrder);
+      updateOrderItem(updatedOrder.id, updatedOrder).then(setOrderItemsHook);
+      // console.warn('snackId', snackId, true);
     } else {
       const newOrder = newOrderItem(newQuantity);
-      console.warn(newOrder);
-      addOrderItem(newOrder);
-      console.warn('snackId', snackId, false);
+      // console.warn(newOrder);
+      addOrderItem(newOrder).then(setOrderItemsHook);
+      // console.warn('snackId', snackId, false);
     }
   };
 
@@ -74,14 +70,14 @@ function SnackCard({
     let increase = Number(counter);
     increase += 1;
     setCounter(increase.toString());
-    snackExistsInOrderItems(orderItems, id, increase);
+    snackExistsInOrderItems(orderItemsHook, id, increase);
   };
   const minusOne = () => {
     let decrease = Number(counter);
     if (decrease > 0) {
       decrease -= 1;
       setCounter(decrease.toString());
-      snackExistsInOrderItems(orderItems, id, decrease);
+      snackExistsInOrderItems(orderItemsHook, id, decrease);
     }
   };
 
