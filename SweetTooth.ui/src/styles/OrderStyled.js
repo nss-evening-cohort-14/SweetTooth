@@ -25,7 +25,11 @@ const ItemsContainer = styled.div`
 const CartContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin: 3%;;
+  margin: 3%;
+`;
+
+const SubContainer = styled.div`
+  width: 100%;
 `;
 
 const InfoContainer = styled(Card)`
@@ -51,5 +55,6 @@ export {
   CartHeader,
   TotalInfoContainer,
   TotalInfoTitle,
-  CardItemImg
+  CardItemImg,
+  SubContainer
 };

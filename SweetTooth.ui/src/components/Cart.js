@@ -97,10 +97,10 @@ function Cart({
             </div>
           : ''
       }
-    <CartContainer>
+    <div>
       {
         orderItems.length > 0
-          ? <div>
+          ? <CartContainer>
           <ItemsContainer>
           {
             orderItems.map((item, i) => (
@@ -198,10 +198,10 @@ function Cart({
               </CardBody>
             </InfoContainer>
           </div>
-          </div>
+          </CartContainer>
           : ''
       }
-    </CartContainer>
+    </div>
         </div>
           : <div>Order processed</div>
         }
