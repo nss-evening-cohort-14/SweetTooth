@@ -53,18 +53,19 @@ function Cart({
   };
 
   const handleDelete = () => {
-    deleteOrder(order.id).then(setOrder({
-      id: '',
-      orderDate: '',
-      orderItems: [],
-      orderNumber: 0,
-      paymentMethod: null,
-      paymentMethodId: '',
-      processed: false,
-      shipped: false,
-      total: 0,
-      userId: ''
-    }));
+    deleteOrder(order.id);
+    // .then(setOrder({
+    //   id: '',
+    //   orderDate: '',
+    //   orderItems: [],
+    //   orderNumber: 0,
+    //   paymentMethod: null,
+    //   paymentMethodId: '',
+    //   processed: false,
+    //   shipped: false,
+    //   total: 0,
+    //   userId: ''
+    // }));
   };
 
   return (
@@ -97,103 +98,109 @@ function Cart({
           : ''
       }
     <CartContainer>
-      <ItemsContainer>
       {
-        orderItems.map((item, i) => (
-          <OrderItemCard
-            key={i}
-            quantity={item.quantity}
-            name={item.itemSnack.name}
-            price={item.itemSnack.price}
-            image={item.itemSnack.image}
-            />
-        ))
-        }
-      </ItemsContainer>
-      <div>
-      <InfoContainer>
-          <TotalInfoContainer>
-            <TotalInfoTitle>
-            Subtotal
-            </TotalInfoTitle>
-            <div>
-              ${order.total}
-            </div>
-          </TotalInfoContainer>
-          <TotalInfoContainer>
-            <TotalInfoTitle>
-              Sales Tax
-            </TotalInfoTitle>
-            <div>
-              ${order.total !== 0 ? calculate(order.total, false) : ''}
-            </div>
-          </TotalInfoContainer>
-          <TotalInfoContainer>
-            <TotalInfoTitle>
-              Shipping
-            </TotalInfoTitle>
-            <div>
-            $10
-            </div>
-          </TotalInfoContainer>
-          <TotalInfoContainer>
-            <TotalInfoTitle>
-            Total
-            </TotalInfoTitle>
-            <div>
-            ${order.total !== 0 ? calculate(order.total, true) : ''}
-            </div>
-          </TotalInfoContainer>
-        </InfoContainer>
-        <InfoContainer
-        color="light"
-        >
-        <CardBody>
-          <CardTitle tag="h5">
-            Select a Payment Method
-          </CardTitle>
-          <div>
-            {
-              user.paymentMethods?.map((pm, i) => (
-                <FormGroup check
-                key={i}>
-                <Input
-                  id="checkbox1"
-                  type="checkbox"
+        orderItems.length > 0
+          ? <div>
+          <ItemsContainer>
+          {
+            orderItems.map((item, i) => (
+              <OrderItemCard
+                key={i}
+                quantity={item.quantity}
+                name={item.itemSnack.name}
+                price={item.itemSnack.price}
+                image={item.itemSnack.image}
                 />
-                <Label check>
-                **** **** **** {pm.cardNumber.slice([-4])}
-                </Label>
-              </FormGroup>
-              ))
+            ))
             }
-          </div>
-        </CardBody>
-        </InfoContainer>
-        <InfoContainer>
-          <CardBody>
-          <CardTitle tag="h5">
-            Select an Address
-          </CardTitle>
+          </ItemsContainer>
           <div>
-            {
-              user.addresses?.map((ad, i) => (
-                <FormGroup check
-                key={i}>
-                <Input
-                  id="checkbox1"
-                  type="checkbox"
-                />
-                <Label check>
-                <p>{ad.street} {ad.city}, {ad.state}, {ad.zip}</p>
-                </Label>
-              </FormGroup>
-              ))
-            }
+          <InfoContainer>
+              <TotalInfoContainer>
+                <TotalInfoTitle>
+                Subtotal
+                </TotalInfoTitle>
+                <div>
+                  ${order.total}
+                </div>
+              </TotalInfoContainer>
+              <TotalInfoContainer>
+                <TotalInfoTitle>
+                  Sales Tax
+                </TotalInfoTitle>
+                <div>
+                  ${order.total !== 0 ? calculate(order.total, false) : ''}
+                </div>
+              </TotalInfoContainer>
+              <TotalInfoContainer>
+                <TotalInfoTitle>
+                  Shipping
+                </TotalInfoTitle>
+                <div>
+                $10
+                </div>
+              </TotalInfoContainer>
+              <TotalInfoContainer>
+                <TotalInfoTitle>
+                Total
+                </TotalInfoTitle>
+                <div>
+                ${order.total !== 0 ? calculate(order.total, true) : ''}
+                </div>
+              </TotalInfoContainer>
+            </InfoContainer>
+            <InfoContainer
+            color="light"
+            >
+            <CardBody>
+              <CardTitle tag="h5">
+                Select a Payment Method
+              </CardTitle>
+              <div>
+                {
+                  user.paymentMethods?.map((pm, i) => (
+                    <FormGroup check
+                    key={i}>
+                    <Input
+                      id="checkbox1"
+                      type="checkbox"
+                    />
+                    <Label check>
+                    **** **** **** {pm.cardNumber.slice([-4])}
+                    </Label>
+                  </FormGroup>
+                  ))
+                }
+              </div>
+            </CardBody>
+            </InfoContainer>
+            <InfoContainer>
+              <CardBody>
+              <CardTitle tag="h5">
+                Select an Address
+              </CardTitle>
+              <div>
+                {
+                  user.addresses?.map((ad, i) => (
+                    <FormGroup check
+                    key={i}>
+                    <Input
+                      id="checkbox1"
+                      type="checkbox"
+                    />
+                    <Label check>
+                    <p>{ad.street} {ad.city}, {ad.state}, {ad.zip}</p>
+                    </Label>
+                  </FormGroup>
+                  ))
+                }
+              </div>
+              </CardBody>
+            </InfoContainer>
           </div>
-          </CardBody>
-        </InfoContainer>
-      </div>
+          </div>
+          : ''
+      }
     </CartContainer>
         </div>
           : <div>Order processed</div>
