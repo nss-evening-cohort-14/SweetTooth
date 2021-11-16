@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Row } from 'reactstrap';
+import {
+  Col,
+  Container, FormGroup, Input, Label, Row
+} from 'reactstrap';
 import UserAddressForm from './forms/userAddressForm';
 import PaymentMethodForm from './forms/PaymentMethodForm';
 
@@ -21,11 +24,24 @@ export default function UserProfile({
           <Container
             key={userAddressInfo.id}
           >
-           <Row>{userAddressInfo.street}</Row>
-           <Row>{userAddressInfo.city}</Row>
-           <Row>{userAddressInfo.state}</Row>
-           <Row>{userAddressInfo.zip}</Row>
-           <hr/>
+            <Row>
+              <Col>
+                <FormGroup check>
+                    <Input
+                      id="checkbox1"
+                      type="checkbox"
+                    />
+                    <Label check>
+                    </Label>
+                  </FormGroup>
+              </Col>
+              <Col>
+                <Row>{userAddressInfo.street}</Row>
+                <Row>{userAddressInfo.city}</Row>
+                <Row>{userAddressInfo.state}</Row>
+                <Row>{userAddressInfo.zip}</Row>
+              </Col>
+            </Row>
           </Container>
         ))
         }

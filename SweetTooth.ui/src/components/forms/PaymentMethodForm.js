@@ -4,7 +4,7 @@ import {
   Button,
   Col, Container, Form, FormGroup, Input, Label
 } from 'reactstrap';
-import { createNewPaymentMethod } from '../../helpers/data/paymentMethodData';
+import { createNewPaymentMethod, updatePaymentMethod } from '../../helpers/data/paymentMethodData';
 
 function PaymentMethodForm({
   user, paymentMethodsArray, setPaymentMethodsArray, ...paymentMethodInfo
@@ -26,8 +26,12 @@ function PaymentMethodForm({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createNewPaymentMethod(paymentMethodFormObj)
-      .then((resp) => setPaymentMethodsArray(resp));
+    if (paymentMethodFormObj) {
+      updatePaymentMethod(paymentMethodFormObj).then((resp) => setPaymentMethodsArray(resp));
+    } else {
+      createNewPaymentMethod(paymentMethodFormObj)
+        .then((resp) => setPaymentMethodsArray(resp));
+    }
   };
 
   return (
