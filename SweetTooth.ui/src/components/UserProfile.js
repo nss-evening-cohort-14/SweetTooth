@@ -10,15 +10,27 @@ export default function UserProfile({
   user, userAddresses, setUserAddresses, paymentMethodsArray, setPaymentMethodsArray
 }) {
   const [editNow, setEditNow] = useState(false);
-  const handleClick = (type) => {
-    switch (type) {
-      case 'edit':
-        setEditNow((prevState) => !prevState);
-        break;
-      default:
-        console.warn('nothing selected');
-        break;
+  const [idToUpdate, setIdToUpdate] = useState('');
+
+  const handleClick = (id) => {
+    // console.warn(id);
+    if (id) {
+      setIdToUpdate(id);
+      // setEditNow(!editNow);
+      setEditNow((prevState) => !prevState);
+      // need call to get payment method by its id
+    } else {
+      console.warn('no id to get');
     }
+    // setIdToUpdate((id));
+    // switch (i) {
+    //   case 'edit':
+    //     setEditNow((prevState) => !prevState);
+    //     break;
+    //   default:
+    //     console.warn('nothing selected');
+    //     break;
+    // }
   };
   return (
     <div>
@@ -54,10 +66,8 @@ export default function UserProfile({
       {/* --------------Start payment method stuff---------------- */}
 
       {
-        paymentMethodsArray?.map((paymentMethodInfo) => (
-          <Container
-            key={paymentMethodInfo.id}
-            >
+      <Container>
+        {paymentMethodsArray?.map((paymentMethodInfo) => (
             <Card
             key={paymentMethodInfo.id}
             >
@@ -66,20 +76,25 @@ export default function UserProfile({
                 <p>{paymentMethodInfo?.cardNumber}</p>
                 <p>{paymentMethodInfo?.expDate}</p>
                 <p>{paymentMethodInfo?.securityCode}</p>
-                <Button color='info' outline onClick={() => handleClick('edit')}>
-                  {editNow ? 'Close' : 'Edit'}
+                <Button color='info' outline
+                  // id={paymentMethodInfo.id}
+                  onClick={(e) => handleClick(paymentMethodInfo.id, e)}
+                  >
+                  {idToUpdate === paymentMethodInfo.id && editNow
+                    ? 'Close' : 'Edit' }
                 </Button>
               </CardBody>
             {
-              editNow && <PaymentMethodForm
-              user={user}
-              paymentMethodsArray={paymentMethodsArray}
-              setPaymentMethodsArray={setPaymentMethodsArray}
+              idToUpdate === paymentMethodInfo.id ? editNow && <PaymentMethodForm
+                  user={user}
+                  paymentMethodsArray={paymentMethodsArray}
+                  setPaymentMethodsArray={setPaymentMethodsArray}
               />
+                : ''
             }
             </Card>
+        ))}
           </Container>
-        ))
       }
     </div>
   );
