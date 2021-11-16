@@ -18,7 +18,7 @@ import {
   TotalInfoContainer,
   TotalInfoTitle
 } from '../styles/OrderStyled';
-import { processOrder } from '../helpers/data/OrderData';
+import { deleteOrder, processOrder } from '../helpers/data/OrderData';
 
 function Cart({
   user,
@@ -26,6 +26,7 @@ function Cart({
   orderItems,
   setOrder
 }) {
+  console.warn(order);
   const calculate = (number, bool) => {
     // if bool is false, it will calculate the tax and add a zero if necessary
     // if bool is true, it will calculate the total
@@ -50,9 +51,16 @@ function Cart({
     processOrder(order.id).then(setOrder);
   };
 
+  const handleDelete = () => {
+    deleteOrder(order.id);
+  };
+
   return (
 
     <div>
+      {
+        order.orderItems
+          ? <div>
       {
         order.processed === false
           ? <div>
@@ -64,6 +72,9 @@ function Cart({
       <div>
         <div>Once you process your order, you can&apos;t go back!</div>
         <Button onClick={handleClick}>Process Order</Button>
+      </div>
+      <div>
+        <Button onClick={handleDelete}>Empty Cart</Button>
       </div>
     <CartContainer>
       <ItemsContainer>
@@ -166,6 +177,9 @@ function Cart({
     </CartContainer>
         </div>
           : <div>Order processed</div>
+      }
+    </div>
+          : <div>Your cart is empty</div>
       }
     </div>
   );

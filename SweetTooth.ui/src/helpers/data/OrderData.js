@@ -54,11 +54,18 @@ const processOrder = (orderId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const deleteOrder = (orderId) => new Promise((resolve, reject) => {
+  axios.delete(`${dbUrl}/orders/${orderId}`)
+    .then((resp) => resolve(resp))
+    .catch((error) => reject(error));
+});
+
 export {
   getSingleOder,
   getOrderByUserId,
   getOrderItems,
   getOrders,
   getUnprocessedOrderByUserId,
-  processOrder
+  processOrder,
+  deleteOrder
 };
