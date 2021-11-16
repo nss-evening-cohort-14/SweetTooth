@@ -26,7 +26,6 @@ function Cart({
   orderItems,
   setOrder
 }) {
-  console.warn(order);
   const calculate = (number, bool) => {
     // if bool is false, it will calculate the tax and add a zero if necessary
     // if bool is true, it will calculate the total
@@ -46,6 +45,8 @@ function Cart({
     }
     return result;
   };
+
+  console.warn('orderItems', orderItems);
 
   const handleClick = () => {
     processOrder(order.id).then(setOrder);
@@ -70,23 +71,31 @@ function Cart({
 
     <div>
       {
-        order.orderItems
-          ? <div>
-      {
         order.processed === false
           ? <div>
              <CartHeader>
         <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
-        {user.firstName}, here&apos;s what&apos;s in your cart
+        {
+          orderItems.length > 0
+            ? `${user.firstName}, here's what's in your cart`
+            : 'Your cart is empty!'
+        }
         <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
       </CartHeader>
-      <div>
-        <div>Once you process your order, you can&apos;t go back!</div>
-        <Button onClick={handleClick}>Process Order</Button>
-      </div>
-      <div>
-        <Button onClick={handleDelete}>Empty Cart</Button>
-      </div>
+
+      {
+        orderItems.length > 0
+          ? <div>
+              <div>
+                <div>Once you process your order, you can&apos;t go back!</div>
+                  <Button onClick={handleClick}>Process Order</Button>
+                </div>
+              <div>
+                <Button onClick={handleDelete}>Empty Cart</Button>
+              </div>
+            </div>
+          : ''
+      }
     <CartContainer>
       <ItemsContainer>
       {
@@ -188,10 +197,7 @@ function Cart({
     </CartContainer>
         </div>
           : <div>Order processed</div>
-      }
-    </div>
-          : <div>Your cart is empty</div>
-      }
+        }
     </div>
   );
 }
