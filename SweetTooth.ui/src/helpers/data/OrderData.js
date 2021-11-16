@@ -48,10 +48,17 @@ const getOrders = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const processOrder = (orderId) => new Promise((resolve, reject) => {
+  axios.put(`${dbUrl}/orders/processOrder/${orderId}`)
+    .then((response) => resolve(response))
+    .catch((error) => reject(error));
+});
+
 export {
   getSingleOder,
   getOrderByUserId,
   getOrderItems,
   getOrders,
-  getUnprocessedOrderByUserId
+  getUnprocessedOrderByUserId,
+  processOrder
 };

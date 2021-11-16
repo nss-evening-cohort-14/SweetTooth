@@ -29,6 +29,7 @@ PrivateRoute.propTypes = {
 function Routes({
   user,
   order,
+  setOrder,
   orderItems,
   userAddresses,
   setUserAddresses
@@ -42,7 +43,7 @@ function Routes({
             user={user}
           />}
         />
-        <Route
+        <PrivateRoute
           exact path="/shop"
           component={() => <ShoppingPage
             user={user}
@@ -57,6 +58,7 @@ function Routes({
             user={user}
             order={order}
             orderItems={orderItems}
+            setOrder={setOrder}
         />
       }
         user={user}
@@ -85,7 +87,8 @@ Routes.propTypes = {
   order: PropTypes.object,
   orderItems: PropTypes.array,
   userAddresses: PropTypes.array,
-  setUserAddresses: PropTypes.func
+  setUserAddresses: PropTypes.func,
+  setOrder: PropTypes.func
 };
 
 export default Routes;

@@ -63,6 +63,7 @@ export default function App() {
           orderItems={orderItems}
           userAddresses={userAddresses}
           setUserAddresses={setUserAddresses}
+          setOrder={setOrder}
         />
       </Router>
     </div>

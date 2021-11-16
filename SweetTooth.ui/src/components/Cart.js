@@ -5,7 +5,8 @@ import {
   CardBody,
   FormGroup,
   Label,
-  Input
+  Input,
+  Button
 } from 'reactstrap';
 // import { getUnprocessedOrderByUserId } from '../helpers/data/OrderData';
 import OrderItemCard from './OrderItemCard';
@@ -17,8 +18,14 @@ import {
   TotalInfoContainer,
   TotalInfoTitle
 } from '../styles/OrderStyled';
+import { processOrder } from '../helpers/data/OrderData';
 
-function Cart({ user, order, orderItems }) {
+function Cart({
+  user,
+  order,
+  orderItems,
+  setOrder
+}) {
   const calculate = (number, bool) => {
     // if bool is false, it will calculate the tax and add a zero if necessary
     // if bool is true, it will calculate the total
@@ -39,13 +46,25 @@ function Cart({ user, order, orderItems }) {
     return result;
   };
 
+  const handleClick = () => {
+    processOrder(order.id).then(setOrder);
+  };
+
   return (
+
     <div>
-      <CartHeader>
+      {
+        order.processed === false
+          ? <div>
+             <CartHeader>
         <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
         {user.firstName}, here&apos;s what&apos;s in your cart
         <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
       </CartHeader>
+      <div>
+        <div>Once you process your order, you can&apos;t go back!</div>
+        <Button onClick={handleClick}>Process Order</Button>
+      </div>
     <CartContainer>
       <ItemsContainer>
       {
@@ -145,6 +164,9 @@ function Cart({ user, order, orderItems }) {
         </InfoContainer>
       </div>
     </CartContainer>
+        </div>
+          : <div>Order processed</div>
+      }
     </div>
   );
 }
@@ -152,7 +174,8 @@ function Cart({ user, order, orderItems }) {
 Cart.propTypes = {
   user: PropTypes.any,
   order: PropTypes.object,
-  orderItems: PropTypes.array
+  orderItems: PropTypes.array,
+  setOrder: PropTypes.func
 };
 
 export default Cart;
