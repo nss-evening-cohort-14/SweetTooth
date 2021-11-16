@@ -12,10 +12,8 @@ import { SnackImage } from '../styles/ShoppingPageStyled';
 import { addOrderItem, updateOrderItem } from '../helpers/data/OrderData';
 
 function SnackCard({
-  id, name, category, price, description, image, orderItems, orderId
+  id, name, category, price, description, image, orderItems, setOrderItems, orderId
 }) {
-  const [orderItemsHook, setOrderItemsHook] = useState(orderItems || {});
-
   // orderItem Model:
   //   id: '',
   //   orderId: '',
@@ -54,30 +52,32 @@ function SnackCard({
     if (orderItemsArray.map((orderItem) => (orderItem.snackId)).includes(snackId)) {
       const orderItem = orderItemsArray.find((item) => (item.snackId).includes(snackId));
       const updatedOrder = buildOrderItem(orderItem, newQuantity);
-      // console.warn(updatedOrder);
-      updateOrderItem(updatedOrder.id, updatedOrder).then(setOrderItemsHook);
-      // console.warn('snackId', snackId, true);
+      console.warn('updatedorder', updatedOrder);
+      updateOrderItem(updatedOrder.id, updatedOrder).then(setOrderItems);
+      console.warn('snackId', snackId, true);
     } else {
       const newOrder = newOrderItem(newQuantity);
-      // console.warn(newOrder);
-      addOrderItem(newOrder).then(setOrderItemsHook);
-      // console.warn('snackId', snackId, false);
+      console.warn('neworder', newOrder);
+      addOrderItem(newOrder).then(setOrderItems);
+      console.warn('snackId', snackId, false);
     }
   };
 
   const [counter, setCounter] = useState('0');
   const plusOne = () => {
+    // e.preventDefault();
     let increase = Number(counter);
     increase += 1;
     setCounter(increase.toString());
-    snackExistsInOrderItems(orderItemsHook, id, increase);
+    snackExistsInOrderItems(orderItems, id, increase);
   };
   const minusOne = () => {
+    // e.preventDefault();
     let decrease = Number(counter);
     if (decrease > 0) {
       decrease -= 1;
       setCounter(decrease.toString());
-      snackExistsInOrderItems(orderItemsHook, id, decrease);
+      snackExistsInOrderItems(orderItems, id, decrease);
     }
   };
 
@@ -115,6 +115,7 @@ SnackCard.propTypes = {
   description: PropTypes.string,
   image: PropTypes.string,
   orderItems: PropTypes.array,
+  setOrderItems: PropTypes.func,
   orderId: PropTypes.string
 };
 export default SnackCard;

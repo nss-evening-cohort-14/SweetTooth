@@ -30,8 +30,11 @@ function Routes({
   user,
   order,
   orderItems,
+  setOrderItems,
   userAddresses,
-  setUserAddresses
+  setUserAddresses,
+  snacks,
+  setSnacks
 }) {
   return (
     <div>
@@ -48,6 +51,8 @@ function Routes({
             user={user}
             order={order}
             orderItems={orderItems}
+            setOrderItems={setOrderItems}
+            snacks={snacks}
           />}
           user={user}
         />
@@ -72,7 +77,11 @@ function Routes({
         />
         <PrivateRoute
           exact path="/admin-dashboard"
-          component={AdminDashboard}
+          component={() => <AdminDashboard
+            user={user}
+            snacks={snacks}
+            setSnacks={setSnacks}
+          />}
           user={user}
         />
       </Switch>
@@ -84,8 +93,11 @@ Routes.propTypes = {
   user: PropTypes.any,
   order: PropTypes.object,
   orderItems: PropTypes.array,
+  setOrderItems: PropTypes.func,
   userAddresses: PropTypes.array,
-  setUserAddresses: PropTypes.func
+  setUserAddresses: PropTypes.func,
+  snacks: PropTypes.array,
+  setSnacks: PropTypes.func
 };
 
 export default Routes;
