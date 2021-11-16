@@ -46,6 +46,8 @@ function PaymentMethodForm({
             placeholder="Enter a 16-digit card #"
             value={paymentMethodFormObj.cardNumber}
             onChange={handleInputChange}
+            maxLength={16}
+
           />
           </Col>
           <Col sm={4}>
@@ -75,6 +77,8 @@ function PaymentMethodForm({
             placeholder="mmyy"
             value={paymentMethodFormObj.expDate}
             onChange={handleInputChange}
+            maxLength={4}
+
           />
           </Col>
           <Label for="securityCode" sm={2}>
@@ -88,6 +92,7 @@ function PaymentMethodForm({
             placeholder="3-4 digit security code"
             value={paymentMethodFormObj.secturityCode}
             onChange={handleInputChange}
+            maxLength={4}
           />
           </Col>
         </FormGroup>

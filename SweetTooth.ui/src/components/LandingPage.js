@@ -4,29 +4,10 @@ import PropTypes from 'prop-types';
 import {
   Button, ButtonGroup, Container
 } from 'reactstrap';
-import styled from 'styled-components';
-import logo from '../Assets/SweetToothLogo.png';
 import { signInUser, signOutUser } from '../helpers/auth';
+import { LandingPageContainer, LandingPageLogo } from '../styles/LandingPageStyled';
+import logo from '../Assets/SweetToothLogo.png';
 
-const LandingPageContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-  // border: 1px solid gray;
-  padding: 10px;
-  margin: 5px auto;
-  // border-radius: 5px;
-  // background-color: rgb(16,24,30);
-`;
-
-const LandingPageLogo = styled.img`
-  background-image: url(${logo}) no-repeat center center fixed;
-  display: inline-block;
-  width: 50%;
-  border-radius: 50%;
-  padding 20x;
-`;
 function LandingPage({ user }) {
   const authButtons = () => (
     <div>
