@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, Col, Row, Button
+  Container, Col, Row, Button, Card, CardBody
 } from 'reactstrap';
 import UserAddressForm from './forms/userAddressForm';
 import PaymentMethodForm from './forms/PaymentMethodForm';
@@ -9,6 +9,17 @@ import PaymentMethodForm from './forms/PaymentMethodForm';
 export default function UserProfile({
   user, userAddresses, setUserAddresses, paymentMethodsArray, setPaymentMethodsArray
 }) {
+  const [editNow, setEditNow] = useState(false);
+  const handleClick = (type) => {
+    switch (type) {
+      case 'edit':
+        setEditNow((prevState) => !prevState);
+        break;
+      default:
+        console.warn('nothing selected');
+        break;
+    }
+  };
   return (
     <div>
         <h1>User Profile</h1>
@@ -25,7 +36,9 @@ export default function UserProfile({
           >
             <Row>
               <Col>
-              <Button color='info' outline >Edit</Button>
+              {/* <Button color='info' outline onClick={() => handleClick('edit')}>
+                {editNow ? 'Close' : 'Edit'}
+              </Button> */}
               </Col>
               <Col>
                 <Row>{userAddressInfo.street}</Row>
@@ -38,29 +51,33 @@ export default function UserProfile({
         ))
         }
 
-      <PaymentMethodForm
-        user={user}
-        paymentMethodsArray={paymentMethodsArray}
-        setPaymentMethodsArray={setPaymentMethodsArray}
-      />
+      {/* --------------Start payment method stuff---------------- */}
 
       {
         paymentMethodsArray?.map((paymentMethodInfo) => (
           <Container
-            fluid
             key={paymentMethodInfo.id}
-          >
-            <Row>
-              <Col>
-                  <Button color='info' outline >Edit</Button>
-              </Col>
-              <Col>
-                <Row>{paymentMethodInfo?.method}</Row>
-                <Row>{paymentMethodInfo?.cardNumber}</Row>
-                <Row>{paymentMethodInfo?.expDate}</Row>
-                <Row>{paymentMethodInfo?.securityCode}</Row>
-              </Col>
-            </Row>
+            >
+            <Card
+            key={paymentMethodInfo.id}
+            >
+              <CardBody>
+                <p>{paymentMethodInfo?.method}</p>
+                <p>{paymentMethodInfo?.cardNumber}</p>
+                <p>{paymentMethodInfo?.expDate}</p>
+                <p>{paymentMethodInfo?.securityCode}</p>
+                <Button color='info' outline onClick={() => handleClick('edit')}>
+                  {editNow ? 'Close' : 'Edit'}
+                </Button>
+              </CardBody>
+            {
+              editNow && <PaymentMethodForm
+              user={user}
+              paymentMethodsArray={paymentMethodsArray}
+              setPaymentMethodsArray={setPaymentMethodsArray}
+              />
+            }
+            </Card>
           </Container>
         ))
       }
