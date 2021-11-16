@@ -52,7 +52,18 @@ function Cart({
   };
 
   const handleDelete = () => {
-    deleteOrder(order.id);
+    deleteOrder(order.id).then(setOrder({
+      id: '',
+      orderDate: '',
+      orderItems: [],
+      orderNumber: 0,
+      paymentMethod: null,
+      paymentMethodId: '',
+      processed: false,
+      shipped: false,
+      total: 0,
+      userId: ''
+    }));
   };
 
   return (

@@ -109,9 +109,11 @@ namespace SweetTooth.DataAccess
                                 on ot.SnackId = s.Id
                                 where OrderId = @id";
 
-            var orderItems = db.Query<OrderItem, Snack, OrderItem>(orderItemsSql, MapOrderItem, new { id = order.Id }, splitOn: "Id");
-
-            order.OrderItems = orderItems;
+            if (order != null)
+            {
+                var orderItems = db.Query<OrderItem, Snack, OrderItem>(orderItemsSql, MapOrderItem, new { id = order.Id }, splitOn: "Id");
+                order.OrderItems = orderItems;
+            }
 
             return order;
         }
@@ -123,6 +125,44 @@ namespace SweetTooth.DataAccess
             int r = generator.Next(100000, 1000000);
 
             return r;
+        }
+
+        internal void AddEmptyOrder(Order newOrder)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"insert into [dbo].[Order]
+                        (UserId,
+                        OrderDate,
+                        OrderNumber,
+                        Total,
+                        PaymentMethodId,
+                        Processed,
+                        Shipped)
+                        Output inserted.Id
+                        values (@UserId,
+		                        @OrderDate,
+		                        @OrderNumber,
+		                        @Total,
+		                        @PaymentMethodId,
+		                        @Processed,
+		                        @Shipped)";
+
+            var orderParams = new
+            {
+                UserId = newOrder.UserId,
+                OrderDate = DateTime.Now,
+                OrderNumber = GenerateNumber(),
+                Total = newOrder.Total,
+                PaymentMethodId = newOrder.PaymentMethodId,
+                Processed = newOrder.Processed,
+                Shipped = newOrder.Shipped,
+            };
+
+
+            var orderId = db.ExecuteScalar<Guid>(sql, orderParams);
+            newOrder.Id = orderId;
+
         }
 
         internal void Add(Order newOrder, List<Item> snackList)

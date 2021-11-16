@@ -39,6 +39,7 @@ export default function App() {
                 setUserAddresses(resp.addresses);
                 getUnprocessedOrderByUserId(resp.id)
                   .then((res) => {
+                    console.warn('response', res);
                     setOrder(res);
                     setOrderItems(res.orderItems);
                     console.warn('order', order);

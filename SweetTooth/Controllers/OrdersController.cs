@@ -15,11 +15,15 @@ namespace SweetTooth.Controllers
     {
         OrderRepo _repo;
         SnackRepo _snackRepo;
+        PaymentMethodRepo _pmRepo;
 
-        public OrdersController(OrderRepo repo, SnackRepo snackRepo)
+        public OrdersController(OrderRepo repo,
+            SnackRepo snackRepo,
+            PaymentMethodRepo pmRepo)
         {
             _repo = repo;
             _snackRepo = snackRepo;
+            _pmRepo = pmRepo;
         }
 
         [HttpGet]
@@ -170,8 +174,18 @@ namespace SweetTooth.Controllers
             var order = _repo.GetUnprocessedOrderByUserId(userId);
             if (order == null)
             {
-                return NotFound("No order was found.");
-            }
+                var userPm = _pmRepo.GetAllUserPaymentMethods(userId);
+                var singlePm = userPm.First().Id;
+
+                var newOrder = new Order()
+                {
+                    UserId = userId,
+                    PaymentMethodId = singlePm
+                };
+
+                _repo.AddEmptyOrder(newOrder);
+            };
+
             return Ok(order);
         }
     }
