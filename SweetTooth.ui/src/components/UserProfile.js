@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Col,
-  Container, FormGroup, Input, Label, Row
+  Container, Col, Row, Button
 } from 'reactstrap';
 import UserAddressForm from './forms/userAddressForm';
 import PaymentMethodForm from './forms/PaymentMethodForm';
@@ -26,14 +25,7 @@ export default function UserProfile({
           >
             <Row>
               <Col>
-                <FormGroup check>
-                    <Input
-                      id="checkbox1"
-                      type="checkbox"
-                    />
-                    <Label check>
-                    </Label>
-                  </FormGroup>
+              <Button color='info' outline >Edit</Button>
               </Col>
               <Col>
                 <Row>{userAddressInfo.street}</Row>
@@ -55,12 +47,20 @@ export default function UserProfile({
       {
         paymentMethodsArray?.map((paymentMethodInfo) => (
           <Container
+            fluid
             key={paymentMethodInfo.id}
           >
-            <Row>{paymentMethodInfo?.method}</Row>
-            <Row>{paymentMethodInfo?.cardNumber}</Row>
-            <Row>{paymentMethodInfo?.expDate}</Row>
-            <Row>{paymentMethodInfo?.securityCode}</Row>
+            <Row>
+              <Col>
+                  <Button color='info' outline >Edit</Button>
+              </Col>
+              <Col>
+                <Row>{paymentMethodInfo?.method}</Row>
+                <Row>{paymentMethodInfo?.cardNumber}</Row>
+                <Row>{paymentMethodInfo?.expDate}</Row>
+                <Row>{paymentMethodInfo?.securityCode}</Row>
+              </Col>
+            </Row>
           </Container>
         ))
       }
