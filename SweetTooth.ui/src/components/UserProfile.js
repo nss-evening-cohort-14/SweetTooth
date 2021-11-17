@@ -1,37 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, Col, Row, Button, Card, CardBody
+  Container, Col, Row
 } from 'reactstrap';
 import UserAddressForm from './forms/userAddressForm';
-import PaymentMethodForm from './forms/PaymentMethodForm';
+import PaymentMethodCard from './PaymentMethodCard';
 // import getPaymentMethodByPaymentId from '../helpers/data/paymentMethodData';
 
 export default function UserProfile({
   user, userAddresses, setUserAddresses, paymentMethodsArray, setPaymentMethodsArray
 }) {
-  const [editNow, setEditNow] = useState(false);
-  const [idToUpdate, setIdToUpdate] = useState('');
-
-  const handleClick = (id) => {
-    console.warn(id);
-    if (id) {
-      setIdToUpdate(id);
-      setEditNow((prevState) => !prevState);
-      // need call to get payment method by its id
-    } else {
-      console.warn('no id to get');
-    }
-    // setIdToUpdate((id));
-    // switch (i) {
-    //   case 'edit':
-    //     setEditNow((prevState) => !prevState);
-    //     break;
-    //   default:
-    //     console.warn('nothing selected');
-    //     break;
-    // }
-  };
   return (
     <div>
         <h1>User Profile</h1>
@@ -68,33 +46,14 @@ export default function UserProfile({
       {
       <Container>
         {paymentMethodsArray?.map((paymentMethodInfo) => (
-            <Card
-            key={paymentMethodInfo.id}
-            >
-              <CardBody>
-                <p>{paymentMethodInfo?.method}</p>
-                <p>{paymentMethodInfo?.cardNumber}</p>
-                <p>{paymentMethodInfo?.expDate}</p>
-                <p>{paymentMethodInfo?.securityCode}</p>
-                <Button color='info' outline
-                  // id={paymentMethodInfo.id}
-                  onClick={(e) => handleClick(paymentMethodInfo.id, e)}
-                  >
-                  {idToUpdate === paymentMethodInfo.id && editNow
-                    ? 'Close' : 'Edit' }
-                </Button>
-              </CardBody>
-            {
-              idToUpdate === paymentMethodInfo.id
-                ? editNow && <PaymentMethodForm
-                  user={user}
-                  paymentMethodsArray={paymentMethodsArray}
-                  setPaymentMethodsArray={setPaymentMethodsArray}
-                  {...paymentMethodInfo}
-              />
-                : ''
-            }
-            </Card>
+        <PaymentMethodCard
+          key={paymentMethodInfo.id}
+          paymentMethodsArray={paymentMethodsArray}
+          setPaymentMethodsArray={setPaymentMethodsArray}
+          {...paymentMethodInfo}
+        >
+
+        </PaymentMethodCard>
         ))}
           </Container>
       }

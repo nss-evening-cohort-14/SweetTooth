@@ -82,6 +82,7 @@ function UserAddressForm({
             placeholder="TN"
             onChange={handleInputChange}
             value={userAddressFormObj.state.toUpperCase()}
+            minLength={2}
             maxLength={2}
           />
           </Col>
@@ -95,6 +96,7 @@ function UserAddressForm({
             placeholder="37217"
             onChange={handleInputChange}
             value={userAddressFormObj.zip}
+            minLength={5}
             maxLength={5}
           />
           </Col>

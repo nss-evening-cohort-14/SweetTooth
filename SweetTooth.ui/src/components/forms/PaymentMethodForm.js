@@ -15,7 +15,8 @@ function PaymentMethodForm({
     method: paymentMethodInfo?.method || '',
     cardNumber: paymentMethodInfo?.cardNumber || '',
     expDate: paymentMethodInfo?.expDate || '',
-    securityCode: paymentMethodInfo?.secturityCode || ''
+    securityCode: paymentMethodInfo?.secturityCode || '',
+    softDelete: paymentMethodInfo?.softDelete || ''
   });
 
   const handleInputChange = (e) => {
@@ -55,6 +56,7 @@ function PaymentMethodForm({
             placeholder="Enter a 16-digit card #"
             value={paymentMethodFormObj.cardNumber}
             onChange={handleInputChange}
+            minLength={16}
             maxLength={16}
 
           />
@@ -86,6 +88,7 @@ function PaymentMethodForm({
             placeholder="mmyy"
             value={paymentMethodFormObj.expDate}
             onChange={handleInputChange}
+            minLength={4}
             maxLength={4}
 
           />
@@ -101,6 +104,7 @@ function PaymentMethodForm({
             placeholder="3-4 digit security code"
             value={paymentMethodFormObj.secturityCode}
             onChange={handleInputChange}
+            minLength={3}
             maxLength={4}
           />
           </Col>
