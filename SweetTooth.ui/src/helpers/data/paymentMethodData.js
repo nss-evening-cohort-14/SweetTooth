@@ -9,6 +9,12 @@ const getPaymentMethodByUserId = (userId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+getPaymentMethodByPaymentId = (paymentId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/paymentMethod/paymentId/${paymentId}`)
+    .then((resp) => resolve(resp))
+    .catch((error) => reject(error));
+});
+
 const createNewPaymentMethod = (paymentMethod) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/paymentMethod`, paymentMethod)
     .then(() => getPaymentMethodByUserId(paymentMethod.userId)).then((resp) => resolve(resp))
@@ -22,4 +28,6 @@ const updatePaymentMethod = (paymentMethod) => new Promise((resolve, reject) => 
     .catch((error) => reject(error));
 });
 
-export { getPaymentMethodByUserId, createNewPaymentMethod, updatePaymentMethod };
+export {
+  getPaymentMethodByUserId, getPaymentMethodByPaymentId, createNewPaymentMethod, updatePaymentMethod
+};
