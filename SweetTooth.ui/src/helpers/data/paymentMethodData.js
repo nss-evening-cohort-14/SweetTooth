@@ -27,6 +27,16 @@ const updatePaymentMethod = (paymentMethod) => new Promise((resolve, reject) => 
     .catch((error) => reject(error));
 });
 
+const softDeletePaymentMethod = (paymentMethod) => new Promise((resolve, reject) => {
+  axios.put(`${dbUrl}/paymentMethod/softDelete/${paymentMethod.id}`, paymentMethod)
+    .then(() => getPaymentMethodByUserId(paymentMethod.userId)).then(resolve)
+    .catch((error) => reject(error));
+});
+
 export {
-  getPaymentMethodByUserId, createNewPaymentMethod, updatePaymentMethod, getPayMethodById
+  getPaymentMethodByUserId,
+  getPayMethodById,
+  createNewPaymentMethod,
+  updatePaymentMethod,
+  softDeletePaymentMethod
 };
