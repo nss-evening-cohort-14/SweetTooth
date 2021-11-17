@@ -16,14 +16,19 @@ namespace SweetTooth.Controllers
         OrderRepo _repo;
         SnackRepo _snackRepo;
         PaymentMethodRepo _pmRepo;
+        UserRepo _userRepo;
+
+        User CurrentUser => _userRepo.GetUserByUid(User.FindFirst((claim) => claim.Type == "user_id").Value);
 
         public OrdersController(OrderRepo repo,
             SnackRepo snackRepo,
-            PaymentMethodRepo pmRepo)
+            PaymentMethodRepo pmRepo,
+            UserRepo userRepo)
         {
             _repo = repo;
             _snackRepo = snackRepo;
             _pmRepo = pmRepo;
+            _userRepo = userRepo;
         }
 
         [HttpGet]
@@ -187,6 +192,23 @@ namespace SweetTooth.Controllers
             };
 
             return Ok(order);
+        }
+
+        [HttpPost("emptyOrder")]
+        public IActionResult AddEmptyOrder()
+        {
+            var userPm = _pmRepo.GetAllUserPaymentMethods(CurrentUser.Id);
+            var singlePm = userPm.First().Id;
+
+            var newOrder = new Order()
+            {
+                UserId = CurrentUser.Id,
+                PaymentMethodId = singlePm
+            };
+
+            _repo.AddEmptyOrder(newOrder);
+
+            return Created($"/api/orders/emptyOrder/{newOrder.Id}", newOrder);
         }
     }
 }

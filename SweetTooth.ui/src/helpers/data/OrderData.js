@@ -48,15 +48,21 @@ const getOrders = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const addEmptyOrder = () => new Promise((resolve, reject) => {
+  axios.post(`${dbUrl}/orders/emptyOrder`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
 const processOrder = (orderId) => new Promise((resolve, reject) => {
   axios.put(`${dbUrl}/orders/processOrder/${orderId}`)
-    .then((response) => resolve(response))
+    .then(() => addEmptyOrder().then((resp) => resolve(resp)))
     .catch((error) => reject(error));
 });
 
 const deleteOrder = (orderId) => new Promise((resolve, reject) => {
   axios.delete(`${dbUrl}/orders/${orderId}`)
-    .then((resp) => resolve(resp))
+    .then(() => addEmptyOrder().then((resp) => resolve(resp)))
     .catch((error) => reject(error));
 });
 

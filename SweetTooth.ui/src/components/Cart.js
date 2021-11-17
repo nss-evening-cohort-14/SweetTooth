@@ -6,9 +6,9 @@ import {
   FormGroup,
   Label,
   Input,
-  Button
+  Button,
 } from 'reactstrap';
-// import { getUnprocessedOrderByUserId } from '../helpers/data/OrderData';
+import { useHistory } from 'react-router-dom';
 import OrderItemCard from './OrderItemCard';
 import {
   CartContainer,
@@ -24,8 +24,11 @@ function Cart({
   user,
   order,
   orderItems,
+  setOrderItems,
   setOrder
 }) {
+  const history = useHistory();
+
   const calculate = (number, bool) => {
     // if bool is false, it will calculate the tax and add a zero if necessary
     // if bool is true, it will calculate the total
@@ -46,34 +49,26 @@ function Cart({
     return result;
   };
 
-  console.warn('orderItems', orderItems);
-
   const handleClick = () => {
-    processOrder(order.id).then(setOrder);
+    processOrder(order.id).then((resp) => {
+      setOrder(resp);
+      setOrderItems([]);
+      console.warn('processed resp', resp);
+    });
+    history.push('/processed');
   };
 
   const handleDelete = () => {
-    deleteOrder(order.id);
-    // .then(setOrder({
-    //   id: '',
-    //   orderDate: '',
-    //   orderItems: [],
-    //   orderNumber: 0,
-    //   paymentMethod: null,
-    //   paymentMethodId: '',
-    //   processed: false,
-    //   shipped: false,
-    //   total: 0,
-    //   userId: ''
-    // }));
+    deleteOrder(order.id).then((resp) => {
+      setOrder(resp);
+      setOrderItems([]);
+    });
   };
 
   return (
 
     <div>
-      {
-        order.processed === false
-          ? <div>
+      <div>
              <CartHeader>
         <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
         {
@@ -202,9 +197,7 @@ function Cart({
           : ''
       }
     </div>
-        </div>
-          : <div>Order processed</div>
-        }
+  </div>
     </div>
   );
 }
@@ -213,7 +206,8 @@ Cart.propTypes = {
   user: PropTypes.any,
   order: PropTypes.object,
   orderItems: PropTypes.array,
-  setOrder: PropTypes.func
+  setOrder: PropTypes.func,
+  setOrderItems: PropTypes.func
 };
 
 export default Cart;

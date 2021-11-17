@@ -39,12 +39,8 @@ export default function App() {
                 setUserAddresses(resp.addresses);
                 getUnprocessedOrderByUserId(resp.id)
                   .then((res) => {
-                    console.warn('response', res);
                     setOrder(res);
                     setOrderItems(res.orderItems);
-                    console.warn('order', order);
-                    console.warn('orderItems', orderItems);
-                    console.warn('user', user);
                   });
               })
           );
@@ -62,6 +58,7 @@ export default function App() {
           user={user}
           order={order}
           orderItems={orderItems}
+          setOrderItems={setOrderItems}
           userAddresses={userAddresses}
           setUserAddresses={setUserAddresses}
           setOrder={setOrder}

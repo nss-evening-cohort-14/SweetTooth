@@ -10,6 +10,7 @@ import Cart from '../components/Cart';
 import LandingPage from '../components/LandingPage';
 import ShoppingPage from '../components/ShoppingPage';
 import UserProfile from '../components/UserProfile';
+import Processed from '../components/Processed';
 
 // will need to add private routes once auth is done.
 // Admin and user hook
@@ -31,6 +32,7 @@ function Routes({
   order,
   setOrder,
   orderItems,
+  setOrderItems,
   userAddresses,
   setUserAddresses
 }) {
@@ -59,6 +61,7 @@ function Routes({
             order={order}
             orderItems={orderItems}
             setOrder={setOrder}
+            setOrderItems={setOrderItems}
         />
       }
         user={user}
@@ -77,6 +80,11 @@ function Routes({
         component={AdminDashboard}
         user={user}
         />
+        <PrivateRoute
+        exact path='/processed'
+        component={Processed}
+        user={user}
+        />
       </Switch>
     </div>
   );
@@ -88,7 +96,8 @@ Routes.propTypes = {
   orderItems: PropTypes.array,
   userAddresses: PropTypes.array,
   setUserAddresses: PropTypes.func,
-  setOrder: PropTypes.func
+  setOrder: PropTypes.func,
+  setOrderItems: PropTypes.func
 };
 
 export default Routes;
