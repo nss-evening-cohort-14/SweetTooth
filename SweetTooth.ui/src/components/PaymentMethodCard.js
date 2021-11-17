@@ -10,7 +10,6 @@ function PaymentMethodCard({
   const [idToUpdate, setIdToUpdate] = useState('');
 
   const handleClick = (id) => {
-    console.warn(id);
     if (id) {
       setIdToUpdate(id);
       setEditNow((prevState) => !prevState);
