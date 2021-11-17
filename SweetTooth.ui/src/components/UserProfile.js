@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, Col, Row
+  Container, Row
 } from 'reactstrap';
 import UserAddressForm from './forms/userAddressForm';
 import PaymentMethodCard from './PaymentMethodCard';
@@ -24,24 +24,13 @@ export default function UserProfile({
           <Container
             key={userAddressInfo.id}
           >
-            <Row>
-              <Col>
-              {/* <Button color='info' outline onClick={() => handleClick('edit')}>
-                {editNow ? 'Close' : 'Edit'}
-              </Button> */}
-              </Col>
-              <Col>
-                <Row>{userAddressInfo.street}</Row>
-                <Row>{userAddressInfo.city}</Row>
-                <Row>{userAddressInfo.state}</Row>
-                <Row>{userAddressInfo.zip}</Row>
-              </Col>
-            </Row>
+            <Row>{userAddressInfo.street}</Row>
+            <Row>{userAddressInfo.city}</Row>
+            <Row>{userAddressInfo.state}</Row>
+            <Row>{userAddressInfo.zip}</Row>
           </Container>
         ))
         }
-
-      {/* --------------Start payment method stuff---------------- */}
 
       {
       <Container>
@@ -52,8 +41,8 @@ export default function UserProfile({
               paymentMethodsArray={paymentMethodsArray}
               setPaymentMethodsArray={setPaymentMethodsArray}
               {...paymentMethodInfo}
-            >
-            </PaymentMethodCard>
+              >
+              </PaymentMethodCard>
             : ''
         ))}
       </Container>

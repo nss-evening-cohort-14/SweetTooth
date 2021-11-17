@@ -69,13 +69,9 @@ function PaymentMethodCard({
 }
 
 PaymentMethodCard.propTypes = {
-
-};
-
-export default PaymentMethodCard;
-
-PaymentMethodCard.propTypes = {
   user: PropTypes.any,
   paymentMethodsArray: PropTypes.array,
   setPaymentMethodsArray: PropTypes.func
 };
+
+export default PaymentMethodCard;
