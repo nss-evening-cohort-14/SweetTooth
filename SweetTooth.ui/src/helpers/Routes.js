@@ -31,7 +31,9 @@ function Routes({
   order,
   orderItems,
   userAddresses,
-  setUserAddresses
+  setUserAddresses,
+  paymentMethodsArray,
+  setPaymentMethodsArray
 }) {
   return (
     <div>
@@ -67,6 +69,8 @@ function Routes({
           user={user}
           userAddresses={userAddresses}
           setUserAddresses={setUserAddresses}
+          paymentMethodsArray={paymentMethodsArray}
+          setPaymentMethodsArray={setPaymentMethodsArray}
         />}
         user={user}
         />
@@ -85,7 +89,9 @@ Routes.propTypes = {
   order: PropTypes.object,
   orderItems: PropTypes.array,
   userAddresses: PropTypes.array,
-  setUserAddresses: PropTypes.func
+  setUserAddresses: PropTypes.func,
+  paymentMethodsArray: PropTypes.array,
+  setPaymentMethodsArray: PropTypes.func
 };
 
 export default Routes;
