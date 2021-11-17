@@ -33,7 +33,9 @@ function Routes({
   userAddresses,
   setUserAddresses,
   snacks,
-  setSnacks
+  setSnacks,
+  paymentMethodsArray,
+  setPaymentMethodsArray
 }) {
   return (
     <div>
@@ -71,6 +73,10 @@ function Routes({
             setUserAddresses={setUserAddresses}
           />}
           user={user}
+          userAddresses={userAddresses}
+          setUserAddresses={setUserAddresses}
+          paymentMethodsArray={paymentMethodsArray}
+          setPaymentMethodsArray={setPaymentMethodsArray}
         />
         <PrivateRoute
           exact path="/admin-dashboard"
@@ -94,7 +100,9 @@ Routes.propTypes = {
   userAddresses: PropTypes.array,
   setUserAddresses: PropTypes.func,
   snacks: PropTypes.array,
-  setSnacks: PropTypes.func
+  setSnacks: PropTypes.func,
+  paymentMethodsArray: PropTypes.array,
+  setPaymentMethodsArray: PropTypes.func
 };
 
 export default Routes;

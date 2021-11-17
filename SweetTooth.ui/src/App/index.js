@@ -11,6 +11,7 @@ import { getSnacks } from '../helpers/data/SnackData';
 export default function App() {
   const [user, setUser] = useState({});
   const [userAddresses, setUserAddresses] = useState([]);
+  const [paymentMethodsArray, setPaymentMethodsArray] = useState([]);
   const [order, setOrder] = useState(
     {
       id: '',
@@ -38,6 +39,7 @@ export default function App() {
               .then((resp) => {
                 setUser(resp);
                 setUserAddresses(resp.addresses);
+                setPaymentMethodsArray(resp.paymentMethods);
                 getUnprocessedOrderByUserId(resp.id)
                   .then((res) => {
                     setOrder(res);
@@ -72,6 +74,8 @@ export default function App() {
           setUserAddresses={setUserAddresses}
           snacks={snacks}
           setSnacks={setSnacks}
+          paymentMethodsArray={paymentMethodsArray}
+          setPaymentMethodsArray={setPaymentMethodsArray}
         />
       </Router>
     </div>
