@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Container, Col, Row, Button, Card, CardBody
 } from 'reactstrap';
 import UserAddressForm from './forms/userAddressForm';
 import PaymentMethodForm from './forms/PaymentMethodForm';
-import { getPaymentMethodByPaymentId } from '../helpers/data/paymentMethodData';
+// import getPaymentMethodByPaymentId from '../helpers/data/paymentMethodData';
 
 export default function UserProfile({
   user, userAddresses, setUserAddresses, paymentMethodsArray, setPaymentMethodsArray
@@ -14,14 +14,11 @@ export default function UserProfile({
   const [idToUpdate, setIdToUpdate] = useState('');
 
   const handleClick = (id) => {
-    // console.warn(id);
+    console.warn(id);
     if (id) {
       setIdToUpdate(id);
       setEditNow((prevState) => !prevState);
       // need call to get payment method by its id
-      useEffect(() => {
-        getPaymentMethodByPaymentId(id);
-      }, []);
     } else {
       console.warn('no id to get');
     }
