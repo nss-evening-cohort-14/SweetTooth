@@ -10,12 +10,12 @@ function PaymentMethodForm({
   user, paymentMethodsArray, setPaymentMethodsArray, ...paymentMethodInfo
 }) {
   const [paymentMethodFormObj, setPaymentMethodFormObj] = useState({
-    id: paymentMethodInfo?.id || '',
     userId: user?.id,
+    id: paymentMethodInfo?.id,
     method: paymentMethodInfo?.method || '',
     cardNumber: paymentMethodInfo?.cardNumber || '',
     expDate: paymentMethodInfo?.expDate || '',
-    securityCode: paymentMethodInfo?.secturityCode || '',
+    securityCode: paymentMethodInfo?.securityCode || '',
     softDelete: false
   });
 
@@ -28,13 +28,14 @@ function PaymentMethodForm({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (paymentMethodFormObj) {
+    if (paymentMethodFormObj.id) {
       getPayMethodById(paymentMethodFormObj.id)
         .then(() => {
           updatePaymentMethod(paymentMethodFormObj)
             .then((resp) => setPaymentMethodsArray(resp));
         });
     } else {
+      e.preventDefault();
       createNewPaymentMethod(paymentMethodFormObj)
         .then((resp) => setPaymentMethodsArray(resp));
     }
@@ -43,7 +44,7 @@ function PaymentMethodForm({
   return (
     <div>
       <Container>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={(e) => handleSubmit(e)}>
         <FormGroup row>
           <Label for="cardNumber" sm={2}>
             Number
@@ -102,7 +103,7 @@ function PaymentMethodForm({
             id="securityCode"
             name="securityCode"
             placeholder="3-4 digit security code"
-            value={paymentMethodFormObj.secturityCode}
+            value={paymentMethodFormObj.securityCode}
             onChange={handleInputChange}
             minLength={3}
             maxLength={4}

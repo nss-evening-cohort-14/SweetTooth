@@ -15,14 +15,16 @@ function PaymentMethodCard({
   const handleClick = (type) => {
     switch (type) {
       case 'softDelete':
-        getPayMethodById(paymentMethodInfo.id)
-          .then(() => {
-            softDeletePaymentMethod(paymentMethodInfo)
-              .then(() => setPaymentMethodsArray(paymentMethodsArray));
-          });
+        if (paymentMethodInfo) {
+          getPayMethodById(paymentMethodInfo.id)
+            .then(() => {
+              softDeletePaymentMethod(paymentMethodInfo)
+                .then((resp) => setPaymentMethodsArray(resp));
+            });
+        }
         break;
       case 'edit':
-        if (paymentMethodInfo.id) {
+        if (paymentMethodInfo != null) {
           setIdToUpdate(paymentMethodInfo.id);
           setEditNow((prevState) => !prevState);
         }

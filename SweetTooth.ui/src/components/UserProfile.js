@@ -5,6 +5,7 @@ import {
 } from 'reactstrap';
 import UserAddressForm from './forms/userAddressForm';
 import PaymentMethodCard from './PaymentMethodCard';
+import PaymentMethodForm from './forms/PaymentMethodForm';
 // import getPaymentMethodByPaymentId from '../helpers/data/paymentMethodData';
 
 export default function UserProfile({
@@ -31,6 +32,12 @@ export default function UserProfile({
           </Container>
         ))
         }
+
+        <PaymentMethodForm
+            user={user}
+            paymentMethodsArray={paymentMethodsArray}
+            setPaymentMethodsArray={setPaymentMethodsArray}
+        />
 
       {
       <Container>
