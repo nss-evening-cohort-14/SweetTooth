@@ -30,7 +30,6 @@ function Routes({
   user,
   order,
   orderItems,
-  setOrderItems,
   userAddresses,
   setUserAddresses,
   snacks,
@@ -50,8 +49,6 @@ function Routes({
           component={() => <ShoppingPage
             user={user}
             order={order}
-            orderItems={orderItems}
-            setOrderItems={setOrderItems}
             snacks={snacks}
           />}
           user={user}

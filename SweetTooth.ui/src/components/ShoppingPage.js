@@ -8,7 +8,7 @@ import { Div } from '../styles/ShoppingPageStyled';
 import SnackCard from './SnackCard';
 
 export default function ShoppingPage({
-  user, order, orderItems, setOrderItems, snacks
+  user, order, snacks
 }) {
   console.warn('shoppingpage', user);
 
@@ -28,8 +28,6 @@ export default function ShoppingPage({
                   category={snack.category}
                   description={snack.description}
                   image={snack.image}
-                  orderItems={orderItems}
-                  setOrderItems={setOrderItems}
                   orderId={order.id}
                 />
               ))}
@@ -68,7 +66,5 @@ export default function ShoppingPage({
 ShoppingPage.propTypes = {
   user: PropTypes.any,
   order: PropTypes.object,
-  orderItems: PropTypes.array,
-  setOrderItems: PropTypes.func,
   snacks: PropTypes.array
 };
