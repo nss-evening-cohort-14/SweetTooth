@@ -38,6 +38,7 @@ export default function UserProfile({
           paymentMethodInfo.softDelete === false
             ? <PaymentMethodCard
               key={paymentMethodInfo.id}
+              user={user}
               paymentMethodsArray={paymentMethodsArray}
               setPaymentMethodsArray={setPaymentMethodsArray}
               {...paymentMethodInfo}

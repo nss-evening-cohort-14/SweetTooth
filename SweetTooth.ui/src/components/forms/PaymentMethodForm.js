@@ -10,8 +10,8 @@ function PaymentMethodForm({
   user, paymentMethodsArray, setPaymentMethodsArray, ...paymentMethodInfo
 }) {
   const [paymentMethodFormObj, setPaymentMethodFormObj] = useState({
-    userId: user?.id,
     id: paymentMethodInfo?.id || '',
+    userId: user?.id,
     method: paymentMethodInfo?.method || '',
     cardNumber: paymentMethodInfo?.cardNumber || '',
     expDate: paymentMethodInfo?.expDate || '',
