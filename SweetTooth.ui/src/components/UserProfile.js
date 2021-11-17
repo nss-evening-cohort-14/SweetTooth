@@ -46,16 +46,17 @@ export default function UserProfile({
       {
       <Container>
         {paymentMethodsArray?.map((paymentMethodInfo) => (
-        <PaymentMethodCard
-          key={paymentMethodInfo.id}
-          paymentMethodsArray={paymentMethodsArray}
-          setPaymentMethodsArray={setPaymentMethodsArray}
-          {...paymentMethodInfo}
-        >
-
-        </PaymentMethodCard>
+          paymentMethodInfo.softDelete === false
+            ? <PaymentMethodCard
+              key={paymentMethodInfo.id}
+              paymentMethodsArray={paymentMethodsArray}
+              setPaymentMethodsArray={setPaymentMethodsArray}
+              {...paymentMethodInfo}
+            >
+            </PaymentMethodCard>
+            : ''
         ))}
-          </Container>
+      </Container>
       }
     </div>
   );

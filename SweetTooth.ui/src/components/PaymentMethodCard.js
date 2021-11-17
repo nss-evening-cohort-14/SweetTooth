@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Card, CardBody } from 'reactstrap';
+import {
+  Button, ButtonGroup, Card, CardBody
+} from 'reactstrap';
 import PaymentMethodForm from './forms/PaymentMethodForm';
+import { getPayMethodById, softDeletePaymentMethod } from '../helpers/data/paymentMethodData';
 
 function PaymentMethodCard({
   user, paymentMethodsArray, setPaymentMethodsArray, ...paymentMethodInfo
@@ -9,41 +12,59 @@ function PaymentMethodCard({
   const [editNow, setEditNow] = useState(false);
   const [idToUpdate, setIdToUpdate] = useState('');
 
-  const handleClick = (id) => {
-    if (id) {
-      setIdToUpdate(id);
-      setEditNow((prevState) => !prevState);
-    } else {
-      console.warn('no id to get');
+  const handleClick = (type) => {
+    switch (type) {
+      case 'softDelete':
+        getPayMethodById(paymentMethodInfo.id)
+          .then(() => {
+            softDeletePaymentMethod(paymentMethodInfo)
+              .then(() => setPaymentMethodsArray(paymentMethodsArray));
+          });
+        break;
+      case 'edit':
+        if (paymentMethodInfo.id) {
+          setIdToUpdate(paymentMethodInfo.id);
+          setEditNow((prevState) => !prevState);
+        }
+        break;
+      default:
+        console.warn('nothing selected');
     }
   };
   return (
     <Card
-            key={paymentMethodInfo.id}
-            >
-              <CardBody>
-                <p>{paymentMethodInfo?.method}</p>
-                <p>{paymentMethodInfo?.cardNumber}</p>
-                <p>{paymentMethodInfo?.expDate}</p>
-                <p>{paymentMethodInfo?.securityCode}</p>
-                <Button color='info' outline
-                  onClick={(e) => handleClick(paymentMethodInfo.id, e)}
-                  >
-                  {idToUpdate === paymentMethodInfo.id && editNow
-                    ? 'Close' : 'Edit' }
-                </Button>
-              </CardBody>
-            {
-              idToUpdate === paymentMethodInfo.id
-                ? editNow && <PaymentMethodForm
-                  user={user}
-                  paymentMethodsArray={paymentMethodsArray}
-                  setPaymentMethodsArray={setPaymentMethodsArray}
-                  {...paymentMethodInfo}
-              />
-                : ''
-            }
-            </Card>
+      key={paymentMethodInfo.id}
+    >
+      <CardBody>
+        <p>{paymentMethodInfo?.method}</p>
+        <p>{paymentMethodInfo?.cardNumber}</p>
+        <p>{paymentMethodInfo?.expDate}</p>
+        <p>{paymentMethodInfo?.securityCode}</p>
+        <ButtonGroup>
+          <Button color='info' outline
+            onClick={(e) => handleClick('edit', paymentMethodInfo.id, e)}
+          >
+            {idToUpdate === paymentMethodInfo.id && editNow
+              ? 'Close' : 'Edit' }
+          </Button>
+          <Button color='danger' outline
+            onClick={(e) => handleClick('softDelete', paymentMethodInfo.id, e)}
+          >
+            Delete
+          </Button>
+        </ButtonGroup>
+      </CardBody>
+      {
+        idToUpdate === paymentMethodInfo.id
+          ? editNow && <PaymentMethodForm
+            user={user}
+            paymentMethodsArray={paymentMethodsArray}
+            setPaymentMethodsArray={setPaymentMethodsArray}
+            {...paymentMethodInfo}
+        />
+          : ''
+      }
+    </Card>
   );
 }
 

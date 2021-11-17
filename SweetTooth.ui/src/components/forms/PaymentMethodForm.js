@@ -16,7 +16,7 @@ function PaymentMethodForm({
     cardNumber: paymentMethodInfo?.cardNumber || '',
     expDate: paymentMethodInfo?.expDate || '',
     securityCode: paymentMethodInfo?.secturityCode || '',
-    softDelete: paymentMethodInfo?.softDelete || ''
+    softDelete: false
   });
 
   const handleInputChange = (e) => {
