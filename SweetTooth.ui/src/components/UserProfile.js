@@ -5,14 +5,13 @@ import {
 } from 'reactstrap';
 import UserAddressForm from './forms/userAddressForm';
 import PaymentMethodCard from './PaymentMethodCard';
-import PaymentMethodForm from './forms/PaymentMethodForm';
-// import getPaymentMethodByPaymentId from '../helpers/data/paymentMethodData';
+import PaymentMethodModal from './modals/PaymentMethodModal';
 
 export default function UserProfile({
   user, userAddresses, setUserAddresses, paymentMethodsArray, setPaymentMethodsArray
 }) {
   return (
-    <div>
+    <Container>
         <h1>User Profile</h1>
 
       <UserAddressForm
@@ -32,11 +31,10 @@ export default function UserProfile({
           </Container>
         ))
         }
-
-        <PaymentMethodForm
-            user={user}
-            paymentMethodsArray={paymentMethodsArray}
-            setPaymentMethodsArray={setPaymentMethodsArray}
+        <PaymentMethodModal
+          user={user}
+          paymentMethodsArray={paymentMethodsArray}
+          setPaymentMethodsArray={setPaymentMethodsArray}
         />
 
       {
@@ -55,7 +53,7 @@ export default function UserProfile({
         ))}
       </Container>
       }
-    </div>
+    </Container>
   );
 }
 
