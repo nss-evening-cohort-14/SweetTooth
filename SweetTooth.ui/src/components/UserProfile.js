@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, Row
+  Container, Table
 } from 'reactstrap';
 import UserAddressForm from './forms/userAddressForm';
 import PaymentMethodCard from './PaymentMethodCard';
@@ -19,18 +19,56 @@ export default function UserProfile({
         userAddresses={userAddresses}
         setUserAddresses={setUserAddresses}
       />
+        <Table responsive bordered>
+          <thead>
+            <tr>
+              <th>
+                #
+              </th>
+              <th>
+                Street
+              </th>
+              <th>
+                City
+              </th>
+              <th>
+                State
+              </th>
+              <th>
+                Zip Code
+              </th>
+            </tr>
+          </thead>
+          <tbody>
       {
         userAddresses?.map((userAddressInfo) => (
-          <Container
-            key={userAddressInfo.id}
-          >
-            <Row>{userAddressInfo.street}</Row>
-            <Row>{userAddressInfo.city}</Row>
-            <Row>{userAddressInfo.state}</Row>
-            <Row>{userAddressInfo.zip}</Row>
-          </Container>
+          // <Container
+          //   key={userAddressInfo.id}
+          // >
+            <>
+            <tr key={userAddressInfo.id} >
+            <th scope="row">
+              Address #1
+            </th>
+            <td>
+              {userAddressInfo.street}
+            </td>
+            <td>
+              {userAddressInfo.city}
+            </td>
+            <td>
+              {userAddressInfo.state}
+            </td>
+            <td>
+              {userAddressInfo.zip}
+            </td>
+          </tr>
+          </>
         ))
-        }
+      }
+      </tbody>
+      </Table>
+
         <PaymentMethodModal
           user={user}
           paymentMethodsArray={paymentMethodsArray}
