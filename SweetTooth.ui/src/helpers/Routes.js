@@ -34,7 +34,11 @@ function Routes({
   orderItems,
   setOrderItems,
   userAddresses,
-  setUserAddresses
+  setUserAddresses,
+  snacks,
+  setSnacks,
+  paymentMethodsArray,
+  setPaymentMethodsArray
 }) {
   return (
     <div>
@@ -50,7 +54,7 @@ function Routes({
           component={() => <ShoppingPage
             user={user}
             order={order}
-            orderItems={orderItems}
+            snacks={snacks}
           />}
           user={user}
         />
@@ -60,25 +64,39 @@ function Routes({
             user={user}
             order={order}
             orderItems={orderItems}
+<<<<<<< HEAD
             setOrder={setOrder}
             setOrderItems={setOrderItems}
         />
       }
         user={user}
+=======
+          />
+          }
+          user={user}
+>>>>>>> development
         />
         <PrivateRoute
-        exact path="/user-profile"
-        component={() => <UserProfile
+          exact path="/user-profile"
+          component={() => <UserProfile
+            user={user}
+            userAddresses={userAddresses}
+            setUserAddresses={setUserAddresses}
+          />}
           user={user}
           userAddresses={userAddresses}
           setUserAddresses={setUserAddresses}
-        />}
-        user={user}
+          paymentMethodsArray={paymentMethodsArray}
+          setPaymentMethodsArray={setPaymentMethodsArray}
         />
         <PrivateRoute
-        exact path="/admin-dashboard"
-        component={AdminDashboard}
-        user={user}
+          exact path="/admin-dashboard"
+          component={() => <AdminDashboard
+            user={user}
+            snacks={snacks}
+            setSnacks={setSnacks}
+          />}
+          user={user}
         />
         <PrivateRoute
         exact path='/processed'
@@ -94,10 +112,18 @@ Routes.propTypes = {
   user: PropTypes.any,
   order: PropTypes.object,
   orderItems: PropTypes.array,
+  setOrderItems: PropTypes.func,
   userAddresses: PropTypes.array,
   setUserAddresses: PropTypes.func,
+<<<<<<< HEAD
   setOrder: PropTypes.func,
   setOrderItems: PropTypes.func
+=======
+  snacks: PropTypes.array,
+  setSnacks: PropTypes.func,
+  paymentMethodsArray: PropTypes.array,
+  setPaymentMethodsArray: PropTypes.func
+>>>>>>> development
 };
 
 export default Routes;

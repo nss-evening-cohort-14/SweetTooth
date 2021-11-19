@@ -45,6 +45,7 @@ function UserAddressForm({
           </Label>
           <Col sm={10}>
           <Input
+            required
             id="street"
             name="street"
             placeholder="1234 Main St"
@@ -60,6 +61,7 @@ function UserAddressForm({
           </Label>
           <Col sm={10}>
             <Input
+              required
               id="city"
               name="city"
               placeholder="City"
@@ -74,11 +76,13 @@ function UserAddressForm({
           </Label>
           <Col sm={3}>
           <Input
+            required
             id="state"
             name="state"
             placeholder="TN"
             onChange={handleInputChange}
-              value={userAddressFormObj.state}
+            value={userAddressFormObj.state.toUpperCase()}
+            maxLength={2}
           />
           </Col>
           <Label for="zip" sm={1}>
@@ -91,6 +95,7 @@ function UserAddressForm({
             placeholder="37217"
             onChange={handleInputChange}
             value={userAddressFormObj.zip}
+            maxLength={5}
           />
           </Col>
         </FormGroup>
