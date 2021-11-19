@@ -64,17 +64,11 @@ function Routes({
             user={user}
             order={order}
             orderItems={orderItems}
-<<<<<<< HEAD
             setOrder={setOrder}
             setOrderItems={setOrderItems}
         />
       }
         user={user}
-=======
-          />
-          }
-          user={user}
->>>>>>> development
         />
         <PrivateRoute
           exact path="/user-profile"
@@ -115,15 +109,11 @@ Routes.propTypes = {
   setOrderItems: PropTypes.func,
   userAddresses: PropTypes.array,
   setUserAddresses: PropTypes.func,
-<<<<<<< HEAD
   setOrder: PropTypes.func,
-  setOrderItems: PropTypes.func
-=======
   snacks: PropTypes.array,
   setSnacks: PropTypes.func,
   paymentMethodsArray: PropTypes.array,
   setPaymentMethodsArray: PropTypes.func
->>>>>>> development
 };
 
 export default Routes;

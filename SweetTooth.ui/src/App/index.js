@@ -69,14 +69,11 @@ export default function App() {
           setOrderItems={setOrderItems}
           userAddresses={userAddresses}
           setUserAddresses={setUserAddresses}
-<<<<<<< HEAD
           setOrder={setOrder}
-=======
           snacks={snacks}
           setSnacks={setSnacks}
           paymentMethodsArray={paymentMethodsArray}
           setPaymentMethodsArray={setPaymentMethodsArray}
->>>>>>> development
         />
       </Router>
     </div>
