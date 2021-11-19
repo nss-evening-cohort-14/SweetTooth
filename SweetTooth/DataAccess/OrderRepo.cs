@@ -34,11 +34,13 @@ namespace SweetTooth.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
 
-            var sql = @"select * 
-                        from OrderItem
-                        where OrderId = @id";
+            var orderItemsSql = @"select * 
+                                from OrderItem ot
+                                join Snack s
+                                on ot.SnackId = s.Id
+                                where OrderId = @id";
 
-            var orderItems = db.Query<OrderItem>(sql, new { id = orderId });
+            var orderItems = db.Query<OrderItem, Snack, OrderItem>(orderItemsSql, MapOrderItem, new { id = orderId }, splitOn: "Id");
 
             return orderItems;
         }

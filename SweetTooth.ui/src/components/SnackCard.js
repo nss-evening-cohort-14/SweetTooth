@@ -12,7 +12,7 @@ import { SnackImage } from '../styles/ShoppingPageStyled';
 import { addOrderItem, getOrderItems, updateOrderItem } from '../helpers/data/OrderData';
 
 function SnackCard({
-  id, name, category, price, description, image, orderId
+  id, name, category, price, description, image, orderId,
 }) {
   // orderItem Model:
   //   id: '',
@@ -29,6 +29,8 @@ function SnackCard({
   //     softDelete: false
   //   }
   const [orderItems, setOrderItems] = useState([]);
+  const [item, setItem] = useState({});
+  const [counter, setCounter] = useState(item.quantity);
   useEffect(() => {
     getOrderItems(orderId).then(setOrderItems);
   }, []);
@@ -54,10 +56,13 @@ function SnackCard({
 
   const snackExistsInOrderItems = (orderItemsArray, snackId, newQuantity) => {
     if (orderItemsArray.map((orderItem) => (orderItem.snackId)).includes(snackId)) {
-      const orderItem = orderItemsArray.find((item) => (item.snackId).includes(snackId));
-      const updatedOrder = buildOrderItem(orderItem, newQuantity);
+      const orderItem = orderItemsArray.find((element) => (element.snackId).includes(snackId));
+      const updatedQuantity = Number(orderItem.quantity) + Number(newQuantity);
+      const updatedOrder = buildOrderItem(orderItem, updatedQuantity);
       // console.warn('updatedorder', updatedOrder);
+      console.warn(updatedOrder);
       updateOrderItem(updatedOrder.id, updatedOrder).then(setOrderItems);
+      console.warn('update', orderItems);
       // console.warn('snackId', snackId, true);
     } else {
       const newOrder = newOrderItem(newQuantity);
@@ -67,8 +72,8 @@ function SnackCard({
     }
   };
 
-  const [counter, setCounter] = useState('0');
   const plusOne = () => {
+    console.warn(id);
     let increase = Number(counter);
     increase += 1;
     setCounter(increase.toString());

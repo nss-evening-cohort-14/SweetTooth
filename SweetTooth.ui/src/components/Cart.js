@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   CardTitle,
@@ -18,15 +18,23 @@ import {
   TotalInfoContainer,
   TotalInfoTitle
 } from '../styles/OrderStyled';
-import { deleteOrder, processOrder } from '../helpers/data/OrderData';
+import { deleteOrder, getOrderItems, processOrder } from '../helpers/data/OrderData';
 
 function Cart({
   user,
   order,
-  orderItems,
-  setOrderItems,
   setOrder
 }) {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    if (order) {
+      getOrderItems(order.id).then(setItems);
+    }
+  }, []);
+
+  console.warn(order);
+
   const history = useHistory();
 
   const calculate = (number, bool) => {
@@ -52,8 +60,7 @@ function Cart({
   const handleClick = () => {
     processOrder(order.id).then((resp) => {
       setOrder(resp);
-      setOrderItems([]);
-      console.warn('processed resp', resp);
+      setItems([]);
     });
     history.push('/processed');
   };
@@ -61,7 +68,7 @@ function Cart({
   const handleDelete = () => {
     deleteOrder(order.id).then((resp) => {
       setOrder(resp);
-      setOrderItems([]);
+      setItems([]);
     });
   };
 
@@ -72,7 +79,7 @@ function Cart({
              <CartHeader>
         <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
         {
-          orderItems.length > 0
+          items.length > 0
             ? `${user.firstName}, here's what's in your cart`
             : 'Your cart is empty!'
         }
@@ -80,7 +87,7 @@ function Cart({
       </CartHeader>
 
       {
-        orderItems.length > 0
+        items.length > 0
           ? <div>
               <div>
                 <div>Once you process your order, you can&apos;t go back!</div>
@@ -94,11 +101,11 @@ function Cart({
       }
     <div>
       {
-        orderItems.length > 0
+        items.length > 0
           ? <CartContainer>
           <ItemsContainer>
           {
-            orderItems.map((item, i) => (
+            items.map((item, i) => (
               <OrderItemCard
                 key={i}
                 quantity={item.quantity}
