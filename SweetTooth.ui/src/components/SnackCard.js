@@ -35,6 +35,7 @@ function SnackCard({
     getOrderItems(orderId).then(setOrderItems);
   }, []);
 
+  console.warn(setItem);
   const newOrderItem = (quantity) => {
     const order = {
       orderId,
