@@ -185,6 +185,24 @@ namespace SweetTooth.DataAccess
             }
         }
 
+        internal object UpdateOrderItem(Guid orderItemId, OrderItem orderItem)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"update OrderItem
+	                    Set 
+		                    OrderId = @orderId, 
+		                    SnackId = @snackId, 
+                            Quantity = @quantity
+	                    output inserted.*
+	                    where id = @id";
+
+            orderItem.Id = orderItemId;
+            var updatedOrderItem = db.QuerySingleOrDefault<OrderItem>(sql, orderItem);
+
+            return updatedOrderItem;
+        }
+
         internal Order ProcessOrder(Guid id, Order order)
         {
             using var db = new SqlConnection(_connectionString);
@@ -284,6 +302,22 @@ namespace SweetTooth.DataAccess
 
             var id = db.ExecuteScalar<Guid>(sql, item);
             item.Id = id;
+        }
+
+        internal OrderItem GetOrderItemByOrderItemId(Guid orderItemId)
+        {
+
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select * 
+                        from [OrderItem] oi
+                        where oi.Id = @orderItemId";
+
+            var orderItem = db.QueryFirstOrDefault<OrderItem>(sql, new { orderItemId });
+
+            if (orderItem == null) return null;
+
+            return orderItem;
         }
 
         Order Map(Order order, PaymentMethod paymentMethod)

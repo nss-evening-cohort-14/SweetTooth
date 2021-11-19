@@ -174,5 +174,20 @@ namespace SweetTooth.Controllers
             }
             return Ok(order);
         }
+
+        [HttpPut("orderItems/update/{orderItemId}")]
+        public IActionResult UpdateOrderItem(Guid orderItemId, OrderItem orderItem)
+        {
+            var orderItemToUpdate = _repo.GetOrderItemByOrderItemId(orderItemId);
+
+            if (orderItemToUpdate == null)
+            {
+                return NotFound($"Could not find Order Item with the id {orderItemId} for updating");
+            }
+
+            var updatedOrderItem = _repo.UpdateOrderItem(orderItemId, orderItem);
+
+            return Ok(updatedOrderItem);
+        }
     }
 }

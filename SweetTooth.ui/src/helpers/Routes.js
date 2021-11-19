@@ -32,6 +32,8 @@ function Routes({
   orderItems,
   userAddresses,
   setUserAddresses,
+  snacks,
+  setSnacks,
   paymentMethodsArray,
   setPaymentMethodsArray
 }) {
@@ -49,7 +51,7 @@ function Routes({
           component={() => <ShoppingPage
             user={user}
             order={order}
-            orderItems={orderItems}
+            snacks={snacks}
           />}
           user={user}
         />
@@ -59,25 +61,31 @@ function Routes({
             user={user}
             order={order}
             orderItems={orderItems}
-        />
-      }
-        user={user}
+          />
+          }
+          user={user}
         />
         <PrivateRoute
-        exact path="/user-profile"
-        component={() => <UserProfile
+          exact path="/user-profile"
+          component={() => <UserProfile
+            user={user}
+            userAddresses={userAddresses}
+            setUserAddresses={setUserAddresses}
+          />}
           user={user}
           userAddresses={userAddresses}
           setUserAddresses={setUserAddresses}
           paymentMethodsArray={paymentMethodsArray}
           setPaymentMethodsArray={setPaymentMethodsArray}
-        />}
-        user={user}
         />
         <PrivateRoute
-        exact path="/admin-dashboard"
-        component={AdminDashboard}
-        user={user}
+          exact path="/admin-dashboard"
+          component={() => <AdminDashboard
+            user={user}
+            snacks={snacks}
+            setSnacks={setSnacks}
+          />}
+          user={user}
         />
       </Switch>
     </div>
@@ -88,8 +96,11 @@ Routes.propTypes = {
   user: PropTypes.any,
   order: PropTypes.object,
   orderItems: PropTypes.array,
+  setOrderItems: PropTypes.func,
   userAddresses: PropTypes.array,
   setUserAddresses: PropTypes.func,
+  snacks: PropTypes.array,
+  setSnacks: PropTypes.func,
   paymentMethodsArray: PropTypes.array,
   setPaymentMethodsArray: PropTypes.func
 };
