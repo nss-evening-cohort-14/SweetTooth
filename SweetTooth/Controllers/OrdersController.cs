@@ -225,5 +225,24 @@ namespace SweetTooth.Controllers
 
             return Ok(updatedOrderItem);
         }
+
+        [HttpPatch("total/{orderId}")]
+        public IActionResult UpdateTotal(Guid orderId)
+        {
+            var _orderItems = _repo.GetOrderItems(orderId);
+            var _order = _repo.GetSingleOrder(orderId);
+
+            decimal calculateTotal = 0;
+
+            _orderItems.ToList().ForEach(snack =>
+            {
+                var foundSnack = _snackRepo.GetById(snack.SnackId);
+                calculateTotal += (foundSnack.Price * snack.Quantity);
+            });
+
+            _order.Total = calculateTotal;
+
+            return Ok(_order);
+        }
     }
 }

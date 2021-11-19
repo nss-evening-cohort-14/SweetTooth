@@ -76,12 +76,10 @@ function Routes({
             user={user}
             userAddresses={userAddresses}
             setUserAddresses={setUserAddresses}
+            paymentMethodsArray={paymentMethodsArray}
+            setPaymentMethodsArray={setPaymentMethodsArray}
           />}
           user={user}
-          userAddresses={userAddresses}
-          setUserAddresses={setUserAddresses}
-          paymentMethodsArray={paymentMethodsArray}
-          setPaymentMethodsArray={setPaymentMethodsArray}
         />
         <PrivateRoute
           exact path="/admin-dashboard"

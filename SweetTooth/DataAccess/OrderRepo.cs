@@ -362,6 +362,19 @@ namespace SweetTooth.DataAccess
             return orderItem;
         }
 
+        internal Order UpdateTotal(Guid orderId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"update [Order]
+                        Set Total = @total
+                        where Id = @orderId";
+
+            var updatedOrder = db.QuerySingleOrDefault<Order>(sql, new { orderId });
+
+            return updatedOrder;
+        }
+
         Order Map(Order order, PaymentMethod paymentMethod)
         {
             order.PaymentMethod = paymentMethod;
