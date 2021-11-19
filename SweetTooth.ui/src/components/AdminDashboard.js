@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Row, Col } from 'reactstrap';
 import getMoods from '../helpers/data/MoodData';
 import { getOrders } from '../helpers/data/OrderData';
-import { getSnacks } from '../helpers/data/SnackData';
 import { getUsers } from '../helpers/data/userData';
 import MoodCard from './MoodCard';
 import OrderCard from './OrderCard';
 import SnackCard from './SnackCard';
 import UserCard from './UserCard';
 
-export default function AdminDashboard() {
+export default function AdminDashboard({ snacks }) {
   const [orders, setOrders] = useState([]);
   const [moods, setMoods] = useState([]);
-  const [snacks, setSnacks] = useState([]);
   const [users, setUsers] = useState([]);
   useEffect(() => {
     getOrders().then(setOrders);
     getMoods().then(setMoods);
-    getSnacks().then(setSnacks);
     getUsers().then(setUsers);
   }, []);
 
@@ -104,3 +102,8 @@ export default function AdminDashboard() {
     </div>
   );
 }
+
+AdminDashboard.propTypes = {
+  snacks: PropTypes.array,
+  setSnacks: PropTypes.func
+};

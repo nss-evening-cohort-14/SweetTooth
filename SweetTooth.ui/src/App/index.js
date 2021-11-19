@@ -6,6 +6,7 @@ import Routes from '../helpers/Routes';
 import './App.scss';
 import { getUserByFirebaseId } from '../helpers/data/userData';
 import { getUnprocessedOrderByUserId } from '../helpers/data/OrderData';
+import { getSnacks } from '../helpers/data/SnackData';
 
 export default function App() {
   const [user, setUser] = useState({});
@@ -55,6 +56,11 @@ export default function App() {
     });
   }, []);
 
+  const [snacks, setSnacks] = useState([]);
+  useEffect(() => {
+    getSnacks().then(setSnacks);
+  }, []);
+
   return (
     <div className='App'>
       <Router>
@@ -63,8 +69,11 @@ export default function App() {
           user={user}
           order={order}
           orderItems={orderItems}
+          setOrderItems={setOrderItems}
           userAddresses={userAddresses}
           setUserAddresses={setUserAddresses}
+          snacks={snacks}
+          setSnacks={setSnacks}
           paymentMethodsArray={paymentMethodsArray}
           setPaymentMethodsArray={setPaymentMethodsArray}
         />
