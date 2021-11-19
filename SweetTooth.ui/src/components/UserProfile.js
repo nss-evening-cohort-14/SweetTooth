@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import {
   Button, Container, Table
 } from 'reactstrap';
-import UserAddressForm from './forms/userAddressForm';
 import PaymentMethodCard from './PaymentMethodCard';
 import PaymentMethodModal from './modals/PaymentMethodModal';
+import UserAddressModal from './modals/UserAddressModal';
 
 export default function UserProfile({
   user, userAddresses, setUserAddresses, paymentMethodsArray, setPaymentMethodsArray
@@ -13,8 +13,7 @@ export default function UserProfile({
   return (
     <Container>
         <h1>User Profile</h1>
-
-      <UserAddressForm
+      <UserAddressModal
         user={user}
         userAddresses={userAddresses}
         setUserAddresses={setUserAddresses}
