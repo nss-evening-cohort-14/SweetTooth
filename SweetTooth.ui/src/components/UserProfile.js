@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, Table
+  Button, Container, Table
 } from 'reactstrap';
 import UserAddressForm from './forms/userAddressForm';
 import PaymentMethodCard from './PaymentMethodCard';
@@ -22,9 +22,9 @@ export default function UserProfile({
         <Table responsive bordered>
           <thead>
             <tr>
-              <th>
+              {/* <th>
                 #
-              </th>
+              </th> */}
               <th>
                 Street
               </th>
@@ -37,6 +37,9 @@ export default function UserProfile({
               <th>
                 Zip Code
               </th>
+              <th>
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -45,11 +48,10 @@ export default function UserProfile({
           // <Container
           //   key={userAddressInfo.id}
           // >
-            <>
             <tr key={userAddressInfo.id} >
-            <th scope="row">
+            {/* <th scope="row">
               Address #1
-            </th>
+            </th> */}
             <td>
               {userAddressInfo.street}
             </td>
@@ -62,8 +64,16 @@ export default function UserProfile({
             <td>
               {userAddressInfo.zip}
             </td>
+            <td>
+                <Button outline color='info'>
+                  Edit
+                </Button>
+                {' '}
+                <Button outline color ='danger'>
+                  Delete
+                </Button>
+            </td>
           </tr>
-          </>
         ))
       }
       </tbody>

@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, ButtonGroup, Card, CardBody
+  Button, ButtonGroup
+  // Card, CardBody
 } from 'reactstrap';
 import PaymentMethodForm from './forms/PaymentMethodForm';
 import { getPayMethodById, softDeletePaymentMethod } from '../helpers/data/paymentMethodData';
+import '../styles/paymentMethodCard.scss';
+import chip from '../Assets/ccchip.png';
 
 function PaymentMethodCard({
   user, paymentMethodsArray, setPaymentMethodsArray, ...paymentMethodInfo
@@ -34,15 +37,20 @@ function PaymentMethodCard({
     }
   };
   return (
-    <Card
-      key={paymentMethodInfo.id}
-    >
-      <CardBody>
-        <p>{paymentMethodInfo?.method}</p>
-        <p>{paymentMethodInfo?.cardNumber}</p>
-        <p>{paymentMethodInfo?.expDate}</p>
-        <p>{paymentMethodInfo?.securityCode}</p>
-        <ButtonGroup>
+    <>
+      <div className="card" key={paymentMethodInfo.id}>
+        <div className="face front">
+          <img className="image" src="https://images.pexels.com/photos/924824/pexels-photo-924824.jpeg"/>
+          <h3 className="debit">Bank of SweetTooth</h3>
+          <h3 className="bank">{paymentMethodInfo?.method}</h3>
+          <img className="chip" src={chip} alt="chip"/>
+          <h3 className="number">{paymentMethodInfo?.cardNumber}</h3>
+          <h5 className="valid"><span>VALID <br /> THRU</span><span>{paymentMethodInfo?.expDate}</span></h5>
+          <h5 className="card-holder"> CCV: {paymentMethodInfo?.securityCode}</h5>
+        </div>
+      </div>
+
+      <ButtonGroup style={{ padding: '2%' }}>
           <Button color='info' outline
             onClick={(e) => handleClick('edit', paymentMethodInfo.id, e)}
           >
@@ -54,8 +62,8 @@ function PaymentMethodCard({
           >
             Delete
           </Button>
-        </ButtonGroup>
-      </CardBody>
+      </ButtonGroup>
+
       {
         idToUpdate === paymentMethodInfo.id
           ? editNow && <PaymentMethodForm
@@ -66,7 +74,7 @@ function PaymentMethodCard({
         />
           : ''
       }
-    </Card>
+    </>
   );
 }
 
