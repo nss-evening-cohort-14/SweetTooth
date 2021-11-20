@@ -22,6 +22,7 @@ export default function UserProfile({
       <UserAddressTable
         user={user}
         userAddresses={userAddresses}
+        setUserAddresses={setUserAddresses}
       />
 
       <PaymentMethodModal

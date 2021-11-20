@@ -16,7 +16,7 @@ const getAllAddresses = () => new Promise((resolve, reject) => {
 });
 
 const getAllAddressesByUserId = (userId) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/userAddresses/${userId}`)
+  axios.get(`${dbUrl}/userAddresses/userId/${userId}`)
     .then((response) => {
       if (response.data) {
         resolve(Object.values(response.data));
@@ -59,7 +59,6 @@ const deleteUserAddress = (address) => new Promise((resolve, reject) => {
       resolve(response);
     })
     .catch((error) => reject(error));
-  debugger;
 });
 
 export {

@@ -77,7 +77,7 @@ namespace SweetTooth.Controllers
             return Created($"api/users/address/{newAddress.Id}", newAddress);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult HardDeleteUserAddress(Guid id)
         {
             _repo.DeleteAddress(id);
