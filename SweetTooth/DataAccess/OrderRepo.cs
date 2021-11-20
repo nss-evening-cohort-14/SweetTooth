@@ -362,15 +362,24 @@ namespace SweetTooth.DataAccess
             return orderItem;
         }
 
-        internal Order UpdateTotal(Guid orderId)
+        internal Order UpdateTotal(Guid orderId, Order order)
         {
             using var db = new SqlConnection(_connectionString);
 
             var sql = @"update [Order]
-                        Set Total = @total
+                        Set
+                        UserId = @userId,
+                        OrderDate = @orderDate,
+                        OrderNumber = @orderNumber,
+                        Total = @total,
+                        PaymentMethodId = @paymentMethodId,
+                        Processed = @processed,
+                        Shipped = @shipped
+                        Output inserted.*
                         where Id = @orderId";
 
-            var updatedOrder = db.QuerySingleOrDefault<Order>(sql, new { orderId });
+            order.Id = orderId;
+            var updatedOrder = db.QuerySingleOrDefault<Order>(sql, order);
 
             return updatedOrder;
         }

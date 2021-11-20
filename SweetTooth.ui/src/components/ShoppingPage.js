@@ -9,14 +9,16 @@ import SnackCard from './SnackCard';
 import { getOrderItems } from '../helpers/data/OrderData';
 
 function ShoppingPage({
-  order, snacks
+  order, snacks, setOrder
 }) {
   const [orderItems, setOrderItems] = useState([]);
 
   useEffect(() => {
-    getOrderItems(order.id).then((resp) => {
-      setOrderItems(resp);
-    });
+    if (order.id) {
+      getOrderItems(order.id).then((resp) => {
+        setOrderItems(resp);
+      });
+    }
   }, []);
 
   return (
@@ -39,6 +41,7 @@ function ShoppingPage({
                     orderId={order.id}
                     orderItems={orderItems}
                     setOrderItems={setOrderItems}
+                    setOrder={setOrder}
                   />
                 ))
                 : ''
@@ -63,7 +66,8 @@ function ShoppingPage({
 
 ShoppingPage.propTypes = {
   order: PropTypes.object,
-  snacks: PropTypes.array
+  snacks: PropTypes.array,
+  setOrder: PropTypes.func
 };
 
 export default ShoppingPage;

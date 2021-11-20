@@ -16,7 +16,7 @@ const getOrderItems = (orderId) => new Promise((resolve, reject) => {
 
 const updateTotal = (orderId) => new Promise((resolve, reject) => {
   axios.patch(`${dbUrl}/orders/total/${orderId}`)
-    .then((resp) => resolve(resp))
+    .then((resp) => resolve(resp.data))
     .catch((error) => reject(error));
 });
 

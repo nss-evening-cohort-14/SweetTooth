@@ -53,6 +53,7 @@ function Routes({
           exact path="/shop"
           component={() => <ShoppingPage
             order={order}
+            setOrder={setOrder}
             snacks={snacks}
           />}
           user={user}

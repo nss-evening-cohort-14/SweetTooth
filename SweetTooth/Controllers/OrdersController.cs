@@ -242,7 +242,10 @@ namespace SweetTooth.Controllers
 
             _order.Total = calculateTotal;
 
+            _repo.UpdateTotal(orderId, _order);
+
             return Ok(_order);
         }
+
     }
 }

@@ -9,22 +9,28 @@ import {
   Col
 } from 'reactstrap';
 import { SnackImage } from '../styles/ShoppingPageStyled';
-import { addOrderItem, updateOrderItem } from '../helpers/data/OrderData';
+import { addOrderItem, updateOrderItem, updateTotal } from '../helpers/data/OrderData';
 
 function SnackCard({
-  id, name, category, price, description, image, orderId, orderItems, setOrderItems
+  id,
+  name,
+  category,
+  price,
+  description,
+  image,
+  orderId,
+  orderItems,
+  setOrderItems,
+  setOrder
 }) {
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
-    console.warn('orderItems snackCard', orderItems);
     const item = orderItems?.find((orderItem) => orderItem.snackId === id);
     if (item) {
       setCounter(item.quantity);
     }
   }, []);
-
-  console.warn('counter', counter);
 
   const newOrderItem = (quantity) => {
     const order = {
@@ -48,22 +54,23 @@ function SnackCard({
   const snackExistsInOrderItems = (orderItemsArray, snackId, newQuantity) => {
     if (orderItemsArray.map((orderItem) => (orderItem.snackId)).includes(snackId)) {
       const orderItem = orderItemsArray.find((element) => (element.snackId).includes(snackId));
-      const updatedOrder = buildOrderItem(orderItem, newQuantity);
-      console.warn('updatedorder', updatedOrder);
-      updateOrderItem(updatedOrder.id, updatedOrder).then(setOrderItems);
-      console.warn('update', orderItems);
-      // console.warn('snackId', snackId, true);
+      const updatedOrderItem = buildOrderItem(orderItem, newQuantity);
+      console.warn('orderId', orderId, 'updatedOrderItem', updatedOrderItem.orderId);
+      updateOrderItem(updatedOrderItem.id, updatedOrderItem).then((resp) => {
+        setOrderItems(resp);
+        updateTotal(updatedOrderItem.orderId).then((orderResp) => setOrder(orderResp));
+      });
     } else {
       const newOrder = newOrderItem(newQuantity);
-      // console.warn('neworder', newOrder);
-      addOrderItem(newOrder).then(setOrderItems);
-      // console.warn('snackId', snackId, false);
+      addOrderItem(newOrder).then((resp) => {
+        setOrderItems(resp);
+        updateTotal(newOrder.id).then((orderResp) => setOrder(orderResp));
+      });
     }
   };
 
   const plusOne = () => {
     let increase = Number(counter);
-    console.warn('increase', increase);
     increase += 1;
     setCounter(increase.toString());
     snackExistsInOrderItems(orderItems, id, increase);
@@ -112,6 +119,7 @@ SnackCard.propTypes = {
   image: PropTypes.string,
   orderItems: PropTypes.array,
   setOrderItems: PropTypes.func,
-  orderId: PropTypes.string
+  orderId: PropTypes.string,
+  setOrder: PropTypes.func
 };
 export default SnackCard;
