@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Table } from 'reactstrap';
 import { deleteUserAddress, getByAddressId } from '../helpers/data/userAddressData';
+import UserAddressForm from './forms/userAddressForm';
 // import { getByAddressId } from '../helpers/data/userAddressData';
 
 function UserAddressTable({
+  user,
   userAddresses,
   setUserAddresses,
   // userAddressObj
@@ -87,6 +89,15 @@ function UserAddressTable({
             Delete
           </Button>
               </td>
+              {
+                idToUpdate === userAddressInfo.id
+                  ? editNow && <UserAddressForm
+                    user={user}
+                    userAddresses={userAddresses}
+                    setUserAddresses={setUserAddresses}
+                  />
+                  : ''
+              }
           </tr>
         ))
       }
