@@ -48,10 +48,8 @@ function SnackCard({
   const snackExistsInOrderItems = (orderItemsArray, snackId, newQuantity) => {
     if (orderItemsArray.map((orderItem) => (orderItem.snackId)).includes(snackId)) {
       const orderItem = orderItemsArray.find((element) => (element.snackId).includes(snackId));
-      const updatedQuantity = Number(orderItem.quantity) + Number(newQuantity);
-      const updatedOrder = buildOrderItem(orderItem, updatedQuantity);
-      // console.warn('updatedorder', updatedOrder);
-      console.warn(updatedOrder);
+      const updatedOrder = buildOrderItem(orderItem, newQuantity);
+      console.warn('updatedorder', updatedOrder);
       updateOrderItem(updatedOrder.id, updatedOrder).then(setOrderItems);
       console.warn('update', orderItems);
       // console.warn('snackId', snackId, true);
@@ -67,8 +65,8 @@ function SnackCard({
     let increase = Number(counter);
     console.warn('increase', increase);
     increase += 1;
-    // setCounter(increase.toString());
-    // snackExistsInOrderItems(orderItems, id, increase);
+    setCounter(increase.toString());
+    snackExistsInOrderItems(orderItems, id, increase);
   };
   const minusOne = () => {
     let decrease = Number(counter);

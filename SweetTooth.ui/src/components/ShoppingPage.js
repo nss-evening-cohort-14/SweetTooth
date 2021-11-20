@@ -15,12 +15,10 @@ function ShoppingPage({
 
   useEffect(() => {
     getOrderItems(order.id).then((resp) => {
-      console.warn(resp);
       setOrderItems(resp);
     });
   }, []);
 
-  console.warn('orderItems shop page', orderItems);
   return (
     <>
       <div className="shoppingPage d-flex flex-column justify-content-around">
