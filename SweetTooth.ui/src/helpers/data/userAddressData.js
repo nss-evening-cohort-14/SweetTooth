@@ -26,11 +26,18 @@ const getAllAddressesByUserId = (userId) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
-// getUserAddressById = (userId) => new Promise((resolve, reject) => {
-//   axios.get(`${dbUrl}/userAddresses/userId/${userId}`)
-//     .then((resp) => resolve(Object.values(resp.data)))
-//     .catch((error) => reject(error));
-// });
+const getByAddressId = (addressId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/userAddresses/${addressId}`)
+    .then((resp) => console.warn(Object.values(resp.data)))
+    // .then((resp) => resolve(resp.data))
+    .catch((error) => reject(error));
+});
+
+const getAddressByUserId = (userId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/userAddresses/userId/${userId}`)
+    .then((resp) => resolve(Object.values(resp.data)))
+    .catch((error) => reject(error));
+});
 
 const createNewUserAddress = (userAddressInfo) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/userAddresses`, userAddressInfo)
@@ -40,11 +47,18 @@ const createNewUserAddress = (userAddressInfo) => new Promise((resolve, reject) 
     .catch((error) => reject(error));
 });
 
-// const updateUserAddress = (address) => new Promise((resolve, reject) =>{
-//   axios.put(`${dbUrl}/userAddresses/${address.id}, address`)
-//     .then(() => getUserAddressById(address.userId))
-//     .then(resolve)
-//     .catch((error) => reject(error));
-// });
+const updateUserAddress = (address) => new Promise((resolve, reject) => {
+  axios.put(`${dbUrl}/userAddresses/${address.id}, address`)
+    .then(() => getAddressByUserId(address.userId))
+    .then(resolve)
+    .catch((error) => reject(error));
+});
 
-export { getAllAddresses, getAllAddressesByUserId, createNewUserAddress };
+export {
+  getAllAddresses,
+  getAddressByUserId,
+  getByAddressId,
+  getAllAddressesByUserId,
+  createNewUserAddress,
+  updateUserAddress,
+};

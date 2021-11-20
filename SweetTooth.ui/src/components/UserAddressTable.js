@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Table } from 'reactstrap';
+// import { getByAddressId } from '../helpers/data/userAddressData';
 
 function UserAddressTable({
   userAddresses,
@@ -15,27 +16,11 @@ function UserAddressTable({
   //   userAddresses?.map((addr) => setAddressObj(addr));
   // }, []);
 
-  const handleClick = (type) => {
-    switch (type) {
-      case 'delete':
-        // if (userAddressObj) {
-        //   getAddressById(paymentMethodInfo.id)
-        //     .then(() => {
-        //       deleteAddress(paymentMethodInfo)
-        //         .then((resp) => setUserAddresses(resp));
-        //     });
-        // }
-        console.warn('you clicked delete');
-        break;
-      case 'edit':
-        // if (addressObj != null) {
-        setIdToUpdate(userAddresses.id);
-        console.warn(userAddresses.id);
-        setEditNow((prevState) => !prevState);
-        // }
-        break;
-      default:
-        console.warn('nothing selected');
+  const handleClick = (addressId) => {
+    if (addressId != null) {
+      setIdToUpdate(addressId);
+      setEditNow((prevState) => !prevState);
+      console.warn(addressId);
     }
   };
   return (
@@ -77,7 +62,7 @@ function UserAddressTable({
               </td>
               <td>
               <Button color='info' outline
-            onClick={(e) => handleClick('edit', userAddressInfo.id, e)}
+            onClick={(e) => handleClick(userAddressInfo.id, e)}
           >
             {idToUpdate === userAddressInfo.id && editNow
               ? 'Close' : 'Edit' }
