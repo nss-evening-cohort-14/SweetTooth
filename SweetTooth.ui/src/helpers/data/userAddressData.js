@@ -26,6 +26,12 @@ const getAllAddressesByUserId = (userId) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
+// getUserAddressById = (userId) => new Promise((resolve, reject) => {
+//   axios.get(`${dbUrl}/userAddresses/userId/${userId}`)
+//     .then((resp) => resolve(Object.values(resp.data)))
+//     .catch((error) => reject(error));
+// });
+
 const createNewUserAddress = (userAddressInfo) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/userAddresses`, userAddressInfo)
     .then(() => getAllAddressesByUserId(userAddressInfo.userId)).then((response) => {
@@ -33,5 +39,12 @@ const createNewUserAddress = (userAddressInfo) => new Promise((resolve, reject) 
     })
     .catch((error) => reject(error));
 });
+
+// const updateUserAddress = (address) => new Promise((resolve, reject) =>{
+//   axios.put(`${dbUrl}/userAddresses/${address.id}, address`)
+//     .then(() => getUserAddressById(address.userId))
+//     .then(resolve)
+//     .catch((error) => reject(error));
+// });
 
 export { getAllAddresses, getAllAddressesByUserId, createNewUserAddress };
