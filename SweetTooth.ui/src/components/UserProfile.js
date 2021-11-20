@@ -19,16 +19,16 @@ export default function UserProfile({
         userAddresses={userAddresses}
         setUserAddresses={setUserAddresses}
       />
-        <UserAddressTable
-          user={user}
-          userAddresses={userAddresses}
-        />
-        <PaymentMethodModal
-          user={user}
-          paymentMethodsArray={paymentMethodsArray}
-          setPaymentMethodsArray={setPaymentMethodsArray}
-        />
+      <UserAddressTable
+        user={user}
+        userAddresses={userAddresses}
+      />
 
+      <PaymentMethodModal
+        user={user}
+        paymentMethodsArray={paymentMethodsArray}
+        setPaymentMethodsArray={setPaymentMethodsArray}
+      />
       {
       <Container>
         {paymentMethodsArray?.map((paymentMethodInfo) => (
