@@ -4,17 +4,19 @@ import {
   Button,
   Col, Container, Form, FormGroup, Input, Label
 } from 'reactstrap';
-import { createNewPaymentMethod } from '../../helpers/data/paymentMethodData';
+import { createNewPaymentMethod, getPayMethodById, updatePaymentMethod } from '../../helpers/data/paymentMethodData';
 
 function PaymentMethodForm({
   user, paymentMethodsArray, setPaymentMethodsArray, ...paymentMethodInfo
 }) {
   const [paymentMethodFormObj, setPaymentMethodFormObj] = useState({
     userId: user?.id,
+    id: paymentMethodInfo?.id,
     method: paymentMethodInfo?.method || '',
     cardNumber: paymentMethodInfo?.cardNumber || '',
     expDate: paymentMethodInfo?.expDate || '',
-    securityCode: paymentMethodInfo?.secturityCode || ''
+    securityCode: paymentMethodInfo?.securityCode || '',
+    softDelete: false
   });
 
   const handleInputChange = (e) => {
@@ -26,14 +28,23 @@ function PaymentMethodForm({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createNewPaymentMethod(paymentMethodFormObj)
-      .then((resp) => setPaymentMethodsArray(resp));
+    if (paymentMethodFormObj.id) {
+      getPayMethodById(paymentMethodFormObj.id)
+        .then(() => {
+          updatePaymentMethod(paymentMethodFormObj)
+            .then((resp) => setPaymentMethodsArray(resp));
+        });
+    } else {
+      e.preventDefault();
+      createNewPaymentMethod(paymentMethodFormObj)
+        .then((resp) => setPaymentMethodsArray(resp));
+    }
   };
 
   return (
     <div>
       <Container>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={(e) => handleSubmit(e)}>
         <FormGroup row>
           <Label for="cardNumber" sm={2}>
             Number
@@ -46,6 +57,7 @@ function PaymentMethodForm({
             placeholder="Enter a 16-digit card #"
             value={paymentMethodFormObj.cardNumber}
             onChange={handleInputChange}
+            minLength={16}
             maxLength={16}
 
           />
@@ -77,6 +89,7 @@ function PaymentMethodForm({
             placeholder="mmyy"
             value={paymentMethodFormObj.expDate}
             onChange={handleInputChange}
+            minLength={4}
             maxLength={4}
 
           />
@@ -90,8 +103,9 @@ function PaymentMethodForm({
             id="securityCode"
             name="securityCode"
             placeholder="3-4 digit security code"
-            value={paymentMethodFormObj.secturityCode}
+            value={paymentMethodFormObj.securityCode}
             onChange={handleInputChange}
+            minLength={3}
             maxLength={4}
           />
           </Col>
