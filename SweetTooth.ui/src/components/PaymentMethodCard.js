@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Button, ButtonGroup
-  // Card, CardBody
-} from 'reactstrap';
+import { Button } from 'reactstrap';
 import PaymentMethodForm from './forms/PaymentMethodForm';
 import { getPayMethodById, softDeletePaymentMethod } from '../helpers/data/paymentMethodData';
 import '../styles/paymentMethodCard.scss';
@@ -50,19 +47,18 @@ function PaymentMethodCard({
         </div>
       </div>
 
-      <ButtonGroup style={{ padding: '2%' }}>
           <Button color='info' outline
             onClick={(e) => handleClick('edit', paymentMethodInfo.id, e)}
           >
             {idToUpdate === paymentMethodInfo.id && editNow
               ? 'Close' : 'Edit' }
           </Button>
+          {' '}
           <Button color='danger' outline
             onClick={(e) => handleClick('softDelete', paymentMethodInfo.id, e)}
           >
             Delete
           </Button>
-      </ButtonGroup>
 
       {
         idToUpdate === paymentMethodInfo.id
