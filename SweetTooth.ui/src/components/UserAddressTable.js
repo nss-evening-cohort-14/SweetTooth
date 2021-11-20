@@ -1,28 +1,41 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Table } from 'reactstrap';
+import { deleteUserAddress, getByAddressId } from '../helpers/data/userAddressData';
 // import { getByAddressId } from '../helpers/data/userAddressData';
 
 function UserAddressTable({
   userAddresses,
-  // setUserAddresses,
+  setUserAddresses,
   // userAddressObj
 }) {
   const [editNow, setEditNow] = useState(false);
   const [idToUpdate, setIdToUpdate] = useState('');
-  // const [addressObj, setAddressObj] = useState({});
 
-  // useEffect(() => {
-  //   userAddresses?.map((addr) => setAddressObj(addr));
-  // }, []);
-
-  const handleClick = (addressId) => {
-    if (addressId != null) {
-      setIdToUpdate(addressId);
-      setEditNow((prevState) => !prevState);
-      console.warn(addressId);
+  const handleClick = (type, addressId) => {
+    switch (type) {
+      case 'delete':
+        console.warn('delete', addressId);
+        if (addressId) {
+          getByAddressId(addressId)
+            .then((address) => {
+              deleteUserAddress(address)
+                .then((resp) => setUserAddresses(resp));
+            });
+        }
+        break;
+      case 'edit':
+        if (addressId != null) {
+          setIdToUpdate(addressId);
+          setEditNow((prevState) => !prevState);
+          console.warn('handleClick', addressId);
+        }
+        break;
+      default:
+        console.warn('nothing selected');
     }
   };
+
   return (
     <Table hover bordered>
           <thead>
@@ -62,7 +75,7 @@ function UserAddressTable({
               </td>
               <td>
               <Button color='info' outline
-            onClick={(e) => handleClick(userAddressInfo.id, e)}
+            onClick={(e) => handleClick('edit', userAddressInfo.id, e)}
           >
             {idToUpdate === userAddressInfo.id && editNow
               ? 'Close' : 'Edit' }
