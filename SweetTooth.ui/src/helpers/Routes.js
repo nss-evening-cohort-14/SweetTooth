@@ -52,7 +52,6 @@ function Routes({
         <PrivateRoute
           exact path="/shop"
           component={() => <ShoppingPage
-            user={user}
             order={order}
             snacks={snacks}
           />}

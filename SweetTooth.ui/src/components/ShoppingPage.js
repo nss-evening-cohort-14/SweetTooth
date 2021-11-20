@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Container
@@ -6,12 +6,21 @@ import {
 import '../styles/shoppingPage.scss';
 import { Div } from '../styles/ShoppingPageStyled';
 import SnackCard from './SnackCard';
+import { getOrderItems } from '../helpers/data/OrderData';
 
-export default function ShoppingPage({
-  user, order, snacks
+function ShoppingPage({
+  order, snacks
 }) {
-  console.warn('shoppingpage', user);
+  const [orderItems, setOrderItems] = useState([]);
 
+  useEffect(() => {
+    getOrderItems(order.id).then((resp) => {
+      console.warn(resp);
+      setOrderItems(resp);
+    });
+  }, []);
+
+  console.warn('orderItems shop page', orderItems);
   return (
     <>
       <div className="shoppingPage d-flex flex-column justify-content-around">
@@ -19,26 +28,8 @@ export default function ShoppingPage({
           <h1>Suggested Snacks (Filtered by Mood)</h1>
           <div className="row pt-5">
             <Div className="col-12 d-flex align-items-stretch">
-              {snacks.map((snack) => (
-                <SnackCard
-                  key={snack.id}
-                  id={snack.id}
-                  name={snack.name}
-                  price={snack.price}
-                  category={snack.category}
-                  description={snack.description}
-                  image={snack.image}
-                  orderId={order.id}
-                />
-              ))}
-            </Div>
-          </div>
-        </Container>
-        <Container className="rounded mb-20 border border-secondary flex-grow-1 flex-fill m-3">
-          <h1>All Snacks (Filtered by Category)</h1>
-          <div className="row pt-5">
-            <Div className="col-12 d-flex align-items-stretch">
-              {/* {snacks.map((snack) => (
+              { orderItems.length > 0
+                ? snacks.map((snack) => (
                   <SnackCard
                     key={snack.id}
                     id={snack.id}
@@ -47,11 +38,20 @@ export default function ShoppingPage({
                     category={snack.category}
                     description={snack.description}
                     image={snack.image}
+                    orderId={order.id}
                     orderItems={orderItems}
                     setOrderItems={setOrderItems}
-                    orderId={order.id}
                   />
-                ))} */}
+                ))
+                : ''
+            }
+            </Div>
+          </div>
+        </Container>
+        <Container className="rounded mb-20 border border-secondary flex-grow-1 flex-fill m-3">
+          <h1>All Snacks (Filtered by Category)</h1>
+          <div className="row pt-5">
+            <Div className="col-12 d-flex align-items-stretch">
             </Div>
           </div>
         </Container>
@@ -64,7 +64,8 @@ export default function ShoppingPage({
 }
 
 ShoppingPage.propTypes = {
-  user: PropTypes.any,
   order: PropTypes.object,
   snacks: PropTypes.array
 };
+
+export default ShoppingPage;

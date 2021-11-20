@@ -14,11 +14,15 @@ const getOrderItems = (orderId) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
+const updateTotal = (orderId) => new Promise((resolve, reject) => {
+  axios.patch(`${dbUrl}/orders/total/${orderId}`)
+    .then((resp) => resolve(resp))
+    .catch((error) => reject(error));
+});
+
 const addOrderItem = (orderItem) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/orders/orderItems`, orderItem)
-    .then(() => {
-      getOrderItems(orderItem.orderId).then(resolve);
-    })
+    .then(() => getOrderItems(orderItem.orderId).then((resp) => resolve(resp)))
     .catch((error) => reject(error));
 });
 
@@ -91,5 +95,6 @@ export {
   deleteOrder,
   getOrderItems,
   addOrderItem,
-  updateOrderItem
+  updateOrderItem,
+  updateTotal
 };

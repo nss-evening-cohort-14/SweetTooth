@@ -9,33 +9,23 @@ import {
   Col
 } from 'reactstrap';
 import { SnackImage } from '../styles/ShoppingPageStyled';
-import { addOrderItem, getOrderItems, updateOrderItem } from '../helpers/data/OrderData';
+import { addOrderItem, updateOrderItem } from '../helpers/data/OrderData';
 
 function SnackCard({
-  id, name, category, price, description, image, orderId,
+  id, name, category, price, description, image, orderId, orderItems, setOrderItems
 }) {
-  // orderItem Model:
-  //   id: '',
-  //   orderId: '',
-  //   snackId: '',
-  //   quantity: 0,
-  //   itemSnack: {
-  //     id: '',
-  //     name: '',
-  //     category: '',
-  //     price: 0,
-  //     description: '',
-  //     image: '',
-  //     softDelete: false
-  //   }
-  const [orderItems, setOrderItems] = useState([]);
-  const [item, setItem] = useState({});
-  const [counter, setCounter] = useState(item.quantity);
+  const [counter, setCounter] = useState(0);
+
   useEffect(() => {
-    getOrderItems(orderId).then(setOrderItems);
+    console.warn('orderItems snackCard', orderItems);
+    const item = orderItems?.find((orderItem) => orderItem.snackId === id);
+    if (item) {
+      setCounter(item.quantity);
+    }
   }, []);
 
-  console.warn(setItem);
+  console.warn('counter', counter);
+
   const newOrderItem = (quantity) => {
     const order = {
       orderId,
@@ -74,11 +64,11 @@ function SnackCard({
   };
 
   const plusOne = () => {
-    console.warn(id);
     let increase = Number(counter);
+    console.warn('increase', increase);
     increase += 1;
-    setCounter(increase.toString());
-    snackExistsInOrderItems(orderItems, id, increase);
+    // setCounter(increase.toString());
+    // snackExistsInOrderItems(orderItems, id, increase);
   };
   const minusOne = () => {
     let decrease = Number(counter);
