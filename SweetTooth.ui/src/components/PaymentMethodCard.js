@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'reactstrap';
+import { Button, Card, Container } from 'reactstrap';
 import PaymentMethodForm from './forms/PaymentMethodForm';
 import { getPayMethodById, softDeletePaymentMethod } from '../helpers/data/paymentMethodData';
 import '../styles/paymentMethodCard.scss';
@@ -34,10 +34,10 @@ function PaymentMethodCard({
     }
   };
   return (
-    <>
-      <div className="card" key={paymentMethodInfo.id}>
-        <div className="face front">
-          <img className="image" src="https://images.pexels.com/photos/924824/pexels-photo-924824.jpeg"/>
+    <Container>
+      <Card className="cred-card" key={paymentMethodInfo.id}>
+        <div className="face-front">
+          <img className="cred-image" src="https://images.pexels.com/photos/924824/pexels-photo-924824.jpeg"/>
           <h3 className="debit">Bank of SweetTooth</h3>
           <h3 className="bank">{paymentMethodInfo?.method}</h3>
           <img className="chip" src={chip} alt="chip"/>
@@ -45,7 +45,7 @@ function PaymentMethodCard({
           <h5 className="valid"><span>VALID <br /> THRU</span><span>{paymentMethodInfo?.expDate}</span></h5>
           <h5 className="card-holder"> CCV: {paymentMethodInfo?.securityCode}</h5>
         </div>
-      </div>
+      </Card>
 
           <Button color='info' outline
             onClick={(e) => handleClick('edit', paymentMethodInfo.id, e)}
@@ -70,7 +70,7 @@ function PaymentMethodCard({
         />
           : ''
       }
-    </>
+    </Container>
   );
 }
 
