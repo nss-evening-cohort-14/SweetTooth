@@ -4,16 +4,17 @@ import {
   Modal, ModalBody, ModalHeader,
   Form, FormGroup, Label, Input, Button
 } from 'reactstrap';
-import getMoods from '../../helpers/data/MoodData';
+import { getMoods } from '../../helpers/data/MoodData';
 
 const MoodModal = ({
   id,
-  modalStatus, modalToggle
+  modalStatus, modalToggle,
+  userMood
 }) => {
   const [moodObj, setMoodObj] = useState({
-    id: 'hfjdksjfhjdkjsi',
-    name: 'Fiesty',
-    softDelete: false
+    id: userMood.id || '',
+    name: userMood.name || '',
+    softDelete: userMood.softDelete || false
   });
 
   const [moodsArray, setMoodsArray] = useState([]);
@@ -27,6 +28,7 @@ const MoodModal = ({
       ...prevState,
       [e.target.name]: e.target.value
     }));
+    console.warn('moodObj', moodObj);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -82,5 +84,6 @@ export default MoodModal;
 MoodModal.propTypes = {
   id: PropTypes.string,
   modalStatus: PropTypes.bool,
-  modalToggle: PropTypes.func
+  modalToggle: PropTypes.func,
+  userMood: PropTypes.array
 };

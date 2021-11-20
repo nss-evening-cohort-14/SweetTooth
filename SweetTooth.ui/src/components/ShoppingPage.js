@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -8,13 +8,18 @@ import '../styles/shoppingPage.scss';
 import { Div } from '../styles/ShoppingPageStyled';
 import SnackCard from './SnackCard';
 import MoodModal from './forms/MoodModal';
+import { getMoodById } from '../helpers/data/MoodData';
 
 export default function ShoppingPage({
   user, order, snacks
 }) {
-  console.warn('shoppingpage', user);
   const [modalStatus, setModalStatus] = useState(true);
   const modalToggle = () => setModalStatus(!modalStatus);
+
+  const [userMood, setUserMood] = useState([]);
+  useEffect(() => {
+    getMoodById(user.moodId).then(setUserMood);
+  }, []);
 
   return (
     <>
@@ -25,6 +30,7 @@ export default function ShoppingPage({
             id='selectMood'
             modalStatus={modalStatus}
             modalToggle={modalToggle}
+            userMood={userMood}
           />
           <h1>Suggested Snacks (Filtered by Mood)</h1>
           <div className="row pt-5">

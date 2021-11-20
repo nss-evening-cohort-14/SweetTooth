@@ -9,4 +9,13 @@ const getMoods = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-export default getMoods;
+const getMoodById = (moodId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/mood/${moodId}`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch((error) => reject(error));
+});
+
+export {
+  getMoods,
+  getMoodById
+};
