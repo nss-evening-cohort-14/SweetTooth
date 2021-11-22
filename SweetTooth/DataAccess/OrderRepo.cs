@@ -376,7 +376,7 @@ namespace SweetTooth.DataAccess
                         Processed = @processed,
                         Shipped = @shipped
                         Output inserted.*
-                        where Id = @orderId";
+                        where id = @id";
 
             order.Id = orderId;
             var updatedOrder = db.QuerySingleOrDefault<Order>(sql, order);

@@ -226,7 +226,7 @@ namespace SweetTooth.Controllers
             return Ok(updatedOrderItem);
         }
 
-        [HttpPatch("total/{orderId}")]
+        [HttpPut("total/{orderId}")]
         public IActionResult UpdateTotal(Guid orderId)
         {
             var _orderItems = _repo.GetOrderItems(orderId);
