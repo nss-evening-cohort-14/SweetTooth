@@ -22,11 +22,18 @@ const MoodModal = ({
   const handleInputChange = (e) => {
     getMoodById(e.target.value).then(setTempUserMood);
   };
+  const postpone = () => {
+    setTempUserMood({});
+    modalToggle();
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    getMoodById(e.target.value).then(setUserMood);
+    // console.warn('tempUserMood', tempUserMood);
+    // console.warn('userMood', userMood);
+    getMoodById(tempUserMood.id).then(setUserMood);
+    // why is userMood not resetting?
     const userObj = user;
-    userObj.moodId = userMood.id;
+    userObj.moodId = tempUserMood.id;
     updateUser(user.id, userObj).then(setUser);
     modalToggle();
   };
@@ -63,7 +70,7 @@ const MoodModal = ({
             </Input>
           </FormGroup>
           <Button type='submit'>Let&apos;s get snackin&apos;</Button>
-          <Button onClick={modalToggle}>Postpone</Button>
+          <Button onClick={postpone}>Postpone</Button>
         </Form>
       </ModalBody>
     </Modal>

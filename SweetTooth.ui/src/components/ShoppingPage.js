@@ -20,9 +20,9 @@ function ShoppingPage({
 
   const [userMood, setUserMood] = useState({});
   useEffect(() => {
-    getMoodById(user.moodId).then((resp) => setUserMood(resp));
-    console.warn('ShopPage: userMood', userMood);
-  }, []);
+    getMoodById(user.moodId).then(setUserMood);
+  }, [user]);
+  // I believe this above useEffect is grabbing old data before the  backend has the chance to update, therefore possible refactor available here
 
   const [orderItems, setOrderItems] = useState([]);
   useEffect(() => {

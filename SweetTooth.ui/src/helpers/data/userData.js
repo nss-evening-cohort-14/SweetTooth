@@ -10,7 +10,7 @@ const getUserByFirebaseId = (uid) => new Promise((resolve, reject) => {
 });
 
 const getUserByUserId = (id) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/users/user/${id}`)
+  axios.get(`${dbUrl}/users/${id}`)
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
