@@ -92,7 +92,11 @@ function Routes({
         />
         <PrivateRoute
         exact path='/processed'
-        component={Processed}
+        component={() => <Processed
+        firstName={user.firstName}
+        number={order.orderNumber}
+        />
+        }
         user={user}
         />
       </Switch>
