@@ -6,15 +6,17 @@ import {
   FormGroup,
   Label,
   Input,
-  Button,
 } from 'reactstrap';
 import { useHistory } from 'react-router-dom';
 import OrderItemCard from './OrderItemCard';
 import {
+  ButtonContainer,
   CartContainer,
   CartHeader,
+  EmptyButton,
   InfoContainer,
   ItemsContainer,
+  ProcessButton,
   TotalInfoContainer,
   TotalInfoTitle
 } from '../styles/OrderStyled';
@@ -88,15 +90,14 @@ function Cart({
 
       {
         items.length > 0
-          ? <div>
+          ? <ButtonContainer>
               <div>
-                <div>Once you process your order, you can&apos;t go back!</div>
-                  <Button onClick={handleClick}>Process Order</Button>
+                  <ProcessButton onClick={handleClick}>Process Order</ProcessButton>
                 </div>
               <div>
-                <Button onClick={handleDelete}>Empty Cart</Button>
+                <EmptyButton onClick={handleDelete}>Empty Cart</EmptyButton>
               </div>
-            </div>
+            </ButtonContainer>
           : ''
       }
     <div>
