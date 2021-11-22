@@ -11,13 +11,14 @@ const MoodModal = ({
   modalStatus, modalToggle,
   userMood, setUserMood
 }) => {
-  console.warn('Modal: UserMood', userMood);
   const [moodObj, setMoodObj] = useState({
     id: userMood ? userMood[0] : '',
     name: userMood ? userMood[1] : '',
     softDelete: userMood ? userMood[2] : false
   });
-  console.warn('moodObj', moodObj);
+  useEffect(() => {
+
+  }, []);
 
   const [moodsArray, setMoodsArray] = useState([]);
   useEffect(() => {
@@ -26,11 +27,11 @@ const MoodModal = ({
   }, []);
 
   const handleInputChange = (e) => {
-    getMoodById(e.target.value).then(setMoodObj).then(setUserMood);
-    setMoodObj((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value
-    }));
+    getMoodById(e.target.value).then(setMoodObj);
+    // setMoodObj((prevState) => ({
+    //   ...prevState,
+    //   [e.target.name]: e.target.value
+    // }));
     console.warn('Modal: moodObj', moodObj);
   };
   const handleSubmit = (e) => {

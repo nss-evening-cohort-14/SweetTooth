@@ -9,28 +9,27 @@ import {
   Col
 } from 'reactstrap';
 import { SnackImage } from '../styles/ShoppingPageStyled';
-import { addOrderItem, getOrderItems, updateOrderItem } from '../helpers/data/OrderData';
+import { addOrderItem, updateOrderItem, updateTotal } from '../helpers/data/OrderData';
 
 function SnackCard({
-  id, name, category, price, description, image, orderId
+  id,
+  name,
+  category,
+  price,
+  description,
+  image,
+  orderId,
+  orderItems,
+  setOrderItems,
+  setOrder
 }) {
-  // orderItem Model:
-  //   id: '',
-  //   orderId: '',
-  //   snackId: '',
-  //   quantity: 0,
-  //   itemSnack: {
-  //     id: '',
-  //     name: '',
-  //     category: '',
-  //     price: 0,
-  //     description: '',
-  //     image: '',
-  //     softDelete: false
-  //   }
-  const [orderItems, setOrderItems] = useState([]);
+  const [counter, setCounter] = useState(0);
+
   useEffect(() => {
-    getOrderItems(orderId).then(setOrderItems);
+    const item = orderItems?.find((orderItem) => orderItem.snackId === id);
+    if (item) {
+      setCounter(item.quantity);
+    }
   }, []);
 
   const newOrderItem = (quantity) => {
@@ -54,20 +53,22 @@ function SnackCard({
 
   const snackExistsInOrderItems = (orderItemsArray, snackId, newQuantity) => {
     if (orderItemsArray.map((orderItem) => (orderItem.snackId)).includes(snackId)) {
-      const orderItem = orderItemsArray.find((item) => (item.snackId).includes(snackId));
-      const updatedOrder = buildOrderItem(orderItem, newQuantity);
-      // console.warn('updatedorder', updatedOrder);
-      updateOrderItem(updatedOrder.id, updatedOrder).then(setOrderItems);
-      // console.warn('snackId', snackId, true);
+      const orderItem = orderItemsArray.find((element) => (element.snackId).includes(snackId));
+      const updatedOrderItem = buildOrderItem(orderItem, newQuantity);
+      console.warn('orderId', orderId, 'updatedOrderItem', updatedOrderItem.orderId);
+      updateOrderItem(updatedOrderItem.id, updatedOrderItem).then((resp) => {
+        setOrderItems(resp);
+        updateTotal(updatedOrderItem.orderId).then((orderResp) => setOrder(orderResp));
+      });
     } else {
       const newOrder = newOrderItem(newQuantity);
-      // console.warn('neworder', newOrder);
-      addOrderItem(newOrder).then(setOrderItems);
-      // console.warn('snackId', snackId, false);
+      addOrderItem(newOrder).then((resp) => {
+        setOrderItems(resp);
+        updateTotal(newOrder.id).then((orderResp) => setOrder(orderResp));
+      });
     }
   };
 
-  const [counter, setCounter] = useState('0');
   const plusOne = () => {
     let increase = Number(counter);
     increase += 1;
@@ -118,6 +119,7 @@ SnackCard.propTypes = {
   image: PropTypes.string,
   orderItems: PropTypes.array,
   setOrderItems: PropTypes.func,
-  orderId: PropTypes.string
+  orderId: PropTypes.string,
+  setOrder: PropTypes.func
 };
 export default SnackCard;

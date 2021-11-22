@@ -34,11 +34,13 @@ namespace SweetTooth.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
 
-            var sql = @"select * 
-                        from OrderItem
-                        where OrderId = @id";
+            var orderItemsSql = @"select * 
+                                from OrderItem ot
+                                join Snack s
+                                on ot.SnackId = s.Id
+                                where OrderId = @id";
 
-            var orderItems = db.Query<OrderItem>(sql, new { id = orderId });
+            var orderItems = db.Query<OrderItem, Snack, OrderItem>(orderItemsSql, MapOrderItem, new { id = orderId }, splitOn: "Id");
 
             return orderItems;
         }
@@ -109,9 +111,11 @@ namespace SweetTooth.DataAccess
                                 on ot.SnackId = s.Id
                                 where OrderId = @id";
 
-            var orderItems = db.Query<OrderItem, Snack, OrderItem>(orderItemsSql, MapOrderItem, new { id = order.Id }, splitOn: "Id");
-
-            order.OrderItems = orderItems;
+            if (order != null)
+            {
+                var orderItems = db.Query<OrderItem, Snack, OrderItem>(orderItemsSql, MapOrderItem, new { id = order.Id }, splitOn: "Id");
+                order.OrderItems = orderItems;
+            }
 
             return order;
         }
@@ -123,6 +127,44 @@ namespace SweetTooth.DataAccess
             int r = generator.Next(100000, 1000000);
 
             return r;
+        }
+
+        internal void AddEmptyOrder(Order newOrder)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"insert into [dbo].[Order]
+                        (UserId,
+                        OrderDate,
+                        OrderNumber,
+                        Total,
+                        PaymentMethodId,
+                        Processed,
+                        Shipped)
+                        Output inserted.Id
+                        values (@UserId,
+		                        @OrderDate,
+		                        @OrderNumber,
+		                        @Total,
+		                        @PaymentMethodId,
+		                        @Processed,
+		                        @Shipped)";
+
+            var orderParams = new
+            {
+                UserId = newOrder.UserId,
+                OrderDate = DateTime.Now,
+                OrderNumber = GenerateNumber(),
+                Total = newOrder.Total,
+                PaymentMethodId = newOrder.PaymentMethodId,
+                Processed = newOrder.Processed,
+                Shipped = newOrder.Shipped,
+            };
+
+
+            var orderId = db.ExecuteScalar<Guid>(sql, orderParams);
+            newOrder.Id = orderId;
+
         }
 
         internal void Add(Order newOrder, List<Item> snackList)
@@ -318,6 +360,28 @@ namespace SweetTooth.DataAccess
             if (orderItem == null) return null;
 
             return orderItem;
+        }
+
+        internal Order UpdateTotal(Guid orderId, Order order)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"update [Order]
+                        Set
+                        UserId = @userId,
+                        OrderDate = @orderDate,
+                        OrderNumber = @orderNumber,
+                        Total = @total,
+                        PaymentMethodId = @paymentMethodId,
+                        Processed = @processed,
+                        Shipped = @shipped
+                        Output inserted.*
+                        where Id = @orderId";
+
+            order.Id = orderId;
+            var updatedOrder = db.QuerySingleOrDefault<Order>(sql, order);
+
+            return updatedOrder;
         }
 
         Order Map(Order order, PaymentMethod paymentMethod)

@@ -9,9 +9,10 @@ import { Div } from '../styles/ShoppingPageStyled';
 import SnackCard from './SnackCard';
 import MoodModal from './forms/MoodModal';
 import { getMoodById } from '../helpers/data/MoodData';
+import { getOrderItems } from '../helpers/data/OrderData';
 
-export default function ShoppingPage({
-  user, order, snacks
+function ShoppingPage({
+  order, snacks, setOrder
 }) {
   const [modalStatus, setModalStatus] = useState(true);
   const modalToggle = () => setModalStatus(!modalStatus);
@@ -20,6 +21,14 @@ export default function ShoppingPage({
   useEffect(() => {
     getMoodById(user.moodId).then(setUserMood);
     console.warn('ShopPage: userMood', userMood);
+  const [orderItems, setOrderItems] = useState([]);
+
+  useEffect(() => {
+    if (order.id) {
+      getOrderItems(order.id).then((resp) => {
+        setOrderItems(resp);
+      });
+    }
   }, []);
 
   return (
@@ -37,26 +46,8 @@ export default function ShoppingPage({
           <h1>Suggested Snacks (Filtered by Mood)</h1>
           <div className="row pt-5">
             <Div className="col-12 d-flex align-items-stretch">
-              {snacks.map((snack) => (
-                <SnackCard
-                  key={snack.id}
-                  id={snack.id}
-                  name={snack.name}
-                  price={snack.price}
-                  category={snack.category}
-                  description={snack.description}
-                  image={snack.image}
-                  orderId={order.id}
-                />
-              ))}
-            </Div>
-          </div>
-        </Container>
-        <Container className="rounded mb-20 border border-secondary flex-grow-1 flex-fill m-3">
-          <h1>All Snacks (Filtered by Category)</h1>
-          <div className="row pt-5">
-            <Div className="col-12 d-flex align-items-stretch">
-              {/* {snacks.map((snack) => (
+              { orderItems.length > 0
+                ? snacks.map((snack) => (
                   <SnackCard
                     key={snack.id}
                     id={snack.id}
@@ -65,11 +56,21 @@ export default function ShoppingPage({
                     category={snack.category}
                     description={snack.description}
                     image={snack.image}
+                    orderId={order.id}
                     orderItems={orderItems}
                     setOrderItems={setOrderItems}
-                    orderId={order.id}
+                    setOrder={setOrder}
                   />
-                ))} */}
+                ))
+                : ''
+            }
+            </Div>
+          </div>
+        </Container>
+        <Container className="rounded mb-20 border border-secondary flex-grow-1 flex-fill m-3">
+          <h1>All Snacks (Filtered by Category)</h1>
+          <div className="row pt-5">
+            <Div className="col-12 d-flex align-items-stretch">
             </Div>
           </div>
         </Container>
@@ -79,10 +80,12 @@ export default function ShoppingPage({
       </div>
     </>
   );
-}
+});
 
 ShoppingPage.propTypes = {
-  user: PropTypes.any,
   order: PropTypes.object,
-  snacks: PropTypes.array
+  snacks: PropTypes.array,
+  setOrder: PropTypes.func
 };
+
+export default ShoppingPage;

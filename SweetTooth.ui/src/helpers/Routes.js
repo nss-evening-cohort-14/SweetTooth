@@ -10,6 +10,7 @@ import Cart from '../components/Cart';
 import LandingPage from '../components/LandingPage';
 import ShoppingPage from '../components/ShoppingPage';
 import UserProfile from '../components/UserProfile';
+import Processed from '../components/Processed';
 
 // will need to add private routes once auth is done.
 // Admin and user hook
@@ -29,7 +30,9 @@ PrivateRoute.propTypes = {
 function Routes({
   user,
   order,
+  setOrder,
   orderItems,
+  setOrderItems,
   userAddresses,
   setUserAddresses,
   snacks,
@@ -46,11 +49,11 @@ function Routes({
             user={user}
           />}
         />
-        <Route
+        <PrivateRoute
           exact path="/shop"
           component={() => <ShoppingPage
-            user={user}
             order={order}
+            setOrder={setOrder}
             snacks={snacks}
           />}
           user={user}
@@ -61,9 +64,11 @@ function Routes({
             user={user}
             order={order}
             orderItems={orderItems}
-          />
-          }
-          user={user}
+            setOrder={setOrder}
+            setOrderItems={setOrderItems}
+        />
+      }
+        user={user}
         />
         <PrivateRoute
           exact path="/user-profile"
@@ -71,12 +76,10 @@ function Routes({
             user={user}
             userAddresses={userAddresses}
             setUserAddresses={setUserAddresses}
+            paymentMethodsArray={paymentMethodsArray}
+            setPaymentMethodsArray={setPaymentMethodsArray}
           />}
           user={user}
-          userAddresses={userAddresses}
-          setUserAddresses={setUserAddresses}
-          paymentMethodsArray={paymentMethodsArray}
-          setPaymentMethodsArray={setPaymentMethodsArray}
         />
         <PrivateRoute
           exact path="/admin-dashboard"
@@ -86,6 +89,11 @@ function Routes({
             setSnacks={setSnacks}
           />}
           user={user}
+        />
+        <PrivateRoute
+        exact path='/processed'
+        component={Processed}
+        user={user}
         />
       </Switch>
     </div>
@@ -99,6 +107,7 @@ Routes.propTypes = {
   setOrderItems: PropTypes.func,
   userAddresses: PropTypes.array,
   setUserAddresses: PropTypes.func,
+  setOrder: PropTypes.func,
   snacks: PropTypes.array,
   setSnacks: PropTypes.func,
   paymentMethodsArray: PropTypes.array,
