@@ -4,18 +4,20 @@ import {
   Modal, ModalBody, ModalHeader,
   Form, FormGroup, Label, Input, Button
 } from 'reactstrap';
-import { getMoods } from '../../helpers/data/MoodData';
+import { getMoodById, getMoods } from '../../helpers/data/MoodData';
 
 const MoodModal = ({
   id,
   modalStatus, modalToggle,
-  userMood
+  userMood, setUserMood
 }) => {
+  console.warn('Modal: UserMood', userMood);
   const [moodObj, setMoodObj] = useState({
-    id: userMood.id || '',
-    name: userMood.name || '',
-    softDelete: userMood.softDelete || false
+    id: userMood ? userMood[0] : '',
+    name: userMood ? userMood[1] : '',
+    softDelete: userMood ? userMood[2] : false
   });
+  console.warn('moodObj', moodObj);
 
   const [moodsArray, setMoodsArray] = useState([]);
   useEffect(() => {
@@ -24,11 +26,12 @@ const MoodModal = ({
   }, []);
 
   const handleInputChange = (e) => {
+    getMoodById(e.target.value).then(setMoodObj).then(setUserMood);
     setMoodObj((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value
     }));
-    console.warn('moodObj', moodObj);
+    console.warn('Modal: moodObj', moodObj);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -57,7 +60,7 @@ const MoodModal = ({
             <Input
               id='moodId'
               type='select'
-              name='moodId'
+              name='id'
               placeholder=''
               value={moodObj.id}
               onChange={handleInputChange}
@@ -85,5 +88,6 @@ MoodModal.propTypes = {
   id: PropTypes.string,
   modalStatus: PropTypes.bool,
   modalToggle: PropTypes.func,
-  userMood: PropTypes.array
+  userMood: PropTypes.array,
+  setUserMood: PropTypes.func
 };

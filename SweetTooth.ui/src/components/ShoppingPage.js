@@ -19,6 +19,7 @@ export default function ShoppingPage({
   const [userMood, setUserMood] = useState([]);
   useEffect(() => {
     getMoodById(user.moodId).then(setUserMood);
+    console.warn('ShopPage: userMood', userMood);
   }, []);
 
   return (
@@ -31,6 +32,7 @@ export default function ShoppingPage({
             modalStatus={modalStatus}
             modalToggle={modalToggle}
             userMood={userMood}
+            setUserMood={setUserMood}
           />
           <h1>Suggested Snacks (Filtered by Mood)</h1>
           <div className="row pt-5">
