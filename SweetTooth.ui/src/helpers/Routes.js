@@ -29,6 +29,7 @@ PrivateRoute.propTypes = {
 };
 function Routes({
   user,
+  setUser,
   order,
   setOrder,
   orderItems,
@@ -56,6 +57,7 @@ function Routes({
             setOrder={setOrder}
             snacks={snacks}
             user={user}
+            setUser={setUser}
           />}
           user={user}
         />
@@ -103,6 +105,7 @@ function Routes({
 
 Routes.propTypes = {
   user: PropTypes.any,
+  setUser: PropTypes.func,
   order: PropTypes.object,
   orderItems: PropTypes.array,
   setOrderItems: PropTypes.func,

@@ -12,7 +12,7 @@ import { getMoodById } from '../helpers/data/MoodData';
 import { getOrderItems } from '../helpers/data/OrderData';
 
 function ShoppingPage({
-  user, order, snacks, setOrder
+  user, setUser, order, snacks, setOrder
 }) {
   // console.warn('shopPage (user):', user);
   const [modalStatus, setModalStatus] = useState(true);
@@ -44,6 +44,8 @@ function ShoppingPage({
             modalToggle={modalToggle}
             userMood={userMood}
             setUserMood={setUserMood}
+            user={user}
+            setUser={setUser}
           />
           <h1>Suggested Snacks (Filtered by Mood)</h1>
           <div className="row pt-5">
@@ -86,6 +88,7 @@ function ShoppingPage({
 
 ShoppingPage.propTypes = {
   user: PropTypes.any,
+  setUser: PropTypes.func,
   order: PropTypes.object,
   snacks: PropTypes.array,
   setOrder: PropTypes.func
