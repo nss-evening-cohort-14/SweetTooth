@@ -221,8 +221,14 @@ namespace SweetTooth.Controllers
                 return NotFound($"Could not find Order Item with the id {orderItemId} for updating");
             }
 
-            var updatedOrderItem = _repo.UpdateOrderItem(orderItemId, orderItem);
+            if (orderItem.Quantity == 0)
+            {
+                _repo.DeleteOrderItems(orderItemId);
 
+                return Ok();
+            }
+
+            var updatedOrderItem = _repo.UpdateOrderItem(orderItemId, orderItem);
             return Ok(updatedOrderItem);
         }
 

@@ -55,7 +55,6 @@ function SnackCard({
     if (orderItemsArray.map((orderItem) => (orderItem.snackId)).includes(snackId)) {
       const orderItem = orderItemsArray.find((element) => (element.snackId).includes(snackId));
       const updatedOrderItem = buildOrderItem(orderItem, newQuantity);
-      console.warn('orderId', orderId, 'updatedOrderItem', updatedOrderItem.orderId);
       updateOrderItem(updatedOrderItem.id, updatedOrderItem).then((resp) => {
         setOrderItems(resp);
         updateTotal(updatedOrderItem.orderId).then((orderResp) => setOrder(orderResp));
