@@ -12,17 +12,19 @@ import { getMoodById } from '../helpers/data/MoodData';
 import { getOrderItems } from '../helpers/data/OrderData';
 
 function ShoppingPage({
-  order, snacks, setOrder
+  user, order, snacks, setOrder
 }) {
+  // console.warn('shopPage (user):', user);
   const [modalStatus, setModalStatus] = useState(true);
   const modalToggle = () => setModalStatus(!modalStatus);
 
-  const [userMood, setUserMood] = useState([]);
+  const [userMood, setUserMood] = useState({});
   useEffect(() => {
-    getMoodById(user.moodId).then(setUserMood);
+    getMoodById(user.moodId).then((resp) => setUserMood(resp));
     console.warn('ShopPage: userMood', userMood);
-  const [orderItems, setOrderItems] = useState([]);
+  }, []);
 
+  const [orderItems, setOrderItems] = useState([]);
   useEffect(() => {
     if (order.id) {
       getOrderItems(order.id).then((resp) => {
@@ -46,7 +48,7 @@ function ShoppingPage({
           <h1>Suggested Snacks (Filtered by Mood)</h1>
           <div className="row pt-5">
             <Div className="col-12 d-flex align-items-stretch">
-              { orderItems.length > 0
+              {orderItems.length > 0
                 ? snacks.map((snack) => (
                   <SnackCard
                     key={snack.id}
@@ -63,7 +65,7 @@ function ShoppingPage({
                   />
                 ))
                 : ''
-            }
+              }
             </Div>
           </div>
         </Container>
@@ -80,9 +82,10 @@ function ShoppingPage({
       </div>
     </>
   );
-});
+}
 
 ShoppingPage.propTypes = {
+  user: PropTypes.any,
   order: PropTypes.object,
   snacks: PropTypes.array,
   setOrder: PropTypes.func

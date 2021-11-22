@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 import AdminDashboard from '../components/AdminDashboard';
 import Cart from '../components/Cart';
 import LandingPage from '../components/LandingPage';
-import ShoppingPage from '../components/ShoppingPage';
 import UserProfile from '../components/UserProfile';
 import Processed from '../components/Processed';
+import ShoppingPage from '../components/ShoppingPage';
 
 // will need to add private routes once auth is done.
 // Admin and user hook
@@ -55,6 +55,7 @@ function Routes({
             order={order}
             setOrder={setOrder}
             snacks={snacks}
+            user={user}
           />}
           user={user}
         />

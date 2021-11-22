@@ -11,15 +11,6 @@ const MoodModal = ({
   modalStatus, modalToggle,
   userMood, setUserMood
 }) => {
-  const [moodObj, setMoodObj] = useState({
-    id: userMood ? userMood[0] : '',
-    name: userMood ? userMood[1] : '',
-    softDelete: userMood ? userMood[2] : false
-  });
-  useEffect(() => {
-
-  }, []);
-
   const [moodsArray, setMoodsArray] = useState([]);
   useEffect(() => {
     getMoods().then(setMoodsArray);
@@ -27,12 +18,12 @@ const MoodModal = ({
   }, []);
 
   const handleInputChange = (e) => {
-    getMoodById(e.target.value).then(setMoodObj);
+    getMoodById(e.target.value).then(setUserMood);
     // setMoodObj((prevState) => ({
     //   ...prevState,
     //   [e.target.name]: e.target.value
     // }));
-    console.warn('Modal: moodObj', moodObj);
+    console.warn('Modal: userMood', userMood);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -63,7 +54,7 @@ const MoodModal = ({
               type='select'
               name='id'
               placeholder=''
-              value={moodObj.id}
+              value={userMood.id}
               onChange={handleInputChange}
             >
               <option value=''>Please select a snack mood</option>
