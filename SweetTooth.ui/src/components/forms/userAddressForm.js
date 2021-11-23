@@ -26,7 +26,8 @@ function UserAddressForm({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (userAddressFormObj !== null) {
+    debugger;
+    if (userAddressFormObj.id !== undefined) {
       getByAddressId(userAddressFormObj.id)
         .then(() => {
           updateUserAddress(userAddressFormObj)

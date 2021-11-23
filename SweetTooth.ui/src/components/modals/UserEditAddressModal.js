@@ -17,12 +17,10 @@ function UserEditAddressModal({
 
   const handleClick = (addressId, e) => {
     e.preventDefault();
+    toggle();
     if (addressId != null) {
-      toggle();
       setEditNow((prevState) => !prevState);
       setIdToUpdate(addressId);
-      // getByAddressId(addressId);
-      console.warn('handleClick edit', addressId);
     }
   };
   return (
@@ -31,8 +29,6 @@ function UserEditAddressModal({
             onClick={(e) => handleClick(userAddressInfo.id, e)}
           >
             Edit
-            {/* { idToUpdate === userAddressInfo.id && editNow
-              ? 'Close' : 'Edit' } */}
           </Button>
   <Modal
     isOpen={modal} toggle={toggle}
@@ -42,8 +38,9 @@ function UserEditAddressModal({
     </ModalHeader>
     <ModalBody>
     {
-      idToUpdate === userAddressInfo.id
-      && editNow && <UserAddressForm
+      editNow && idToUpdate === userAddressInfo.id
+      && <UserAddressForm
+        toggle={toggle}
         user={user}
         userAddressInfo={userAddressInfo}
         userAddresses={userAddresses}

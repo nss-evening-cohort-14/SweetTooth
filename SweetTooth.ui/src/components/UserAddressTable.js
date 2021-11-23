@@ -3,18 +3,13 @@ import PropTypes from 'prop-types';
 import { Button, Table } from 'reactstrap';
 import { deleteUserAddress, getByAddressId } from '../helpers/data/userAddressData';
 import UserEditAddressModal from './modals/UserEditAddressModal';
-// import UserAddressForm from './forms/userAddressForm';
-// import { getByAddressId } from '../helpers/data/userAddressData';
 
 function UserAddressTable({
   user,
   userAddresses,
   setUserAddresses,
 }) {
-  // const [idToUpdate, setIdToUpdate] = useState('');
-
-  const handleClick = (addressId, e) => {
-    e.preventdefault();
+  const handleClick = (addressId) => {
     if (addressId) {
       getByAddressId(addressId)
         .then((address) => {
@@ -72,7 +67,7 @@ function UserAddressTable({
                 />
               }
               <Button color='danger' outline
-              onClick={(e) => handleClick(userAddressInfo.id, e)}
+              onClick={() => handleClick(userAddressInfo.id)}
               >
               X
               </Button>
