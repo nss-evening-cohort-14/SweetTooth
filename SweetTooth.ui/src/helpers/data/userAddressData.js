@@ -47,8 +47,8 @@ const createNewUserAddress = (address) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-const updateUserAddress = (address) => new Promise((resolve, reject) => {
-  axios.put(`${dbUrl}/userAddresses/${address.id}`)
+const updateUserAddress = (id, address) => new Promise((resolve, reject) => {
+  axios.put(`${dbUrl}/userAddresses/${id}`, address)
     .then(() => getAddressByUserId(address.userId))
     .then(resolve)
     .catch((error) => reject(error));
