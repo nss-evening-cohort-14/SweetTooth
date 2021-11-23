@@ -9,10 +9,34 @@ const getPaymentMethodByUserId = (userId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getPayMethodById = (paymentId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/paymentMethod/paymentId/${paymentId}`)
+    .then((resp) => resolve(resp.data))
+    .catch((error) => reject(error));
+});
+
 const createNewPaymentMethod = (paymentMethod) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/paymentMethod`, paymentMethod)
     .then(() => getPaymentMethodByUserId(paymentMethod.userId)).then((resp) => resolve(resp))
     .catch((error) => reject(error));
 });
 
-export { getPaymentMethodByUserId, createNewPaymentMethod };
+const updatePaymentMethod = (paymentMethod) => new Promise((resolve, reject) => {
+  axios.put(`${dbUrl}/paymentMethod/${paymentMethod.id}`, paymentMethod)
+    .then(() => getPaymentMethodByUserId(paymentMethod.userId)).then(resolve)
+    .catch((error) => reject(error));
+});
+
+const softDeletePaymentMethod = (paymentMethod) => new Promise((resolve, reject) => {
+  axios.put(`${dbUrl}/paymentMethod/softDelete/${paymentMethod.id}`, paymentMethod)
+    .then(() => getPaymentMethodByUserId(paymentMethod.userId)).then(resolve)
+    .catch((error) => reject(error));
+});
+
+export {
+  getPaymentMethodByUserId,
+  getPayMethodById,
+  createNewPaymentMethod,
+  updatePaymentMethod,
+  softDeletePaymentMethod
+};
