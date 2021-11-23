@@ -77,7 +77,6 @@ function SnackCard({
   };
   const minusOne = (e) => {
     e.preventDefault();
-    console.warn(e);
     let decrease = Number(counter);
     if (decrease > 0) {
       decrease -= 1;
