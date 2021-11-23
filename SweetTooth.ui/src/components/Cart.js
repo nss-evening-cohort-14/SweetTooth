@@ -30,7 +30,7 @@ function Cart({
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    if (order) {
+    if (order.id) {
       getOrderItems(order.id).then(setItems);
     }
   }, []);
