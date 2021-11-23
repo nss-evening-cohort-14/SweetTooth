@@ -15,6 +15,7 @@ function ShoppingPage({
 
   useEffect(() => {
     getOrderItems(order.id).then((resp) => {
+      console.warn('resp', resp);
       if (resp.length === 0) {
         setOrderItems([{
           id: '',

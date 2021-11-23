@@ -1,23 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { NumberContainer, ProcessedContainer, ThankYouContainer } from '../styles/ProcessedStyled';
+import { getOrderByUserId } from '../helpers/data/OrderData';
 
-function Processed({ number, firstName }) {
+function Processed({ user }) {
+  const [processedOrder, setProcessedOrder] = useState({});
+
+  useEffect(() => {
+    getOrderByUserId(user.id).then((resp) => setProcessedOrder(resp[resp.length - 2]));
+  }, []);
+
   return (
     <ProcessedContainer>
       <ThankYouContainer>
-        {firstName}, thank you for your purchase!
+        {user.firstName}, thank you for your purchase!
       </ThankYouContainer>
       <NumberContainer>
-        Your order number is {number}. We will ship your order as soon as possible.
+        Your order number is {processedOrder.orderNumber}. We will ship your order as soon as possible.
       </NumberContainer>
     </ProcessedContainer>
   );
 }
 
 Processed.propTypes = {
-  number: PropTypes.number,
-  firstName: PropTypes.string
+  user: PropTypes.any,
 };
 
 export default Processed;

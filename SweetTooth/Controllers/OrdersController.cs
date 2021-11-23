@@ -163,14 +163,14 @@ namespace SweetTooth.Controllers
         }
 
         [HttpGet("user/{userId}")]
-        public IActionResult GetOrderByUserId(Guid userId)
+        public IActionResult GetOrdersByUserId(Guid userId)
         {
-            var order = _repo.GetOrderByUserId(userId);
-            if (order == null)
+            var orders = _repo.GetOrderByUserId(userId);
+            if (orders == null)
             {
-                return NotFound("No order was found.");
+                return NotFound("No orders were found.");
             }
-            return Ok(order);
+            return Ok(orders);
         }
 
         [HttpGet("unprocessed/{userId}")]

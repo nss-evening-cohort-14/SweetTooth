@@ -60,10 +60,10 @@ function SnackCard({
         updateTotal(updatedOrderItem.orderId).then((orderResp) => setOrder(orderResp));
       });
     } else {
-      const newOrder = newOrderItem(newQuantity);
-      addOrderItem(newOrder).then((resp) => {
+      const newItem = newOrderItem(newQuantity);
+      addOrderItem(newItem).then((resp) => {
         setOrderItems(resp);
-        updateTotal(newOrder.id).then((orderResp) => setOrder(orderResp));
+        updateTotal(newItem.orderId).then((orderResp) => setOrder(orderResp));
       });
     }
   };

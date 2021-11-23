@@ -70,7 +70,7 @@ namespace SweetTooth.DataAccess
             return order;
         }
 
-        internal Order GetOrderByUserId(Guid userId)
+        internal IEnumerable<Order> GetOrderByUserId(Guid userId)
         {
 
             using var db = new SqlConnection(_connectionString);
@@ -79,19 +79,19 @@ namespace SweetTooth.DataAccess
                         from [Order] o
                         where o.UserId = @userId";
 
-            var order = db.QueryFirstOrDefault<Order>(sql, new { userId = userId });
+            var orders = db.Query<Order>(sql, new { userId = userId });
 
-            var orderItemsSql = @"select * 
-                                from OrderItem ot
-                                join Snack s
-                                on ot.SnackId = s.Id
-                                where OrderId = @id";
+            //var orderItemsSql = @"select * 
+            //                    from OrderItem ot
+            //                    join Snack s
+            //                    on ot.SnackId = s.Id
+            //                    where OrderId = @id";
 
-            var orderItems = db.Query<OrderItem, Snack, OrderItem>(orderItemsSql, MapOrderItem, new { id = order.Id }, splitOn: "Id");
+            //var orderItems = db.Query<OrderItem, Snack, OrderItem>(orderItemsSql, MapOrderItem, new { id = order.Id }, splitOn: "Id");
 
-            order.OrderItems = orderItems;
+            //order.OrderItems = orderItems;
 
-            return order;
+            return orders;
         }
 
         internal Order GetUnprocessedOrderByUserId(Guid userId)

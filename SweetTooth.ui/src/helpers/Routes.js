@@ -93,8 +93,7 @@ function Routes({
         <PrivateRoute
         exact path='/processed'
         component={() => <Processed
-        firstName={user.firstName}
-        number={order.orderNumber}
+        user={user}
         />
         }
         user={user}
