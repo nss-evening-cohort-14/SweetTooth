@@ -32,7 +32,7 @@ namespace SweetTooth.Controllers
             return Ok(snacksByMood);
         }
 
-        [HttpGet("category")]
+        [HttpGet("category/{category}")]
         public IActionResult GetSnacksByCategory(string category)
         {
             var snacksByCategory = _repo.GetAllByCategory(category);

@@ -15,4 +15,18 @@ const getSnackById = (snackId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-export { getSnacks, getSnackById };
+const getSnacksByMood = (moodId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/snack/mood/${moodId}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
+const getSnacksByCategory = (category) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/snack/category/${category}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
+export {
+  getSnacks, getSnackById, getSnacksByMood, getSnacksByCategory
+};
