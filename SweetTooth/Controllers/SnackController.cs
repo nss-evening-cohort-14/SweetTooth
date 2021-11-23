@@ -25,6 +25,20 @@ namespace SweetTooth.Controllers
             return Ok(_repo.GetAll());
         }
 
+        [HttpGet("mood/{moodId}")]
+        public IActionResult GetSnacksByMood(Guid moodId)
+        {
+            var snacksByMood = _repo.GetAllByMood(moodId);
+            return Ok(snacksByMood);
+        }
+
+        [HttpGet("category")]
+        public IActionResult GetSnacksByCategory(string category)
+        {
+            var snacksByCategory = _repo.GetAllByCategory(category);
+            return Ok(snacksByCategory);
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetSnackById(Guid id)
         {
