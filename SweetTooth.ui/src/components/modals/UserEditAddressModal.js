@@ -25,7 +25,7 @@ function UserEditAddressModal({
   };
   return (
     <div style={{ paddingRight: '5%' }}>
-       <Button color='info' outline
+       <Button color='info' outline size="sm"
             onClick={(e) => handleClick(userAddressInfo.id, e)}
           >
             Edit

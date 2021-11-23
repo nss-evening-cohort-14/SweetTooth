@@ -7,15 +7,19 @@ import PaymentMethodCard from './PaymentMethodCard';
 import PaymentMethodModal from './modals/PaymentMethodModal';
 import UserAddressModal from './modals/UserAddressModal';
 import UserAddressTable from './UserAddressTable';
+import { LandingPageContainer, LandingPageLogo } from '../styles/LandingPageStyled';
+import logo from '../Assets/SweetToothLogo.png';
 
 export default function UserProfile({
   user, userAddresses, setUserAddresses, paymentMethodsArray, setPaymentMethodsArray
 }) {
-  // const [editAddressNow, setEditAddressNow] = useState(false);
-
   return (
     <Container>
-        <h1>User Profile</h1>
+        <LandingPageContainer>
+          <LandingPageLogo src={logo} />
+          </LandingPageContainer>
+          { <h4> Hi, {user.firstName}!</h4> }
+          { <h5> Update your account details here.</h5> }
 
       <UserAddressModal
         user={user}

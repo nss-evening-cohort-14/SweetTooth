@@ -66,10 +66,10 @@ function UserAddressTable({
                   setUserAddresses={setUserAddresses}
                 />
               }
-              <Button color='danger' outline
+              <Button color='danger' outline size="sm"
               onClick={() => handleClick(userAddressInfo.id)}
               >
-              X
+              Delete
               </Button>
 
               </div>
