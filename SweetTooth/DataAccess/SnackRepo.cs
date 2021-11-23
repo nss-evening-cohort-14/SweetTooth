@@ -22,7 +22,8 @@ namespace SweetTooth.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
 
-            var sql = @"select * from Snack";
+            var sql = @"select * from Snack
+                        where softDelete = 0";
             var snacks = db.Query<Snack>(sql);
 
             return snacks;

@@ -35,8 +35,6 @@ function Cart({
     }
   }, []);
 
-  console.warn(order);
-
   const history = useHistory();
 
   const calculate = (number, bool) => {

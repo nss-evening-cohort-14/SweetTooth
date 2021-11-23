@@ -68,13 +68,16 @@ function SnackCard({
     }
   };
 
-  const plusOne = () => {
+  const plusOne = (e) => {
+    e.preventDefault();
     let increase = Number(counter);
     increase += 1;
     setCounter(increase.toString());
     snackExistsInOrderItems(orderItems, id, increase);
   };
-  const minusOne = () => {
+  const minusOne = (e) => {
+    e.preventDefault();
+    console.warn(e);
     let decrease = Number(counter);
     if (decrease > 0) {
       decrease -= 1;
@@ -85,27 +88,29 @@ function SnackCard({
 
   return (
     <div className="col-sm-4">
-      <Card className='d-flex justify-content-center' body>
-        <CardTitle tag='h5'>{name}</CardTitle>
-        <CardText style={{ minHeight: 70 }}>
-          {category}<br />
-          {description}<br />
-        </CardText>
-        ${price}
-        <SnackImage className='m-auto img-thumbnail' src={image} alt={name} />
-        <Row>
-          <Col>
-            <Button onClick={minusOne}><i className='fas fa-minus fa-2x'></i></Button>
-          </Col>
-          <Col className='m-auto'>
-            {counter}
-          </Col>
-          <Col>
-            <Button onClick={plusOne}><i className='fas fa-plus fa-2x'></i></Button>
-          </Col>
-        </Row>
-      </Card>
-    </div>
+          <div>
+          <Card className='d-flex justify-content-center' body>
+            <CardTitle tag='h5'>{name}</CardTitle>
+            <CardText style={{ minHeight: 70 }}>
+              {category}<br />
+              {description}<br />
+            </CardText>
+            ${price}
+            <SnackImage className='m-auto img-thumbnail' src={image} alt={name} />
+            <Row>
+              <Col>
+                <Button onClick={(e) => minusOne(e)}><i className='fas fa-minus fa-2x'></i></Button>
+              </Col>
+              <Col className='m-auto'>
+                {counter}
+              </Col>
+              <Col>
+                <Button onClick={(e) => plusOne(e)}><i className='fas fa-plus fa-2x'></i></Button>
+              </Col>
+            </Row>
+          </Card>
+        </div>
+      </div>
   );
 }
 
@@ -119,6 +124,6 @@ SnackCard.propTypes = {
   orderItems: PropTypes.array,
   setOrderItems: PropTypes.func,
   orderId: PropTypes.string,
-  setOrder: PropTypes.func
+  setOrder: PropTypes.func,
 };
 export default SnackCard;
