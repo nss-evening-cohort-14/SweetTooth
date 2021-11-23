@@ -6,9 +6,10 @@ import {
 import { createNewUserAddress, getByAddressId, updateUserAddress } from '../../helpers/data/userAddressData';
 
 function UserAddressForm({
-  user, userAddresses, setUserAddresses, ...userAddressInfo
+  user, setUserAddresses, userAddressInfo
 }) {
   const [userAddressFormObj, setUserAddressFormObj] = useState({
+    id: userAddressInfo?.id,
     userId: user?.id,
     street: userAddressInfo?.street || '',
     city: userAddressInfo?.city || '',
@@ -24,17 +25,18 @@ function UserAddressForm({
   };
 
   const handleSubmit = (e) => {
-    if (userAddressFormObj.id) {
+    e.preventDefault();
+    if (userAddressFormObj !== null) {
       getByAddressId(userAddressFormObj.id)
         .then(() => {
           updateUserAddress(userAddressFormObj)
             .then((resp) => setUserAddresses(resp));
         });
+    } else {
+      createNewUserAddress(userAddressFormObj).then((resp) => {
+        setUserAddresses(resp);
+      });
     }
-    e.preventDefault();
-    createNewUserAddress(userAddressFormObj).then((resp) => {
-      setUserAddresses(resp);
-    });
   };
 
   return (
@@ -113,6 +115,7 @@ function UserAddressForm({
 
 UserAddressForm.propTypes = {
   user: PropTypes.any,
+  userAddressInfo: PropTypes.object,
   userAddresses: PropTypes.array,
   setUserAddresses: PropTypes.func
 };

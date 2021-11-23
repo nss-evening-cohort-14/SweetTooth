@@ -30,6 +30,7 @@ const getByAddressId = (addressId) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/userAddresses/${addressId}`)
     .then((resp) => resolve(resp.data))
     .catch((error) => reject(error));
+  debugger;
 });
 
 const getAddressByUserId = (userId) => new Promise((resolve, reject) => {
@@ -40,7 +41,7 @@ const getAddressByUserId = (userId) => new Promise((resolve, reject) => {
 
 const createNewUserAddress = (address) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/userAddresses`, address)
-    .then(() => getAllAddressesByUserId(address.userId)).then((response) => {
+    .then(() => getAddressByUserId(address.userId)).then((response) => {
       resolve(response);
     })
     .catch((error) => reject(error));

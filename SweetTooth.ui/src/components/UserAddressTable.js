@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Table } from 'reactstrap';
 import { deleteUserAddress, getByAddressId } from '../helpers/data/userAddressData';
-import UserAddressForm from './forms/userAddressForm';
+import UserEditAddressModal from './modals/UserEditAddressModal';
+// import UserAddressForm from './forms/userAddressForm';
 // import { getByAddressId } from '../helpers/data/userAddressData';
 
 function UserAddressTable({
   user,
   userAddresses,
   setUserAddresses,
-  // userAddressObj
+  // editAddressNow,
+  // setEditAddressNow
 }) {
-  const [editNow, setEditNow] = useState(false);
   const [idToUpdate, setIdToUpdate] = useState('');
 
   const handleClick = (type, addressId) => {
@@ -29,7 +30,9 @@ function UserAddressTable({
       case 'edit':
         if (addressId != null) {
           setIdToUpdate(addressId);
-          setEditNow((prevState) => !prevState);
+          console.warn(idToUpdate);
+          // setEditAddressNow(editAddressNow);
+          // setEditAddressNow((prevState) => !prevState);
           console.warn('handleClick', addressId);
         }
         break;
@@ -76,12 +79,15 @@ function UserAddressTable({
                 {userAddressInfo.zip}
               </td>
               <td>
-              <Button color='info' outline
-            onClick={(e) => handleClick('edit', userAddressInfo.id, e)}
-          >
-            {idToUpdate === userAddressInfo.id && editNow
-              ? 'Close' : 'Edit' }
-          </Button>
+              {
+                  <UserEditAddressModal
+                    user={user}
+                    userAddressInfo={userAddressInfo}
+                    userAddresses={userAddresses}
+                    setUserAddresses={setUserAddresses}
+                    // idToUpdate={idToUpdate}
+                  />
+              }
           {' '}
           <Button color='danger' outline
             onClick={(e) => handleClick('delete', userAddressInfo.id, e)}
@@ -89,15 +95,6 @@ function UserAddressTable({
             Delete
           </Button>
               </td>
-              {
-                idToUpdate === userAddressInfo.id
-                  ? editNow && <UserAddressForm
-                    user={user}
-                    userAddresses={userAddresses}
-                    setUserAddresses={setUserAddresses}
-                  />
-                  : ''
-              }
           </tr>
         ))
       }
@@ -112,6 +109,9 @@ UserAddressTable.propTypes = {
   userAddressObj: PropTypes.object,
   userAddresses: PropTypes.array,
   setUserAddresses: PropTypes.func,
+  editAddressNow: PropTypes.bool,
+  setEditAddressNow: PropTypes.func,
+  idToUpdate: PropTypes.string
 };
 
 export default UserAddressTable;
