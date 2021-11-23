@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
   Button, Col, Container, Form, FormGroup, Input, Label
 } from 'reactstrap';
-import { createNewUserAddress } from '../../helpers/data/userAddressData';
+import { createNewUserAddress, getByAddressId, updateUserAddress } from '../../helpers/data/userAddressData';
 
 function UserAddressForm({
   user, userAddresses, setUserAddresses, ...userAddressInfo
@@ -24,18 +24,19 @@ function UserAddressForm({
   };
 
   const handleSubmit = (e) => {
+    if (userAddressFormObj.id) {
+      getByAddressId(userAddressFormObj.id)
+        .then(() => {
+          updateUserAddress(userAddressFormObj)
+            .then((resp) => setUserAddresses(resp));
+        });
+    }
     e.preventDefault();
     createNewUserAddress(userAddressFormObj).then((resp) => {
       setUserAddresses(resp);
     });
-    // if (userAddressFormObj.id) {
-    //   updateUser(userAddressFormObj)
-    //     .then((response) => setUserAddresses(response));
-    // } else {
-    //   createNewUserAddress(userAddressFormObj)
-    //     .then((response) => (setUserAddresses(response)));
-    // }
   };
+
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
