@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Container
@@ -11,7 +11,7 @@ import UserAddressTable from './UserAddressTable';
 export default function UserProfile({
   user, userAddresses, setUserAddresses, paymentMethodsArray, setPaymentMethodsArray
 }) {
-  const [editAddressNow, setEditAddressNow] = useState(false);
+  // const [editAddressNow, setEditAddressNow] = useState(false);
 
   return (
     <Container>
@@ -21,15 +21,11 @@ export default function UserProfile({
         user={user}
         userAddresses={userAddresses}
         setUserAddresses={setUserAddresses}
-        editAddressNow={editAddressNow}
-        setEditAddressNow={setEditAddressNow}
       />
       <UserAddressTable
         user={user}
         userAddresses={userAddresses}
         setUserAddresses={setUserAddresses}
-        editAddressNow={editAddressNow}
-        setEditAddressNow={setEditAddressNow}
       />
 
       <PaymentMethodModal
@@ -64,6 +60,4 @@ UserProfile.propTypes = {
   setUserAddresses: PropTypes.func,
   paymentMethodsArray: PropTypes.array,
   setPaymentMethodsArray: PropTypes.func,
-  editAddressNow: PropTypes.bool,
-  setEditAddressNow: PropTypes.func
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Table } from 'reactstrap';
 import { deleteUserAddress, getByAddressId } from '../helpers/data/userAddressData';
@@ -10,34 +10,17 @@ function UserAddressTable({
   user,
   userAddresses,
   setUserAddresses,
-  // editAddressNow,
-  // setEditAddressNow
 }) {
-  const [idToUpdate, setIdToUpdate] = useState('');
+  // const [idToUpdate, setIdToUpdate] = useState('');
 
-  const handleClick = (type, addressId) => {
-    switch (type) {
-      case 'delete':
-        console.warn('delete', addressId);
-        if (addressId) {
-          getByAddressId(addressId)
-            .then((address) => {
-              deleteUserAddress(address)
-                .then((resp) => setUserAddresses(resp));
-            });
-        }
-        break;
-      case 'edit':
-        if (addressId != null) {
-          setIdToUpdate(addressId);
-          console.warn(idToUpdate);
-          // setEditAddressNow(editAddressNow);
-          // setEditAddressNow((prevState) => !prevState);
-          console.warn('handleClick', addressId);
-        }
-        break;
-      default:
-        console.warn('nothing selected');
+  const handleClick = (addressId, e) => {
+    e.preventdefault();
+    if (addressId) {
+      getByAddressId(addressId)
+        .then((address) => {
+          deleteUserAddress(address)
+            .then((resp) => setUserAddresses(resp));
+        });
     }
   };
 
@@ -79,21 +62,22 @@ function UserAddressTable({
                 {userAddressInfo.zip}
               </td>
               <td>
+              <div style={{ display: 'inline-flex', flexDirection: 'row' }}>
               {
-                  <UserEditAddressModal
-                    user={user}
-                    userAddressInfo={userAddressInfo}
-                    userAddresses={userAddresses}
-                    setUserAddresses={setUserAddresses}
-                    // idToUpdate={idToUpdate}
-                  />
+                <UserEditAddressModal
+                  user={user}
+                  userAddressInfo={userAddressInfo}
+                  userAddresses={userAddresses}
+                  setUserAddresses={setUserAddresses}
+                />
               }
-          {' '}
-          <Button color='danger' outline
-            onClick={(e) => handleClick('delete', userAddressInfo.id, e)}
-          >
-            Delete
-          </Button>
+              <Button color='danger' outline
+              onClick={(e) => handleClick(userAddressInfo.id, e)}
+              >
+              X
+              </Button>
+
+              </div>
               </td>
           </tr>
         ))
