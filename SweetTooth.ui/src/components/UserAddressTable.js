@@ -16,6 +16,7 @@ function UserAddressTable({
           deleteUserAddress(address)
             .then((resp) => setUserAddresses(resp));
         });
+      debugger;
     }
   };
 
