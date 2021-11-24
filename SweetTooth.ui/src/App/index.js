@@ -64,6 +64,7 @@ export default function App() {
         <NavbarSweetTooth user={user} />
         <Routes
           user={user}
+          setUser={setUser}
           order={order}
           orderItems={orderItems}
           setOrderItems={setOrderItems}

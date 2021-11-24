@@ -5,8 +5,17 @@ const dbUrl = firebaseConfig.databaseURL;
 
 const getMoods = () => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/mood`)
-    .then((response) => resolve(Object.values(response.data)))
+    .then((response) => resolve((response.data)))
     .catch((error) => reject(error));
 });
 
-export default getMoods;
+const getMoodById = (moodId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/mood/${moodId}`)
+    .then((response) => resolve((response.data)))
+    .catch((error) => reject(error));
+});
+
+export {
+  getMoods,
+  getMoodById
+};

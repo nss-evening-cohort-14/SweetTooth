@@ -54,6 +54,7 @@ namespace SweetTooth.Models
             return Created($"api/users/{newUser.Id}", newUser);
         }
 
+        [AllowAnonymous]
         [HttpPut("{id}")]
         public IActionResult UpdateUser(Guid id, User user)
         {
