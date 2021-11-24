@@ -10,7 +10,7 @@ const getUserByFirebaseId = (uid) => new Promise((resolve, reject) => {
 });
 
 const getUserByUserId = (id) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/users/user/${id}`)
+  axios.get(`${dbUrl}/users/${id}`)
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
@@ -27,6 +27,14 @@ const getUsers = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const updateUser = (userId, userObj) => new Promise((resolve, reject) => {
+  axios.put(`${dbUrl}/Users/${userId}`, userObj)
+    .then(() => {
+      getUserByUserId(userId).then(resolve);
+    })
+    .catch((error) => reject(error));
+});
+
 export {
-  createNewUser, getUsers, getUserByFirebaseId, getUserByUserId
+  createNewUser, getUsers, getUserByFirebaseId, getUserByUserId, updateUser
 };

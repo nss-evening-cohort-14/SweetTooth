@@ -28,6 +28,24 @@ namespace SweetTooth.DataAccess
 
             return snacks;
         }
+
+        internal object GetAllByMood(Guid moodId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var snacksByMoodSql = @"Select s.* 
+                                     from Snack s
+                                        left join SnackMood sm
+                                            on s.Id = sm.snackId
+                                     where sm.MoodId = @moodId";
+
+            var snacksByMood = db.Query<Snack>(snacksByMoodSql, new { moodId });
+
+            if (snacksByMood == null) return null;
+
+            return snacksByMood;
+        }
+
         internal Snack GetById(Guid snackId)
         {
             using var db = new SqlConnection(_connectionString);
@@ -39,6 +57,21 @@ namespace SweetTooth.DataAccess
             if (snack == null) return null;
             
             return snack;
+        }
+
+        internal object GetAllByCategory(string category)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var snacksByCategorySql = @"Select * 
+                                        from Snack
+                                        where  Category = @category";
+
+            var snacksByCategory = db.Query<Snack>(snacksByCategorySql, new { category });
+
+            if (snacksByCategory == null) return null;
+
+            return snacksByCategory;
         }
 
         internal void Add(Snack newSnack)

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'reactstrap';
-import getMoods from '../helpers/data/MoodData';
+import { getMoods } from '../helpers/data/MoodData';
 import { getOrders } from '../helpers/data/OrderData';
 import { getUsers } from '../helpers/data/userData';
 import MoodCard from './MoodCard';
