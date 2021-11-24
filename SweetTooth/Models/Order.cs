@@ -20,4 +20,5 @@ namespace SweetTooth.Models
         public IEnumerable<OrderItem> OrderItems { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
     }
+
 }

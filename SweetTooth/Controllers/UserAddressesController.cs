@@ -26,6 +26,7 @@ namespace SweetTooth.Controllers
             _userRepo = userRepo;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetAllAddresses()
         {

@@ -44,9 +44,6 @@ export default function App() {
                   .then((res) => {
                     setOrder(res);
                     setOrderItems(res.orderItems);
-                    console.warn('order', order);
-                    console.warn('orderItems', orderItems);
-                    console.warn('user', user);
                   });
               })
           );
@@ -72,6 +69,7 @@ export default function App() {
           setOrderItems={setOrderItems}
           userAddresses={userAddresses}
           setUserAddresses={setUserAddresses}
+          setOrder={setOrder}
           snacks={snacks}
           setSnacks={setSnacks}
           paymentMethodsArray={paymentMethodsArray}
