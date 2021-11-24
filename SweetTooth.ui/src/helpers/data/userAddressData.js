@@ -16,7 +16,7 @@ const getAllAddresses = () => new Promise((resolve, reject) => {
 });
 
 const getAllAddressesByUserId = (userId) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/userAddresses/${userId}`)
+  axios.get(`${dbUrl}/userAddresses/userId/${userId}`)
     .then((response) => {
       if (response.data) {
         resolve(Object.values(response.data));
@@ -26,12 +26,47 @@ const getAllAddressesByUserId = (userId) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
-const createNewUserAddress = (userAddressInfo) => new Promise((resolve, reject) => {
-  axios.post(`${dbUrl}/userAddresses`, userAddressInfo)
-    .then(() => getAllAddressesByUserId(userAddressInfo.userId)).then((response) => {
+const getByAddressId = (addressId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/userAddresses/${addressId}`)
+    .then((resp) => resolve(resp.data))
+    .catch((error) => reject(error));
+});
+
+const getAddressByUserId = (userId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/userAddresses/userId/${userId}`)
+    .then((resp) => resolve(Object.values(resp.data)))
+    .catch((error) => reject(error));
+});
+
+const createNewUserAddress = (address) => new Promise((resolve, reject) => {
+  axios.post(`${dbUrl}/userAddresses`, address)
+    .then(() => getAddressByUserId(address.userId)).then((response) => {
       resolve(response);
     })
     .catch((error) => reject(error));
 });
 
-export { getAllAddresses, getAllAddressesByUserId, createNewUserAddress };
+const updateUserAddress = (address) => new Promise((resolve, reject) => {
+  axios.put(`${dbUrl}/userAddresses/${address.id}`, address)
+    .then(() => getAddressByUserId(address.userId))
+    .then(resolve)
+    .catch((error) => reject(error));
+});
+
+const deleteUserAddress = (address) => new Promise((resolve, reject) => {
+  axios.delete(`${dbUrl}/userAddresses/${address.id}`)
+    .then(() => getAllAddressesByUserId(address.userId)).then((response) => {
+      resolve(response);
+    })
+    .catch((error) => reject(error));
+});
+
+export {
+  getAllAddresses,
+  getAddressByUserId,
+  getByAddressId,
+  getAllAddressesByUserId,
+  createNewUserAddress,
+  updateUserAddress,
+  deleteUserAddress
+};

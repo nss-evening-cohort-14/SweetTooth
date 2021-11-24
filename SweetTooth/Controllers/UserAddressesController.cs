@@ -34,11 +34,23 @@ namespace SweetTooth.Controllers
 
         }
 
-        [AllowAnonymous]
+        [HttpGet("userId/{userId}")]
+        public IActionResult GetAllUserAddresses(Guid userId)
+        {
+            var addresses = _repo.GetByUserId(userId);
+
+            if (addresses == null)
+            {
+                return NotFound($"No user with the id {userId} was found.");
+            }
+
+            return Ok(addresses);
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetUserAddressById(Guid id)
         {
-            var singleUserAddress = _repo.GetByUserId(id);
+            var singleUserAddress = _repo.GetByAddressId(id);
 
             if (singleUserAddress == null)
             {
@@ -66,8 +78,7 @@ namespace SweetTooth.Controllers
             return Created($"api/users/address/{newAddress.Id}", newAddress);
         }
 
-        [AllowAnonymous]
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult HardDeleteUserAddress(Guid id)
         {
             _repo.DeleteAddress(id);

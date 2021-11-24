@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import {
   Button, Col, Container, Form, FormGroup, Input, Label
 } from 'reactstrap';
-import { createNewUserAddress } from '../../helpers/data/userAddressData';
+import { createNewUserAddress, getByAddressId, updateUserAddress } from '../../helpers/data/userAddressData';
 
 function UserAddressForm({
-  user, userAddresses, setUserAddresses, ...userAddressInfo
+  user, setUserAddresses, userAddressInfo
 }) {
   const [userAddressFormObj, setUserAddressFormObj] = useState({
+    id: userAddressInfo?.id,
     userId: user?.id,
     street: userAddressInfo?.street || '',
     city: userAddressInfo?.city || '',
@@ -25,17 +26,19 @@ function UserAddressForm({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createNewUserAddress(userAddressFormObj).then((resp) => {
-      setUserAddresses(resp);
-    });
-    // if (userAddressFormObj.id) {
-    //   updateUser(userAddressFormObj)
-    //     .then((response) => setUserAddresses(response));
-    // } else {
-    //   createNewUserAddress(userAddressFormObj)
-    //     .then((response) => (setUserAddresses(response)));
-    // }
+    if (userAddressFormObj.id !== undefined) {
+      getByAddressId(userAddressFormObj.id)
+        .then(() => {
+          updateUserAddress(userAddressFormObj)
+            .then((resp) => setUserAddresses(resp));
+        });
+    } else {
+      createNewUserAddress(userAddressFormObj).then((resp) => {
+        setUserAddresses(resp);
+      });
+    }
   };
+
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
@@ -112,6 +115,7 @@ function UserAddressForm({
 
 UserAddressForm.propTypes = {
   user: PropTypes.any,
+  userAddressInfo: PropTypes.object,
   userAddresses: PropTypes.array,
   setUserAddresses: PropTypes.func
 };

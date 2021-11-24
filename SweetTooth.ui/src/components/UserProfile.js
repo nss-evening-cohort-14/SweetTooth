@@ -7,22 +7,36 @@ import PaymentMethodCard from './PaymentMethodCard';
 import PaymentMethodModal from './modals/PaymentMethodModal';
 import UserAddressModal from './modals/UserAddressModal';
 import UserAddressTable from './UserAddressTable';
+import { LandingPageContainer, LandingPageLogo } from '../styles/LandingPageStyled';
+import logo from '../Assets/SweetToothLogo.png';
 
 export default function UserProfile({
   user, userAddresses, setUserAddresses, paymentMethodsArray, setPaymentMethodsArray
 }) {
   return (
     <Container>
-        <h1>User Profile</h1>
+        <LandingPageContainer>
+          <LandingPageLogo src={logo} />
+          </LandingPageContainer>
+          { <h4> Hi, {user.firstName}!</h4> }
+          { <h5> Update your account details here.</h5> }
+
       <UserAddressModal
         user={user}
         userAddresses={userAddresses}
         setUserAddresses={setUserAddresses}
       />
-      <UserAddressTable
-        user={user}
-        userAddresses={userAddresses}
-      />
+      <>
+      {
+      userAddresses.length > 0
+        ? <UserAddressTable
+          user={user}
+          userAddresses={userAddresses}
+          setUserAddresses={setUserAddresses}
+          />
+        : ''
+      }
+      </>
 
       <PaymentMethodModal
         user={user}
@@ -55,5 +69,5 @@ UserProfile.propTypes = {
   userAddresses: PropTypes.array,
   setUserAddresses: PropTypes.func,
   paymentMethodsArray: PropTypes.array,
-  setPaymentMethodsArray: PropTypes.func
+  setPaymentMethodsArray: PropTypes.func,
 };

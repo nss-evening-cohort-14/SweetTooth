@@ -1,8 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Table } from 'reactstrap';
+import { deleteUserAddress, getByAddressId } from '../helpers/data/userAddressData';
+import UserEditAddressModal from './modals/UserEditAddressModal';
 
-function UserAddressTable({ userAddresses }) {
+function UserAddressTable({
+  user,
+  userAddresses,
+  setUserAddresses,
+}) {
+  const handleClick = (addressId) => {
+    if (addressId) {
+      getByAddressId(addressId)
+        .then((address) => {
+          deleteUserAddress(address)
+            .then((resp) => setUserAddresses(resp));
+        });
+    }
+  };
+
   return (
     <Table hover bordered>
           <thead>
@@ -41,13 +57,22 @@ function UserAddressTable({ userAddresses }) {
                 {userAddressInfo.zip}
               </td>
               <td>
-                  <Button outline color='info'>
-                    Edit
-                  </Button>
-                  {' '}
-                  <Button outline color ='danger'>
-                    Delete
-                  </Button>
+              <div style={{ display: 'inline-flex', flexDirection: 'row' }}>
+              {
+                <UserEditAddressModal
+                  user={user}
+                  userAddressInfo={userAddressInfo}
+                  userAddresses={userAddresses}
+                  setUserAddresses={setUserAddresses}
+                />
+              }
+              <Button color='danger' outline size="sm"
+              onClick={() => handleClick(userAddressInfo.id)}
+              >
+              Delete
+              </Button>
+
+              </div>
               </td>
           </tr>
         ))
@@ -60,10 +85,12 @@ function UserAddressTable({ userAddresses }) {
 UserAddressTable.propTypes = {
   user: PropTypes.any,
   userAddressInfo: PropTypes.object,
+  userAddressObj: PropTypes.object,
   userAddresses: PropTypes.array,
   setUserAddresses: PropTypes.func,
-  paymentMethodsArray: PropTypes.array,
-  setPaymentMethodsArray: PropTypes.func
+  editAddressNow: PropTypes.bool,
+  setEditAddressNow: PropTypes.func,
+  idToUpdate: PropTypes.string
 };
 
 export default UserAddressTable;
