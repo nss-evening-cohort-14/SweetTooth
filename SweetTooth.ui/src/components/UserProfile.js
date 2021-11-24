@@ -26,11 +26,17 @@ export default function UserProfile({
         userAddresses={userAddresses}
         setUserAddresses={setUserAddresses}
       />
-      <UserAddressTable
-        user={user}
-        userAddresses={userAddresses}
-        setUserAddresses={setUserAddresses}
-      />
+      <>
+      {
+      userAddresses.length > 0
+        ? <UserAddressTable
+          user={user}
+          userAddresses={userAddresses}
+          setUserAddresses={setUserAddresses}
+          />
+        : ''
+      }
+      </>
 
       <PaymentMethodModal
         user={user}

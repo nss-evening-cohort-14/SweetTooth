@@ -10,7 +10,6 @@ function UserEditAddressModal({
   user, userAddressInfo, userAddresses, setUserAddresses
 }) {
   const [idToUpdate, setIdToUpdate] = useState('');
-  const [editNow, setEditNow] = useState(false);
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
@@ -19,7 +18,6 @@ function UserEditAddressModal({
     e.preventDefault();
     toggle();
     if (addressId != null) {
-      setEditNow((prevState) => !prevState);
       setIdToUpdate(addressId);
     }
   };
@@ -38,9 +36,8 @@ function UserEditAddressModal({
     </ModalHeader>
     <ModalBody>
     {
-      editNow && idToUpdate === userAddressInfo.id
+      idToUpdate === userAddressInfo.id
       && <UserAddressForm
-        toggle={toggle}
         user={user}
         userAddressInfo={userAddressInfo}
         userAddresses={userAddresses}
