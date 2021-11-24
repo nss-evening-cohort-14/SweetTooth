@@ -163,14 +163,14 @@ namespace SweetTooth.Controllers
         }
 
         [HttpGet("user/{userId}")]
-        public IActionResult GetOrderByUserId(Guid userId)
+        public IActionResult GetOrdersByUserId(Guid userId)
         {
-            var order = _repo.GetOrderByUserId(userId);
-            if (order == null)
+            var orders = _repo.GetOrderByUserId(userId);
+            if (orders == null)
             {
-                return NotFound("No order was found.");
+                return NotFound("No orders were found.");
             }
-            return Ok(order);
+            return Ok(orders);
         }
 
         [HttpGet("unprocessed/{userId}")]
@@ -221,12 +221,18 @@ namespace SweetTooth.Controllers
                 return NotFound($"Could not find Order Item with the id {orderItemId} for updating");
             }
 
-            var updatedOrderItem = _repo.UpdateOrderItem(orderItemId, orderItem);
+            if (orderItem.Quantity == 0)
+            {
+                _repo.DeleteOrderItems(orderItemId);
 
+                return Ok();
+            }
+
+            var updatedOrderItem = _repo.UpdateOrderItem(orderItemId, orderItem);
             return Ok(updatedOrderItem);
         }
 
-        [HttpPatch("total/{orderId}")]
+        [HttpPut("total/{orderId}")]
         public IActionResult UpdateTotal(Guid orderId)
         {
             var _orderItems = _repo.GetOrderItems(orderId);

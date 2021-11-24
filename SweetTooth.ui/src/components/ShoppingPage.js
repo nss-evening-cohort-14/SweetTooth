@@ -38,12 +38,22 @@ function ShoppingPage({
 
   const [orderItems, setOrderItems] = useState([]);
   useEffect(() => {
-    if (order.id) {
-      getOrderItems(order.id).then((resp) => {
+    getOrderItems(order.id).then((resp) => {
+      console.warn('resp', resp);
+      if (resp.length === 0) {
+        setOrderItems([{
+          id: '',
+          orderId: '',
+          snackId: '',
+          quantity: 0
+        }]);
+      } else {
         setOrderItems(resp);
-      });
-    }
+      }
+    });
   }, []);
+
+  console.warn(orderItems);
 
   return (
     <>
