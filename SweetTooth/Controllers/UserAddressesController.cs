@@ -26,6 +26,7 @@ namespace SweetTooth.Controllers
             _userRepo = userRepo;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetAllAddresses()
         {
@@ -33,6 +34,7 @@ namespace SweetTooth.Controllers
 
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult GetUserAddressById(Guid id)
         {
@@ -64,6 +66,7 @@ namespace SweetTooth.Controllers
             return Created($"api/users/address/{newAddress.Id}", newAddress);
         }
 
+        [AllowAnonymous]
         [HttpDelete]
         public IActionResult HardDeleteUserAddress(Guid id)
         {

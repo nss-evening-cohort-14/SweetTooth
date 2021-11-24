@@ -9,28 +9,27 @@ import {
   Col
 } from 'reactstrap';
 import { SnackImage } from '../styles/ShoppingPageStyled';
-import { addOrderItem, getOrderItems, updateOrderItem } from '../helpers/data/OrderData';
+import { addOrderItem, updateOrderItem, updateTotal } from '../helpers/data/OrderData';
 
 function SnackCard({
-  id, name, category, price, description, image, orderId
+  id,
+  name,
+  category,
+  price,
+  description,
+  image,
+  orderId,
+  orderItems,
+  setOrderItems,
+  setOrder
 }) {
-  // orderItem Model:
-  //   id: '',
-  //   orderId: '',
-  //   snackId: '',
-  //   quantity: 0,
-  //   itemSnack: {
-  //     id: '',
-  //     name: '',
-  //     category: '',
-  //     price: 0,
-  //     description: '',
-  //     image: '',
-  //     softDelete: false
-  //   }
-  const [orderItems, setOrderItems] = useState([]);
+  const [counter, setCounter] = useState(0);
+
   useEffect(() => {
-    getOrderItems(orderId).then(setOrderItems);
+    const item = orderItems?.find((orderItem) => orderItem.snackId === id);
+    if (item) {
+      setCounter(item.quantity);
+    }
   }, []);
 
   const newOrderItem = (quantity) => {
@@ -54,27 +53,30 @@ function SnackCard({
 
   const snackExistsInOrderItems = (orderItemsArray, snackId, newQuantity) => {
     if (orderItemsArray.map((orderItem) => (orderItem.snackId)).includes(snackId)) {
-      const orderItem = orderItemsArray.find((item) => (item.snackId).includes(snackId));
-      const updatedOrder = buildOrderItem(orderItem, newQuantity);
-      // console.warn('updatedorder', updatedOrder);
-      updateOrderItem(updatedOrder.id, updatedOrder).then(setOrderItems);
-      // console.warn('snackId', snackId, true);
+      const orderItem = orderItemsArray.find((element) => (element.snackId).includes(snackId));
+      const updatedOrderItem = buildOrderItem(orderItem, newQuantity);
+      updateOrderItem(updatedOrderItem.id, updatedOrderItem).then((resp) => {
+        setOrderItems(resp);
+        updateTotal(updatedOrderItem.orderId).then((orderResp) => setOrder(orderResp));
+      });
     } else {
-      const newOrder = newOrderItem(newQuantity);
-      // console.warn('neworder', newOrder);
-      addOrderItem(newOrder).then(setOrderItems);
-      // console.warn('snackId', snackId, false);
+      const newItem = newOrderItem(newQuantity);
+      addOrderItem(newItem).then((resp) => {
+        setOrderItems(resp);
+        updateTotal(newItem.orderId).then((orderResp) => setOrder(orderResp));
+      });
     }
   };
 
-  const [counter, setCounter] = useState('0');
-  const plusOne = () => {
+  const plusOne = (e) => {
+    e.preventDefault();
     let increase = Number(counter);
     increase += 1;
     setCounter(increase.toString());
     snackExistsInOrderItems(orderItems, id, increase);
   };
-  const minusOne = () => {
+  const minusOne = (e) => {
+    e.preventDefault();
     let decrease = Number(counter);
     if (decrease > 0) {
       decrease -= 1;
@@ -85,27 +87,29 @@ function SnackCard({
 
   return (
     <div className="col-sm-4">
-      <Card className='d-flex justify-content-center' body>
-        <CardTitle tag='h5'>{name}</CardTitle>
-        <CardText style={{ minHeight: 70 }}>
-          {category}<br />
-          {description}<br />
-        </CardText>
-        ${price}
-        <SnackImage className='m-auto img-thumbnail' src={image} alt={name} />
-        <Row>
-          <Col>
-            <Button onClick={minusOne}><i className='fas fa-minus fa-2x'></i></Button>
-          </Col>
-          <Col className='m-auto'>
-            {counter}
-          </Col>
-          <Col>
-            <Button onClick={plusOne}><i className='fas fa-plus fa-2x'></i></Button>
-          </Col>
-        </Row>
-      </Card>
-    </div>
+          <div>
+          <Card className='d-flex justify-content-center' body>
+            <CardTitle tag='h5'>{name}</CardTitle>
+            <CardText style={{ minHeight: 70 }}>
+              {category}<br />
+              {description}<br />
+            </CardText>
+            ${price}
+            <SnackImage className='m-auto img-thumbnail' src={image} alt={name} />
+            <Row>
+              <Col>
+                <Button onClick={(e) => minusOne(e)}><i className='fas fa-minus fa-2x'></i></Button>
+              </Col>
+              <Col className='m-auto'>
+                {counter}
+              </Col>
+              <Col>
+                <Button onClick={(e) => plusOne(e)}><i className='fas fa-plus fa-2x'></i></Button>
+              </Col>
+            </Row>
+          </Card>
+        </div>
+      </div>
   );
 }
 
@@ -118,6 +122,7 @@ SnackCard.propTypes = {
   image: PropTypes.string,
   orderItems: PropTypes.array,
   setOrderItems: PropTypes.func,
-  orderId: PropTypes.string
+  orderId: PropTypes.string,
+  setOrder: PropTypes.func,
 };
 export default SnackCard;

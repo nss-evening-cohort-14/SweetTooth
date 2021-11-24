@@ -15,11 +15,20 @@ namespace SweetTooth.Controllers
     {
         OrderRepo _repo;
         SnackRepo _snackRepo;
+        PaymentMethodRepo _pmRepo;
+        UserRepo _userRepo;
 
-        public OrdersController(OrderRepo repo, SnackRepo snackRepo)
+        User CurrentUser => _userRepo.GetUserByUid(User.FindFirst((claim) => claim.Type == "user_id").Value);
+
+        public OrdersController(OrderRepo repo,
+            SnackRepo snackRepo,
+            PaymentMethodRepo pmRepo,
+            UserRepo userRepo)
         {
             _repo = repo;
             _snackRepo = snackRepo;
+            _pmRepo = pmRepo;
+            _userRepo = userRepo;
         }
 
         [HttpGet]
@@ -154,14 +163,14 @@ namespace SweetTooth.Controllers
         }
 
         [HttpGet("user/{userId}")]
-        public IActionResult GetOrderByUserId(Guid userId)
+        public IActionResult GetOrdersByUserId(Guid userId)
         {
-            var order = _repo.GetOrderByUserId(userId);
-            if (order == null)
+            var orders = _repo.GetOrderByUserId(userId);
+            if (orders == null)
             {
-                return NotFound("No order was found.");
+                return NotFound("No orders were found.");
             }
-            return Ok(order);
+            return Ok(orders);
         }
 
         [HttpGet("unprocessed/{userId}")]
@@ -170,9 +179,36 @@ namespace SweetTooth.Controllers
             var order = _repo.GetUnprocessedOrderByUserId(userId);
             if (order == null)
             {
-                return NotFound("No order was found.");
-            }
+                var userPm = _pmRepo.GetAllUserPaymentMethods(userId);
+                var singlePm = userPm.First().Id;
+
+                var newOrder = new Order()
+                {
+                    UserId = userId,
+                    PaymentMethodId = singlePm
+                };
+
+                _repo.AddEmptyOrder(newOrder);
+            };
+
             return Ok(order);
+        }
+
+        [HttpPost("emptyOrder")]
+        public IActionResult AddEmptyOrder()
+        {
+            var userPm = _pmRepo.GetAllUserPaymentMethods(CurrentUser.Id);
+            var singlePm = userPm.First().Id;
+
+            var newOrder = new Order()
+            {
+                UserId = CurrentUser.Id,
+                PaymentMethodId = singlePm
+            };
+
+            _repo.AddEmptyOrder(newOrder);
+
+            return Created($"/api/orders/emptyOrder/{newOrder.Id}", newOrder);
         }
 
         [HttpPut("orderItems/update/{orderItemId}")]
@@ -185,9 +221,37 @@ namespace SweetTooth.Controllers
                 return NotFound($"Could not find Order Item with the id {orderItemId} for updating");
             }
 
-            var updatedOrderItem = _repo.UpdateOrderItem(orderItemId, orderItem);
+            if (orderItem.Quantity == 0)
+            {
+                _repo.DeleteOrderItems(orderItemId);
 
+                return Ok();
+            }
+
+            var updatedOrderItem = _repo.UpdateOrderItem(orderItemId, orderItem);
             return Ok(updatedOrderItem);
         }
+
+        [HttpPut("total/{orderId}")]
+        public IActionResult UpdateTotal(Guid orderId)
+        {
+            var _orderItems = _repo.GetOrderItems(orderId);
+            var _order = _repo.GetSingleOrder(orderId);
+
+            decimal calculateTotal = 0;
+
+            _orderItems.ToList().ForEach(snack =>
+            {
+                var foundSnack = _snackRepo.GetById(snack.SnackId);
+                calculateTotal += (foundSnack.Price * snack.Quantity);
+            });
+
+            _order.Total = calculateTotal;
+
+            _repo.UpdateTotal(orderId, _order);
+
+            return Ok(_order);
+        }
+
     }
 }
