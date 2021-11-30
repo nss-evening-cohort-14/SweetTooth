@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Col, Row } from 'reactstrap';
+import { Button, Table } from 'reactstrap';
 import { getUsers } from '../helpers/data/userData';
 import UserCard from './UserCard';
 
@@ -17,36 +17,62 @@ export default function UsersAdmin() {
   }, []);
 
   return (
-    <div>
-       <h2>Users</h2>
+    <div style={{ padding: '2%' }}>
        <Button onClick={returnToDashboard}>Return to Dashboard</Button>
-      <Row className='border'>
-        <Col>id</Col>
-        <Col>firebaseId</Col>
-        <Col>admin</Col>
-        <Col>firstName</Col>
-        <Col>lastName</Col>
-        <Col>email</Col>
-        <Col>profileUrl</Col>
-        <Col>dateCreated</Col>
-        <Col>moodId</Col>
-        <Col>softDelete</Col>
-      </Row>
-        {users.map((user) => (
-          <UserCard
-            key={user.id}
-            id={user.id}
-            firebaseId={user.firebaseId}
-            admin={user.admin}
-            firstName={user.firstName}
-            lastName={user.lastName}
-            email={user.email}
-            profileUrl={user.profileUrl}
-            dateCreated={user.dateCreated}
-            moodId={user.moodId}
-            softDelete={user.softDelete}
-          />
-        ))}
+       <h2>Users</h2>
+       <Table size='sm' responsive hover bordered>
+          <thead>
+            <tr>
+              <th>
+                 Soft Delete
+              </th>
+              <th>
+                Id
+              </th>
+              <th>
+                Firebase Id
+              </th>
+              <th>
+                Admin Status
+              </th>
+              <th>
+                First name
+              </th>
+              <th>
+                Last Name
+              </th>
+              <th>
+                Email
+              </th>
+              {/* <th>
+                Profile Url
+              </th> */}
+              <th>
+                Date Created
+              </th>
+              <th>
+                 Mood Id
+              </th>
+            </tr>
+          </thead>
+        <tbody>
+          {users.map((user) => (
+            <UserCard
+              key={user.id}
+              id={user.id}
+              firebaseId={user.firebaseId}
+              admin={user.admin}
+              firstName={user.firstName}
+              lastName={user.lastName}
+              email={user.email}
+              profileUrl={user.profileUrl}
+              dateCreated={user.dateCreated}
+              moodId={user.moodId}
+              softDelete={user.softDelete}
+            />
+          ))}
+        </tbody>
+      </Table>
     </div>
   );
 }

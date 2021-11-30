@@ -1,23 +1,34 @@
 import React from 'react';
-import { Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 function UserCard({
-  id, firebaseId, admin, firstName, lastName, email, profileUrl, dateCreated, moodId, softDelete
+  id, firebaseId, admin, firstName, lastName, email, dateCreated, moodId, softDelete
 }) {
   return (
-    <Row className='border'>
-      <Col>{id}</Col>
-      <Col>{firebaseId}</Col>
-      <Col>{admin}</Col>
-      <Col>{firstName}</Col>
-      <Col>{lastName}</Col>
-      <Col>{email}</Col>
-      <Col>{profileUrl}</Col>
-      <Col>{dateCreated}</Col>
-      <Col>{moodId}</Col>
-      <Col>{softDelete}</Col>
-    </Row>
+    <tr key={id}>
+      <td>
+        {
+          softDelete === false
+            ? <i className="fas fa-user"></i>
+            : <i className="fas fa-user-slash"></i>
+        }
+      </td>
+      <td>{id}</td>
+      <td>{firebaseId}</td>
+      <td>
+        {
+          admin === false
+            ? <i className="fas fa-user-times"></i>
+            : <i className="fas fa-crown"></i>
+        }
+      </td>
+      <td>{firstName}</td>
+      <td>{lastName}</td>
+      <td>{email}</td>
+      {/* <td>{profileUrl}</td> */}
+      <td>{dateCreated}</td>
+      <td>{moodId}</td>
+    </tr>
   );
 }
 

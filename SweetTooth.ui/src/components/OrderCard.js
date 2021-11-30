@@ -30,11 +30,11 @@ function OrderCard({
             }
           </td>
           <td>
-          <Button color='primary' outline size="sm"
+            <Button color='primary' outline size="md"
               onClick={() => console.warn('ship status', shipped)}
               >
               <i className="fas fa-shipping-fast"></i>
-              </Button>
+            </Button>
           </td>
 
         </tr>

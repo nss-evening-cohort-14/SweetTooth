@@ -19,56 +19,56 @@ function OrdersAdmin() {
   return (
     <Container>
       <Button onClick={returnToDashboard}>Return to Dashboard</Button>
-       <h2>Orders</h2>
-       <Table hover bordered>
-          <thead>
-            <tr>
-              <th>
-                Id
-              </th>
-              <th>
-                UserId
-              </th>
-              <th>
-                Order Date
-              </th>
-              <th>
-                Order Number
-              </th>
-              <th>
-                Total
-              </th>
-              <th>
-                Payment Method
-              </th>
-              <th>
-                Processed
-              </th>
-              <th>
-                Shipped
-              </th>
-              <th>
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-        {orders.map((order) => (
-          <OrderCard
-            key={order.id}
-            id={order.id}
-            userId={order.userId}
-            orderDate={order.orderDate}
-            orderNumber={order.orderNumber}
-            total={order.total}
-            paymentMethodId={order.paymentMethodId}
-            processed={order.processed}
-            shipped={order.shipped}
-          />
-        ))}
-        </tbody>
-      </Table>
-    </Container>
+      <h2>Orders</h2>
+      <Table size='sm' responsive hover bordered>
+        <thead>
+          <tr>
+            <th>
+              Id
+            </th>
+            <th>
+              UserId
+            </th>
+            <th>
+              Order Date
+            </th>
+            <th>
+              Order Number
+            </th>
+            <th>
+              Total
+            </th>
+            <th>
+              Payment Method
+            </th>
+            <th>
+              Processed
+            </th>
+            <th>
+              Shipped
+            </th>
+            <th>
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+      {orders.map((order) => (
+        <OrderCard
+          key={order.id}
+          id={order.id}
+          userId={order.userId}
+          orderDate={order.orderDate}
+          orderNumber={order.orderNumber}
+          total={order.total}
+          paymentMethodId={order.paymentMethodId}
+          processed={order.processed}
+          shipped={order.shipped}
+        />
+      ))}
+      </tbody>
+    </Table>
+  </Container>
   );
 }
 
