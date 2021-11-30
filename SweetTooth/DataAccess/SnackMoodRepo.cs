@@ -37,7 +37,8 @@ namespace SweetTooth.DataAccess
 
             var sql = @"select sm.*, m.Name [MoodName], s.Name [SnackName] from SnackMood sm
                         left join Mood m on sm.MoodId = m.Id
-                        left join Snack s on sm.SnackId = s.Id";
+                        left join Snack s on sm.SnackId = s.Id
+                        order by s.Name asc";
             var snackMoods = db.Query<SnackMood>(sql);
 
             return snackMoods;
