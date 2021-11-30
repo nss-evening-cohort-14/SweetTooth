@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Row, Col, Button } from 'reactstrap';
+import { Table, Button, Container } from 'reactstrap';
 import { getOrders } from '../helpers/data/OrderData';
 import OrderCard from './OrderCard';
 
@@ -17,19 +17,42 @@ function OrdersAdmin() {
   };
 
   return (
-    <div>
+    <Container>
       <Button onClick={returnToDashboard}>Return to Dashboard</Button>
        <h2>Orders</h2>
-      <Row className='border'>
-        <Col>id</Col>
-        <Col>userId</Col>
-        <Col>orderDate</Col>
-        <Col>orderNumber</Col>
-        <Col>total</Col>
-        <Col>paymentMethodId</Col>
-        <Col>processed</Col>
-        <Col>shipped</Col>
-      </Row>
+       <Table hover bordered>
+          <thead>
+            <tr>
+              <th>
+                Id
+              </th>
+              <th>
+                UserId
+              </th>
+              <th>
+                Order Date
+              </th>
+              <th>
+                Order Number
+              </th>
+              <th>
+                Total
+              </th>
+              <th>
+                Payment Method
+              </th>
+              <th>
+                Processed
+              </th>
+              <th>
+                Shipped
+              </th>
+              <th>
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
         {orders.map((order) => (
           <OrderCard
             key={order.id}
@@ -43,7 +66,9 @@ function OrdersAdmin() {
             shipped={order.shipped}
           />
         ))}
-    </div>
+        </tbody>
+      </Table>
+    </Container>
   );
 }
 
