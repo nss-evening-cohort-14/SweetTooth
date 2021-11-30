@@ -1,21 +1,23 @@
 import React from 'react';
-import { Row, Col } from 'reactstrap';
+// import { Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 function OrderCard({
   id, userId, orderDate, orderNumber, total, paymentMethodId, processed, shipped
 }) {
   return (
-    <Row className='border'>
-      <Col>{id}</Col>
-      <Col>{userId}</Col>
-      <Col>{orderDate}</Col>
-      <Col>{orderNumber}</Col>
-      <Col>{total}</Col>
-      <Col>{paymentMethodId}</Col>
-      <Col>{processed}</Col>
-      <Col>{shipped}</Col>
-    </Row>
+    <>
+        <tr key={id} >
+            <td>{id}</td>
+            <td>{userId}</td>
+            <td>{orderDate}</td>
+            <td>{orderNumber}</td>
+            <td>{total}</td>
+            <td>{paymentMethodId}</td>
+            <td> {{ processed } === 0 ? 'processed' : 'not'}</td>
+            <td>{shipped}</td>
+        </tr>
+  </>
   );
 }
 

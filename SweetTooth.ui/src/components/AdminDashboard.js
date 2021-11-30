@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col } from 'reactstrap';
+import {
+  Row, Col, Table, Container
+} from 'reactstrap';
 import { getMoods } from '../helpers/data/MoodData';
 import { getOrders } from '../helpers/data/OrderData';
 import { getUsers } from '../helpers/data/userData';
@@ -20,19 +22,39 @@ export default function AdminDashboard({ snacks }) {
   }, []);
 
   return (
-    <div>
+    <Container>
       <h1>Admin Dashboard</h1>
       <h2>Orders</h2>
-      <Row className='border'>
-        <Col>id</Col>
-        <Col>userId</Col>
-        <Col>orderDate</Col>
-        <Col>orderNumber</Col>
-        <Col>total</Col>
-        <Col>paymentMethodId</Col>
-        <Col>processed</Col>
-        <Col>shipped</Col>
-      </Row>
+      <Table hover bordered>
+          <thead>
+            <tr>
+              <th>
+                Id
+              </th>
+              <th>
+                UserId
+              </th>
+              <th>
+                Order Date
+              </th>
+              <th>
+                Order Number
+              </th>
+              <th>
+                Total
+              </th>
+              <th>
+                Payment Method
+              </th>
+              <th>
+                Processed
+              </th>
+              <th>
+                Shipped
+              </th>
+            </tr>
+          </thead>
+          <tbody>
         {orders.map((order) => (
           <OrderCard
             key={order.id}
@@ -46,6 +68,8 @@ export default function AdminDashboard({ snacks }) {
             shipped={order.shipped}
           />
         ))}
+      </tbody>
+      </Table>
       <h2>Moods</h2>
       <Row className='border'>
         <Col>id</Col>
@@ -99,7 +123,7 @@ export default function AdminDashboard({ snacks }) {
             softDelete={user.softDelete}
           />
         ))}
-    </div>
+    </Container>
   );
 }
 
