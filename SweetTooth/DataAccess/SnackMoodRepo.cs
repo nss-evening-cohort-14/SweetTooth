@@ -31,6 +31,18 @@ namespace SweetTooth.DataAccess
 
         }
 
+        internal IEnumerable<SnackMood> GetAll()
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select sm.*, m.Name [MoodName], s.Name [SnackName] from SnackMood sm
+                        left join Mood m on sm.MoodId = m.Id
+                        left join Snack s on sm.SnackId = s.Id";
+            var snackMoods = db.Query<SnackMood>(sql);
+
+            return snackMoods;
+        }
+
         internal SnackMood GetById(Guid id)
         {
             using var db = new SqlConnection(_connectionString);

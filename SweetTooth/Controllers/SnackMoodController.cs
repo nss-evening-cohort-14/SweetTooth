@@ -19,6 +19,12 @@ namespace SweetTooth.Controllers
             _snackMoodRepo = snackMoodRepo;
         }
 
+        [HttpGet]
+        public IActionResult GetAllSnackMoods()
+        {
+            return Ok(_snackMoodRepo.GetAll());
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetSnackMoodById(Guid id)
         {
