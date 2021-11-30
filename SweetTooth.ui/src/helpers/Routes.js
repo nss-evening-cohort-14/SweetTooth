@@ -11,9 +11,10 @@ import LandingPage from '../components/LandingPage';
 import UserProfile from '../components/UserProfile';
 import Processed from '../components/Processed';
 import ShoppingPage from '../components/ShoppingPage';
-
-// will need to add private routes once auth is done.
-// Admin and user hook
+import OrdersAdmin from '../components/OrdersAdmin';
+import UsersAdmin from '../components/UsersAdmin';
+import MoodsAdmin from '../components/MoodsAdmin';
+import SnacksAdmin from '../components/SnacksAdmin';
 
 const PrivateRoute = ({ component: Component, user, ...rest }) => {
   const routeChecker = (remainder) => (user
@@ -99,6 +100,29 @@ function Routes({
         user={user}
         />
         }
+        user={user}
+        />
+         <PrivateRoute
+        exact path='/admin-orders'
+        component={OrdersAdmin}
+        user={user}
+        />
+        <PrivateRoute
+        exact path='/admin-users'
+        component={UsersAdmin}
+        user={user}
+        />
+          <PrivateRoute
+        exact path='/admin-moods'
+        component={MoodsAdmin}
+        user={user}
+        />
+          <PrivateRoute
+        exact path='/admin-snacks'
+        component={() => <SnacksAdmin
+        snacks={snacks}
+        />
+      }
         user={user}
         />
       </Switch>
