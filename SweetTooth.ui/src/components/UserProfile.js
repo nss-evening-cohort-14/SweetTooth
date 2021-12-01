@@ -9,13 +9,19 @@ import UserAddressModal from './modals/UserAddressModal';
 import UserAddressTable from './UserAddressTable';
 import logo from '../Assets/SweetToothLogo.png';
 import {
-  UserPageContainer, UserPageLogo, UserInfoContainer, UserSidebar
+  UserPageContainer, UserPageLogo, UserInfoContainer, UserSidebar, UserPageHeader
 } from '../styles/UserPageStyled';
 
 export default function UserProfile({
   user, userAddresses, setUserAddresses, paymentMethodsArray, setPaymentMethodsArray
 }) {
   return (
+    <>
+        <UserPageHeader>
+        <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
+            { 'User Profile' }
+        <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
+      </UserPageHeader>
     <UserPageContainer>
       <UserInfoContainer>
       {
@@ -61,6 +67,7 @@ export default function UserProfile({
         />
       </UserSidebar>
     </UserPageContainer>
+    </>
   );
 }
 

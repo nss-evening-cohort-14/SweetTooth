@@ -5,13 +5,17 @@ const UserPageContainer = styled.div`
   display: flex
   align-items: stretch
   justify-content: center;
-  // align-items: center;
-  // border-style: solid;
-  // box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+
+`;
+
+const UserPageHeader = styled.div`
+  font-size: 40px;
+  padding-top: 1%;
+  font-weight: bold;
 `;
 
 const UserInfoContainer = styled.div`
-  width: 70%
+  // width: 70%
 `;
 
 const UserPageLogo = styled.img`
@@ -22,11 +26,10 @@ const UserPageLogo = styled.img`
 `;
 
 const UserSidebar = styled.div`
-  width: 30%
-  // border-style: solid;
-  // box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  // width: 30%
+  // border: solid 1px;
 `;
 
 export {
-  UserPageContainer, UserInfoContainer, UserPageLogo, UserSidebar
+  UserPageContainer, UserPageHeader, UserInfoContainer, UserPageLogo, UserSidebar
 };
