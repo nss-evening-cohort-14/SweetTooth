@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Row, Col, Button } from 'reactstrap';
+import { Button, Container, Table } from 'reactstrap';
 import { getMoods } from '../helpers/data/MoodData';
 import MoodCard from './MoodCard';
 
@@ -17,13 +17,22 @@ export default function MoodsAdmin() {
   }, []);
 
   return (
-    <div>
+    <Container>
       <Button onClick={returnToDashboard}>Return to Dashboard</Button>
         <h2>Moods</h2>
-      <Row className='border'>
-        <Col>id</Col>
-        <Col>name</Col>
-      </Row>
+        {' '}
+        <Table hover bordered>
+          <thead>
+            <tr>
+              <th>
+                Id
+              </th>
+              <th>
+                Mood Name
+              </th>
+            </tr>
+          </thead>
+          <tbody>
         {moods.map((mood) => (
           <MoodCard
             key={mood.id}
@@ -31,6 +40,8 @@ export default function MoodsAdmin() {
             name={mood.name}
           />
         ))}
-    </div>
+          </tbody>
+      </Table>
+    </Container>
   );
 }
