@@ -3,6 +3,9 @@ import { Button } from 'reactstrap';
 import { useHistory } from 'react-router-dom';
 import { getSnackMoods } from '../helpers/data/SnackMood';
 import SnackMoodCard from './SnackMoodCard';
+import SnackMoodForm from './forms/SnackMoodForm';
+import { getSnacks } from '../helpers/data/SnackData';
+import { getMoods } from '../helpers/data/MoodData';
 
 function SnackMoodAdmin() {
   const history = useHistory();
@@ -12,13 +15,23 @@ function SnackMoodAdmin() {
   };
 
   const [snackMoods, setSnackMoods] = useState([]);
+  const [snacks, setSnacks] = useState([]);
+  const [moods, setMoods] = useState([]);
+
   useEffect(() => {
     getSnackMoods().then(setSnackMoods);
+    getSnacks().then(setSnacks);
+    getMoods().then(setMoods);
   }, []);
 
   return (
     <div>
       <Button onClick={returnToDashboard}>Return to Dashboard</Button>
+      <SnackMoodForm
+            snacks={snacks}
+            moods={moods}
+            setSnackMoods={setSnackMoods}
+          />
       <table className='table'>
         <thead>
           <tr>
@@ -30,14 +43,6 @@ function SnackMoodAdmin() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-            <td>enter MoodId</td>
-            <td>enter SnackId</td>
-            <td>corresponding MoodName</td>
-            <td>corresponding SnackName</td>
-            <td><button type='submit' className="btn btn-outline-success btn-sm">Add</button></td>
-          </tr>
           {
             snackMoods.map((snackMood) => (
               <SnackMoodCard

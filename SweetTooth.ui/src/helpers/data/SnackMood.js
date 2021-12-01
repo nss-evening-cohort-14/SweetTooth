@@ -20,13 +20,13 @@ const getSnackMoodById = (id) => new Promise((resolve, reject) => {
 // endpoint yields object
 const addSnackMood = (snackMood) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/snackMood`, snackMood)
-    .then(() => getSnackMoods())
+    .then(() => getSnackMoods().then(resolve))
     .catch((error) => reject(error));
 });
 
 const deleteSnackMood = (id) => new Promise((resolve, reject) => {
   axios.delete(`${dbUrl}/snackMood/${id}`)
-    .then(() => getSnackMoods())
+    .then(() => getSnackMoods().then(resolve))
     .catch((error) => reject(error));
 });
 
