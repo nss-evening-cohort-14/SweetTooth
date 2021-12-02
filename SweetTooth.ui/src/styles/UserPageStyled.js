@@ -5,7 +5,6 @@ const UserPageContainer = styled.div`
   display: flex
   align-items: stretch
   justify-content: center;
-
 `;
 
 const UserPageHeader = styled.div`
@@ -15,19 +14,23 @@ const UserPageHeader = styled.div`
 `;
 
 const UserInfoContainer = styled.div`
-  // width: 70%
+  box-shadow: 0px 0px 5px grey;
+  margin: 20px
+  font-weight: bold;
+  font-size: 15px;
 `;
 
 const UserPageLogo = styled.img`
   background-image: url(${logo}) no-repeat center center fixed;
-  width: 25%;
+  width: 50%;
   border-radius: 50%;
-  padding 2%;
 `;
 
 const UserSidebar = styled.div`
-  // width: 30%
-  // border: solid 1px;
+  margin: auto
+  border: solid 1px;
+  box-shadow: 0px 0px 5px grey;
+  margin: 20px
 `;
 
 export {

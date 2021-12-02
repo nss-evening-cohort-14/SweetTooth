@@ -17,7 +17,7 @@ export default function UserProfile({
 }) {
   return (
     <>
-        <UserPageHeader>
+      <UserPageHeader>
         <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
             { 'User Profile' }
         <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
@@ -53,8 +53,7 @@ export default function UserProfile({
 
       <UserSidebar>
         <UserPageLogo src={logo} />
-        { <h4> Hi, {user.firstName}!</h4> }
-        { <h5> Update your account details here.</h5> }
+        <p>{user.firstName} {user.lastName}</p>
         <UserAddressModal
           user={user}
           userAddresses={userAddresses}
