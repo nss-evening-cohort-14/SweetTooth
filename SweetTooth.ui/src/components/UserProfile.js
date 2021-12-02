@@ -17,12 +17,13 @@ export default function UserProfile({
   user, userAddresses, setUserAddresses, paymentMethodsArray, setPaymentMethodsArray
 }) {
   return (
-    <div style={{ backgroundColor: 'lightgray', padding: '10px' }}>
-      <UserPageHeader>
-        <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
-            { 'User Profile' }
-        <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
-      </UserPageHeader>
+  <div style={{ backgroundColor: 'lightgray', padding: '20px' }}>
+    <UserPageHeader>
+      <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
+          { 'User Profile' }
+      <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
+    </UserPageHeader>
+
     <UserPageContainer>
       <UserInfoContainer>
         <UserPageSectionHeader>
@@ -47,11 +48,11 @@ export default function UserProfile({
         {paymentMethodsArray?.map((paymentMethodInfo) => (
           paymentMethodInfo.softDelete === false
             ? <PaymentMethodCard
-              key={paymentMethodInfo.id}
-              user={user}
-              paymentMethodsArray={paymentMethodsArray}
-              setPaymentMethodsArray={setPaymentMethodsArray}
-              {...paymentMethodInfo}
+                key={paymentMethodInfo.id}
+                user={user}
+                paymentMethodsArray={paymentMethodsArray}
+                setPaymentMethodsArray={setPaymentMethodsArray}
+                paymentMethodInfo={paymentMethodInfo}
               >
               </PaymentMethodCard>
             : ''
@@ -75,7 +76,7 @@ export default function UserProfile({
         />
       </UserSidebar>
     </UserPageContainer>
-    </div>
+  </div>
   );
 }
 

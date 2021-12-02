@@ -6,7 +6,7 @@ import {
 import PaymentMethodForm from '../forms/PaymentMethodForm';
 
 function PaymentMethodModalEdit({
-  user, paymentMethodsArray, setPaymentMethodsArray, ...paymentMethodInfo
+  user, paymentMethodInfo, paymentMethodsArray, setPaymentMethodsArray
 }) {
   const [idToUpdate, setIdToUpdate] = useState('');
   const [modal, setModal] = useState(false);
@@ -18,7 +18,6 @@ function PaymentMethodModalEdit({
     toggle();
     if (paymentMethodId != null) {
       setIdToUpdate(paymentMethodId);
-      console.warn(paymentMethodId);
     }
   };
   return (
@@ -37,13 +36,12 @@ function PaymentMethodModalEdit({
     <ModalBody>
     {
       idToUpdate === paymentMethodInfo.id
-        ? <PaymentMethodForm
+        && <PaymentMethodForm
           user={user}
-          paymentMethodInfo={paymentMethodInfo}
           paymentMethodsArray={paymentMethodsArray}
           setPaymentMethodsArray={setPaymentMethodsArray}
+          paymentMethodInfo={paymentMethodInfo}
         />
-        : 'did not work'
     }
     </ModalBody>
   </Modal>
@@ -54,8 +52,8 @@ function PaymentMethodModalEdit({
 PaymentMethodModalEdit.propTypes = {
   user: PropTypes.any,
   paymentMethodInfo: PropTypes.object,
-  paymentMethodsArray: PropTypes.func,
-  setPaymentMethodsArray: PropTypes.array,
+  paymentMethodsArray: PropTypes.array,
+  setPaymentMethodsArray: PropTypes.func,
   idToUpdate: PropTypes.string
 
 };

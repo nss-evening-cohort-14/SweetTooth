@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Card, Container } from 'reactstrap';
+import {
+  Button, Card, Container
+} from 'reactstrap';
 import { getPayMethodById, softDeletePaymentMethod } from '../helpers/data/paymentMethodData';
 import '../styles/paymentMethodCard.scss';
 import chip from '../Assets/ccchip.png';
 import PaymentMethodModalEdit from './modals/PaymentMethodModalEdit';
 
 function PaymentMethodCard({
-  user, paymentMethodsArray, setPaymentMethodsArray, ...paymentMethodInfo
+  user, paymentMethodsArray, setPaymentMethodsArray, paymentMethodInfo
 }) {
   // const [editNow, setEditNow] = useState(false);
   // const [idToUpdate, setIdToUpdate] = useState('');
@@ -46,27 +48,28 @@ function PaymentMethodCard({
           <h5 className="card-holder"> CCV: {paymentMethodInfo?.securityCode}</h5>
         </div>
       </Card>
-
           {/* <Button color='info' outline
             onClick={(e) => handleClick('edit', paymentMethodInfo.id, e)}
           >
             {idToUpdate === paymentMethodInfo.id && editNow
               ? 'Close' : 'Edit' }
           </Button> */}
+          <div style={{ display: 'inline-flex', flexDirection: 'row' }}>
            {
           <PaymentMethodModalEdit
             user={user}
             paymentMethodsArray={paymentMethodsArray}
             setPaymentMethodsArray={setPaymentMethodsArray}
-            {...paymentMethodInfo}
+            paymentMethodInfo={paymentMethodInfo}
         />
       }
-          {' '}
-          <Button color='danger' outline
+          <Button color='danger' outline size='sm'
             onClick={(e) => handleClick('softDelete', paymentMethodInfo.id, e)}
           >
             Delete
           </Button>
+          </div>
+
     </Container>
   );
 }
