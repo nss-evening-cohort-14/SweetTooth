@@ -20,7 +20,7 @@ function UserAddressTable({
   };
 
   return (
-    <Table hover bordered style={{ padding: '10px' }}>
+    <Table hover bordered>
           <thead>
             <tr>
               <th>
