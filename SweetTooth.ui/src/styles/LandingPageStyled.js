@@ -18,4 +18,10 @@ const LandingPageLogo = styled.img`
   padding 20x;
 `;
 
-export { LandingPageContainer, LandingPageLogo };
+const LandingButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 2%;
+`;
+
+export { LandingPageContainer, LandingPageLogo, LandingButtonContainer };

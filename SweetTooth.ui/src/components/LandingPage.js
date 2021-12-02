@@ -2,11 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  Button, ButtonGroup, Container, UncontrolledCarousel
+  Button, ButtonGroup, UncontrolledCarousel
 } from 'reactstrap';
 import { signInUser, signOutUser } from '../helpers/auth';
-import { LandingPageContainer, LandingPageLogo } from '../styles/LandingPageStyled';
-import logo from '../Assets/SweetToothLogo.png';
+import { LandingButtonContainer, LandingPageContainer } from '../styles/LandingPageStyled';
 
 function LandingPage({ user }) {
   const authButtons = () => (
@@ -26,51 +25,52 @@ function LandingPage({ user }) {
 
   return (
     <LandingPageContainer>
-      <Container
-        className="bg-light border"
-        fluid="md"
-      >
+      <div>
         <h1>Welcome to SweetTooth!</h1>
-        <LandingPageLogo src={logo} alt="Logo"/>
-
-        <Container fluid="sm">
+        <LandingButtonContainer>
           {user ? '' : <h4>Already have an Account?</h4>}
           {authButtons()}
 
           {user ? '' : <h5>New to SweetTooth? Then you&#39;re in for a treat!</h5>}
           {user
             ? <Button tag={Link} to={'/user-profile'}
-                outline color='info'>
+                style={{ backgroundColor: '#6bab90', border: 'none', marginLeft: '4px' }}>
                 View Your Profile</Button>
 
-            : <Button outline color='info' onClick={signInUser}>
+            : <Button style={{ backgroundColor: '#6bab90', border: 'none', marginLeft: '4px' }}
+              onClick={signInUser}>
               Create an Account</Button>
           }
-        </Container>
-      </Container>
-
-      <UncontrolledCarousel
+        </LandingButtonContainer>
+        <UncontrolledCarousel
   items={[
     {
-      altText: 'Slide 1',
-      caption: 'Slide 1',
+      altText: '',
+      caption: '',
       key: 1,
-      src: 'https://picsum.photos/id/123/1200/600'
+      src: 'https://livewallpaperhd.com/wp-content/uploads/2017/10/Nice-Chocolate-Wallpaper.jpg'
     },
     {
-      altText: 'Slide 2',
-      caption: 'Slide 2',
+      altText: '',
+      caption: '',
       key: 2,
-      src: 'https://picsum.photos/id/456/1200/600'
+      src: 'https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/PIL5MJA3YUYYPBJWET7DS2UPQA.jpg'
     },
     {
-      altText: 'Slide 3',
-      caption: 'Slide 3',
+      altText: '',
+      caption: '',
       key: 3,
-      src: 'https://picsum.photos/id/678/1200/600'
+      src: 'https://images.unsplash.com/photo-1548365328-8c6db3220e4c?ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8OHx8fGVufDB8fHx8&ixlib=rb-1.2.1&w=1000&q=80'
+    },
+    {
+      altText: '',
+      caption: '',
+      key: 4,
+      src: 'https://images.unsplash.com/photo-1588756264692-d396bca41fb1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNhbmR5fGVufDB8fDB8fA%3D%3D&w=1000&q=80'
     }
   ]}
- />
+  />
+      </div>
     </LandingPageContainer>
   );
 }
