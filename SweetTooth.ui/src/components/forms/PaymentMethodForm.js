@@ -35,7 +35,6 @@ function PaymentMethodForm({
             .then((resp) => setPaymentMethodsArray(resp));
         });
     } else {
-      e.preventDefault();
       createNewPaymentMethod(paymentMethodFormObj)
         .then((resp) => setPaymentMethodsArray(resp));
     }
