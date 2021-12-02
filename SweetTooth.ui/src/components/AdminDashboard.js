@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button } from 'reactstrap';
 import { useHistory } from 'react-router-dom';
+import { Container } from 'reactstrap';
+import AdminDiv from '../styles/AdminDashboardStyled';
 
 function AdminDashboard() {
   const history = useHistory();
@@ -26,14 +27,16 @@ function AdminDashboard() {
     }
   };
   return (
-    <div>
+    <Container>
       <h1>Admin Dashboard</h1>
-      <Button onClick={() => handleClick('orders')}>Orders</Button>
-      <Button onClick={() => handleClick('moods')}>Moods</Button>
-      <Button onClick={() => handleClick('snacks')}>Snacks</Button>
-      <Button onClick={() => handleClick('snackMoods')}>SnackMoods</Button>
-      <Button onClick={() => handleClick('users')}>Users</Button>
-    </div>
+      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <AdminDiv onClick={() => handleClick('orders')}>Orders</AdminDiv>
+        <AdminDiv onClick={() => handleClick('moods')}>Moods</AdminDiv>
+        <AdminDiv onClick={() => handleClick('snacks')}>Snacks</AdminDiv>
+        <AdminDiv onClick={() => handleClick('snackMoods')}>SnackMoods</AdminDiv>
+        <AdminDiv onClick={() => handleClick('users')}>Users</AdminDiv>
+      </div>
+    </Container>
   );
 }
 
