@@ -15,6 +15,7 @@ import OrdersAdmin from '../components/OrdersAdmin';
 import UsersAdmin from '../components/UsersAdmin';
 import MoodsAdmin from '../components/MoodsAdmin';
 import SnacksAdmin from '../components/SnacksAdmin';
+import SnackMoodAdmin from '../components/SnackMoodAdmin';
 
 const PrivateRoute = ({ component: Component, user, ...rest }) => {
   const routeChecker = (remainder) => (user
@@ -70,9 +71,9 @@ function Routes({
             orderItems={orderItems}
             setOrder={setOrder}
             setOrderItems={setOrderItems}
-        />
-      }
-        user={user}
+          />
+          }
+          user={user}
         />
         <PrivateRoute
           exact path="/user-profile"
@@ -95,35 +96,39 @@ function Routes({
           user={user}
         />
         <PrivateRoute
-        exact path='/processed'
-        component={() => <Processed
-        user={user}
-        />
-        }
-        user={user}
-        />
-         <PrivateRoute
-        exact path='/admin-orders'
-        component={OrdersAdmin}
-        user={user}
+          exact path='/processed'
+          component={() => <Processed
+            user={user}
+          />
+          }
+          user={user}
         />
         <PrivateRoute
-        exact path='/admin-users'
-        component={UsersAdmin}
-        user={user}
+          exact path='/admin-orders'
+          component={OrdersAdmin}
+          user={user}
         />
-          <PrivateRoute
-        exact path='/admin-moods'
-        component={MoodsAdmin}
-        user={user}
+        <PrivateRoute
+          exact path='/admin-users'
+          component={UsersAdmin}
+          user={user}
         />
-          <PrivateRoute
-        exact path='/admin-snacks'
-        component={() => <SnacksAdmin
-        snacks={snacks}
+        <PrivateRoute
+          exact path='/admin-moods'
+          component={MoodsAdmin}
+          user={user}
         />
-      }
-        user={user}
+        <PrivateRoute
+          exact path='/admin-snacks'
+          component={() => <SnacksAdmin
+            snacks={snacks}
+          />}
+          user={user}
+        />
+        <PrivateRoute
+          exact path='/admin-snack-moods'
+          component={() => <SnackMoodAdmin />}
+          user={user}
         />
       </Switch>
     </div>

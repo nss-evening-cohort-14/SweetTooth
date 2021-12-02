@@ -19,6 +19,9 @@ function AdminDashboard() {
       case 'snacks':
         history.push('/admin-snacks');
         break;
+      case 'snackMoods':
+        history.push('/admin-snack-moods');
+        break;
       default: console.warn('select a valid option');
     }
   };
@@ -28,6 +31,7 @@ function AdminDashboard() {
       <Button onClick={() => handleClick('orders')}>Orders</Button>
       <Button onClick={() => handleClick('moods')}>Moods</Button>
       <Button onClick={() => handleClick('snacks')}>Snacks</Button>
+      <Button onClick={() => handleClick('snackMoods')}>SnackMoods</Button>
       <Button onClick={() => handleClick('users')}>Users</Button>
     </div>
   );
