@@ -10,5 +10,7 @@ namespace SweetTooth.Models
         public Guid Id { get; set; }
         public Guid MoodId { get; set; }
         public Guid SnackId { get; set; }
+        public string MoodName { get; set; }
+        public string SnackName { get; set;  }
     }
 }
