@@ -44,6 +44,19 @@ namespace SweetTooth.DataAccess
             return snackMoods;
         }
 
+        internal object GetBySnackIdAndMoodId(Guid moodId, Guid snackId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select * from SnackMood 
+                        where MoodId = @moodId
+                        and SnackId = @snackId";
+
+            var snackMood = db.QuerySingleOrDefault<SnackMood>(sql, new { moodId, snackId });
+
+            return snackMood;
+        }
+
         internal SnackMood GetById(Guid id)
         {
             using var db = new SqlConnection(_connectionString);

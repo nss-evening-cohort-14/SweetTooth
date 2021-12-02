@@ -41,8 +41,12 @@ namespace SweetTooth.Controllers
         [HttpPost]
         public IActionResult AddSnackMood(SnackMood newSnackMood)
         {
+            var snackMoodExists = _snackMoodRepo.GetBySnackIdAndMoodId(newSnackMood.MoodId, newSnackMood.SnackId);
+            if (snackMoodExists != null)
+                return BadRequest("SnackMood combination already exists.");
+
             if (newSnackMood.MoodId == Guid.Empty || newSnackMood.SnackId == Guid.Empty)
-                return BadRequest("Snack and Mood Id's are required.");
+                return BadRequest("Snack and/or Mood Id's are required.");
 
             _snackMoodRepo.Add(newSnackMood);
 
