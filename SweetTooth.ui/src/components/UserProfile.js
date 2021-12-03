@@ -17,7 +17,10 @@ export default function UserProfile({
   user, userAddresses, setUserAddresses, paymentMethodsArray, setPaymentMethodsArray
 }) {
   return (
-  <div style={{ backgroundColor: 'lightgray', padding: '20px' }}>
+  <div style={{
+    backgroundColor: 'lightgray',
+    padding: '20px'
+  }}>
     <UserPageHeader>
       <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
           { 'User Profile' }

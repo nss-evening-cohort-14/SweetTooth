@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Button, Container } from 'reactstrap';
 
 const AdminDashContainer = styled(Container)`
-  width: 100%
+  margin-top: 2%
 `;
 
 const AdminDashButton = styled(Button)`

@@ -24,7 +24,6 @@ const UserPageSectionHeader = styled.div`
 const UserPageSideBarText = styled.p`
   font-size: 5vm;
   font-weight: bold;
-  
 `;
 
 const UserPageLogo = styled.img`

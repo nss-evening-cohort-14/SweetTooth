@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AdminDashContainer, AdminDashButton } from '../styles/AdminDashboardStyled';
+import { CartHeader } from '../styles/OrderStyled';
 
 function AdminDashboard() {
   const history = useHistory();
@@ -35,11 +36,18 @@ function AdminDashboard() {
     }
   };
   return (
+    <>
+    <CartHeader
+    style={{ paddingBottom: '5%' }}
+  >
+    <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
+    {'Admin Dashboard'}
+    <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
+  </CartHeader>
     <AdminDashContainer
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >
-      <h1>Admin Dashboard</h1>
         <AdminDashButton
           color='primary'
           onClick={() => handleClick('orders')}
@@ -71,6 +79,7 @@ function AdminDashboard() {
           {hover ? 'Users' : <i className='fas fa-user fa-7x'></i>}
           </AdminDashButton>
     </AdminDashContainer>
+    </>
   );
 }
 
