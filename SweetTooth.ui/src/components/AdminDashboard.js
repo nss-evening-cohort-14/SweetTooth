@@ -5,8 +5,10 @@ import { AdminDashContainer, AdminDashButton } from '../styles/AdminDashboardSty
 function AdminDashboard() {
   const history = useHistory();
   const [hover, setHover] = useState(false);
+  const buttonRef = React.useRef(null);
   const onHover = () => {
     setHover(true);
+    console.warn(buttonRef);
   };
 
   const onLeave = () => {
@@ -34,44 +36,37 @@ function AdminDashboard() {
     }
   };
   return (
-    <AdminDashContainer>
+    <AdminDashContainer
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+    >
       <h1>Admin Dashboard</h1>
         <AdminDashButton
           color='primary'
-          onMouseEnter={onHover}
-          onMouseLeave={onLeave}
           onClick={() => handleClick('orders')}
         >
           {hover ? 'Orders' : <i className="fas fa-chart-line fa-7x"></i>}
         </AdminDashButton>
         <AdminDashButton
           color='info'
-          onMouseEnter={onHover}
-          onMouseLeave={onLeave}
           onClick={() => handleClick('moods')}
         >
           {hover ? 'Moods' : <i className="fas fa-grin-beam-sweat fa-7x" ></i>}
         </AdminDashButton>
         <AdminDashButton
           color='success'
-          onMouseEnter={onHover}
-          onMouseLeave={onLeave}
           onClick={() => handleClick('snacks')}
         >
           {hover ? 'Snacks' : <i className='fas fa-cookie-bite fa-7x'></i>}
         </AdminDashButton>
         <AdminDashButton
           color='warning'
-          onMouseEnter={onHover}
-          onMouseLeave={onLeave}
           onClick={() => handleClick('snackMoods')}
           >
             {hover ? 'Snack Moods' : <i className="fas fa-smile-beam fa-7x"></i>}
         </AdminDashButton>
         <AdminDashButton
           color='danger'
-          onMouseEnter={onHover}
-          onMouseLeave={onLeave}
           onClick={() => handleClick('users')}
         >
           {hover ? 'Users' : <i className='fas fa-user fa-7x'></i>}
