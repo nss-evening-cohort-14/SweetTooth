@@ -4,6 +4,7 @@ import logo from '../Assets/SweetToothLogo.png';
 
 const LandingPageContainer = styled.div`
   width: 100%;
+  height: 100%;
   padding: 3%;
 `;
 
@@ -15,6 +16,8 @@ const LandingCarousel = styled(UncontrolledCarousel)`
   position: absolute;
   top: 25%;
   left: 25%;
+  padding-right: 2%;
+  padding-left: 2%;
 `;
 
 const LandingPageLogo = styled.img`
@@ -26,13 +29,15 @@ const LandingPageLogo = styled.img`
 `;
 
 const LandingButtonContainer = styled.div`
-  margin: 2%;
   width: 25%;
+  padding-top: 10%;
 `;
 
 const LandingInfoContainer = styled.div`
   display: flex; 
   justify-content: space-between;
+  align-items: center;
+  height: 100%;
 `;
 
 const LoginContainer = styled.div`
@@ -43,10 +48,14 @@ const LoginContainer = styled.div`
 `;
 
 const LandingPageTitle = styled.div`
-  padding: 2%;
+  padding-bottom: 3%;
   font-size: 35px;
   font-weight: bold;
   color: #fc9dad;
+`;
+
+const ProfileInfo = styled.h4`
+  padding-bottom: 10px;
 `;
 
 // const InfoCarouselContainer = styled.div`
@@ -63,5 +72,6 @@ export {
   LandingPageTitle,
   LandingCarousel,
   LoginContainer,
-  LandingInfoContainer
+  LandingInfoContainer,
+  ProfileInfo
 };

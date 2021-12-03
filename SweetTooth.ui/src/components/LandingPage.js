@@ -11,6 +11,7 @@ import {
   LandingInfoContainer,
   LandingPageContainer,
   LandingPageTitle,
+  ProfileInfo,
 } from '../styles/LandingPageStyled';
 
 function LandingPage({ user }) {
@@ -31,30 +32,35 @@ function LandingPage({ user }) {
 
   return (
     <LandingPageContainer>
-      <div>
           <LandingPageTitle>Welcome to SweetTooth!</LandingPageTitle>
           <LandingInfoContainer>
             <LandingButtonContainer>
               <div>
-                {user ? '' : <h4>Already have an Account?</h4>}
+                {user ? <h4>Make sure to check out all our snacks before leaving...</h4> : <h4>Already have an Account?</h4>}
                 {authButtons()}
               </div>
             </LandingButtonContainer>
             <LandingButtonContainer>
-            {user ? '' : <h5>New to SweetTooth? Then you&#39;re in for a treat!</h5>}
+            {user ? '' : <h4>New to SweetTooth?</h4>}
 
             {user
-              ? <Button tag={Link} to={'/user-profile'}
-              style={{ backgroundColor: '#6bab90', border: 'none', marginLeft: '4px' }}>
-                  View Your Profile</Button>
+              ? <div>
+                  <ProfileInfo>
+                    You can update your payment method and address on your profile.
+                  </ProfileInfo>
+                <Button outline color='info'tag={Link} to={'/user-profile'}
+                style={{ marginLeft: '4px' }}>
+                    View Your Profile</Button>
+              </div>
 
-              : <Button style={{ backgroundColor: '#6bab90', border: 'none', marginLeft: '4px' }}
+              : <Button outline color='info' style={{ marginLeft: '4px' }}
               onClick={signInUser}>
                 Create an Account</Button>
             }
             </LandingButtonContainer>
           </LandingInfoContainer>
         <LandingCarousel
+        classname="rounded mb-0"
   items={[
     {
       altText: '',
@@ -76,7 +82,6 @@ function LandingPage({ user }) {
     }
   ]}
   />
-      </div>
     </LandingPageContainer>
   );
 }
