@@ -5,10 +5,9 @@ import { AdminDashContainer, AdminDashButton } from '../styles/AdminDashboardSty
 function AdminDashboard() {
   const history = useHistory();
   const [hover, setHover] = useState(false);
-  const buttonRef = React.useRef(null);
+
   const onHover = () => {
     setHover(true);
-    console.warn(buttonRef);
   };
 
   const onLeave = () => {
