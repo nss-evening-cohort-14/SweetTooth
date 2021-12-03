@@ -60,7 +60,7 @@ function LandingPage({ user }) {
             </LandingButtonContainer>
           </LandingInfoContainer>
         <LandingCarousel
-        classname="rounded mb-0"
+        slide={true}
   items={[
     {
       altText: '',
