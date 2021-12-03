@@ -7,11 +7,11 @@ import {
 import { createNewPaymentMethod, getPayMethodById, updatePaymentMethod } from '../../helpers/data/paymentMethodData';
 
 function PaymentMethodForm({
-  user, paymentMethodsArray, setPaymentMethodsArray, ...paymentMethodInfo
+  user, paymentMethodInfo, setPaymentMethodsArray
 }) {
   const [paymentMethodFormObj, setPaymentMethodFormObj] = useState({
-    userId: user?.id,
     id: paymentMethodInfo?.id,
+    userId: user?.id,
     method: paymentMethodInfo?.method || '',
     cardNumber: paymentMethodInfo?.cardNumber || '',
     expDate: paymentMethodInfo?.expDate || '',
@@ -28,14 +28,13 @@ function PaymentMethodForm({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (paymentMethodFormObj.id) {
+    if (paymentMethodFormObj?.id !== undefined) {
       getPayMethodById(paymentMethodFormObj.id)
         .then(() => {
           updatePaymentMethod(paymentMethodFormObj)
             .then((resp) => setPaymentMethodsArray(resp));
         });
     } else {
-      e.preventDefault();
       createNewPaymentMethod(paymentMethodFormObj)
         .then((resp) => setPaymentMethodsArray(resp));
     }
@@ -121,9 +120,7 @@ function PaymentMethodForm({
 
 PaymentMethodForm.propTypes = {
   user: PropTypes.any,
-  userAddresses: PropTypes.array,
-  setUserAddresses: PropTypes.func,
-  paymentMethodsArray: PropTypes.array,
+  paymentMethodInfo: PropTypes.object,
   setPaymentMethodsArray: PropTypes.func
 };
 

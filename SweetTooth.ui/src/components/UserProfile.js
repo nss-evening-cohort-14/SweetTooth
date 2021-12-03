@@ -1,65 +1,90 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Container
-} from 'reactstrap';
+// import {
+//   Container
+// } from 'reactstrap';
+import { Container } from 'reactstrap';
 import PaymentMethodCard from './PaymentMethodCard';
 import PaymentMethodModal from './modals/PaymentMethodModal';
 import UserAddressModal from './modals/UserAddressModal';
 import UserAddressTable from './UserAddressTable';
-import { LandingPageContainer, LandingPageLogo } from '../styles/LandingPageStyled';
 import logo from '../Assets/SweetToothLogo.png';
+import {
+  UserPageContainer, UserPageLogo, UserInfoContainer, UserSidebar, UserPageHeader, UserPageSectionHeader, UserPageSideBarText
+} from '../styles/UserPageStyled';
 
 export default function UserProfile({
   user, userAddresses, setUserAddresses, paymentMethodsArray, setPaymentMethodsArray
 }) {
   return (
-    <Container>
-        <LandingPageContainer>
-          <LandingPageLogo src={logo} />
-          </LandingPageContainer>
-          { <h4> Hi, {user.firstName}!</h4> }
-          { <h5> Update your account details here.</h5> }
+  <div style={{
+    backgroundColor: 'lightgray',
+    padding: '20px'
+  }}>
+    <UserPageHeader>
+      <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
+          { 'User Profile' }
+      <i className="fas fa-candy-cane" style={{ margin: '2%', color: '#ffe2d1' }}></i>
+    </UserPageHeader>
 
-      <UserAddressModal
-        user={user}
-        userAddresses={userAddresses}
-        setUserAddresses={setUserAddresses}
-      />
+    <UserPageContainer>
+      <UserInfoContainer>
+        <UserPageSectionHeader>
+          {'Addresses'}
+        </UserPageSectionHeader>
+        <Container style={{ paddingBottom: '10px' }}>
+          {
+          userAddresses.length > 0
+            ? <UserAddressTable
+              user={user}
+              userAddresses={userAddresses}
+              setUserAddresses={setUserAddresses}
+              />
+            : '*******Please Add an Address*******'
+          }
+        </Container>
+        <UserPageSectionHeader>
+          {'Payment Methods'}
+        </UserPageSectionHeader>
       <>
-      {
-      userAddresses.length > 0
-        ? <UserAddressTable
+        {
+          paymentMethodsArray.length > 0
+            ? paymentMethodsArray?.map((paymentMethodInfo) => (
+              paymentMethodInfo.softDelete === false
+                ? <PaymentMethodCard
+                    key={paymentMethodInfo.id}
+                    user={user}
+                    paymentMethodsArray={paymentMethodsArray}
+                    setPaymentMethodsArray={setPaymentMethodsArray}
+                    paymentMethodInfo={paymentMethodInfo}
+                  >
+                  </PaymentMethodCard>
+                : ''
+            ))
+            : '*******Please Add a Payment Method*******'
+        }
+      </>
+      </UserInfoContainer>
+
+      <UserSidebar>
+        <UserPageLogo src={logo} />
+        <hr/>
+        <UserPageSideBarText>{user.firstName} {user.lastName}</UserPageSideBarText>
+        <UserPageSideBarText>{user.email}</UserPageSideBarText>
+        <hr/>
+        <UserAddressModal
           user={user}
           userAddresses={userAddresses}
           setUserAddresses={setUserAddresses}
-          />
-        : ''
-      }
-      </>
-
-      <PaymentMethodModal
-        user={user}
-        paymentMethodsArray={paymentMethodsArray}
-        setPaymentMethodsArray={setPaymentMethodsArray}
-      />
-      {
-      <Container>
-        {paymentMethodsArray?.map((paymentMethodInfo) => (
-          paymentMethodInfo.softDelete === false
-            ? <PaymentMethodCard
-              key={paymentMethodInfo.id}
-              user={user}
-              paymentMethodsArray={paymentMethodsArray}
-              setPaymentMethodsArray={setPaymentMethodsArray}
-              {...paymentMethodInfo}
-              >
-              </PaymentMethodCard>
-            : ''
-        ))}
-      </Container>
-      }
-    </Container>
+        />
+        <PaymentMethodModal
+          user={user}
+          paymentMethodsArray={paymentMethodsArray}
+          setPaymentMethodsArray={setPaymentMethodsArray}
+        />
+      </UserSidebar>
+    </UserPageContainer>
+  </div>
   );
 }
 

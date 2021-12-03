@@ -1,16 +1,57 @@
-// import { Card } from 'reactstrap';
 import styled from 'styled-components';
+import logo from '../Assets/SweetToothLogo.png';
 
 const UserPageContainer = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-  padding: 10px;
-  margin: 5px auto;
+  align-items: stretch;
 `;
 
-// const InfoContainer = styled(Card)`
-// `;
+const UserPageHeader = styled.div`
+  background-color: white;
+  margin: auto;
+  width: 99%;
+  font-size: 40px;
+  font-weight: bold;
+  box-shadow: 0px 0px 5px grey;
+  border-radius: 10px;
+`;
 
-export default UserPageContainer;
+const UserPageSectionHeader = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+`;
+
+const UserPageSideBarText = styled.p`
+  font-size: 5vm;
+  font-weight: bold;
+`;
+
+const UserPageLogo = styled.img`
+  background-image: url(${logo}) no-repeat center center fixed;
+  width: 50%;
+  border-radius: 50%;
+`;
+
+const UserInfoContainer = styled.div`
+  background-color: white;
+  margin: auto;
+  width: 70%;
+  box-shadow: 0px 0px 5px gray;
+  margin: 10px;
+  border-radius: 10px;
+`;
+
+const UserSidebar = styled.div`
+  padding-top: 5%;
+  flex-flow: column wrap;
+  background-color: white;
+  margin: auto;
+  width: 30%;
+  box-shadow: 0px 0px 5px gray;
+  margin: 10px;
+  border-radius: 10px;
+`;
+
+export {
+  UserPageContainer, UserPageHeader, UserInfoContainer, UserPageLogo, UserSidebar, UserPageSectionHeader, UserPageSideBarText
+};
