@@ -37,22 +37,44 @@ function AdminDashboard() {
     <AdminDashContainer>
       <h1>Admin Dashboard</h1>
         <AdminDashButton
+          color='primary'
           onMouseEnter={onHover}
           onMouseLeave={onLeave}
-          color='primary'
           onClick={() => handleClick('orders')}
         >
           {hover ? 'Orders' : <i className="fas fa-chart-line fa-7x"></i>}
         </AdminDashButton>
-        <AdminDashButton color='info' onClick={() => handleClick('moods')}>
-        {hover ? 'Moods' : <i className="fas fa-grin-beam-sweat fa-7x" ></i>}
+        <AdminDashButton
+          color='info'
+          onMouseEnter={onHover}
+          onMouseLeave={onLeave}
+          onClick={() => handleClick('moods')}
+        >
+          {hover ? 'Moods' : <i className="fas fa-grin-beam-sweat fa-7x" ></i>}
         </AdminDashButton>
-        <AdminDashButton color='success' onClick={() => handleClick('snacks')}>
-        {hover ? 'Snacks' : <i className='fas fa-cookie-bite fa-7x'></i>}
-          </AdminDashButton>
-        <AdminDashButton color='warning'onClick={() => handleClick('snackMoods')}>SnackMoods</AdminDashButton>
-        <AdminDashButton color='danger' onClick={() => handleClick('users')}>
-        {<i className='fas fa-user fa-7x'></i>}
+        <AdminDashButton
+          color='success'
+          onMouseEnter={onHover}
+          onMouseLeave={onLeave}
+          onClick={() => handleClick('snacks')}
+        >
+          {hover ? 'Snacks' : <i className='fas fa-cookie-bite fa-7x'></i>}
+        </AdminDashButton>
+        <AdminDashButton
+          color='warning'
+          onMouseEnter={onHover}
+          onMouseLeave={onLeave}
+          onClick={() => handleClick('snackMoods')}
+          >
+            {hover ? 'Snack Moods' : <i className="fas fa-smile-beam fa-7x"></i>}
+        </AdminDashButton>
+        <AdminDashButton
+          color='danger'
+          onMouseEnter={onHover}
+          onMouseLeave={onLeave}
+          onClick={() => handleClick('users')}
+        >
+          {hover ? 'Users' : <i className='fas fa-user fa-7x'></i>}
           </AdminDashButton>
     </AdminDashContainer>
   );
