@@ -1,22 +1,24 @@
 import styled from 'styled-components';
-import { Card } from 'reactstrap';
+import { Button, Container } from 'reactstrap';
 
-const AdminDiv = styled(Card)`
+const AdminDashContainer = styled(Container)`
+  width: 100%
+`;
+
+const AdminDashButton = styled(Button)`
+  flex-grow: 1;
   flex-flow: row wrap;
-  margin: auto;
+  align-items: center;
   box-shadow: 0px 0px 5px gray;
   margin: 10px;
   border-radius: 10px;
   align-self: auto;
-  background: tomato;
   padding: 5px;
   width: 200px;
   height: 150px;
   margin-top: 10px;
-  line-height: 150px;
-  color: white;
   font-weight: bold;
-  text-align: center;
+  color: black;
 `;
 
-export default AdminDiv;
+export { AdminDashContainer, AdminDashButton };
