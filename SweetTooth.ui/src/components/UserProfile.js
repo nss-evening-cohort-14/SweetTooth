@@ -10,7 +10,7 @@ import UserAddressModal from './modals/UserAddressModal';
 import UserAddressTable from './UserAddressTable';
 import logo from '../Assets/SweetToothLogo.png';
 import {
-  UserPageContainer, UserPageLogo, UserInfoContainer, UserSidebar, UserPageHeader, UserPageSectionHeader
+  UserPageContainer, UserPageLogo, UserInfoContainer, UserSidebar, UserPageHeader, UserPageSectionHeader, UserPageSideBarText
 } from '../styles/UserPageStyled';
 
 export default function UserProfile({
@@ -37,33 +37,38 @@ export default function UserProfile({
               userAddresses={userAddresses}
               setUserAddresses={setUserAddresses}
               />
-            : ''
+            : '*******Please Add an Address*******'
           }
         </Container>
         <UserPageSectionHeader>
           {'Payment Methods'}
         </UserPageSectionHeader>
-      {
       <>
-        {paymentMethodsArray?.map((paymentMethodInfo) => (
-          paymentMethodInfo.softDelete === false
-            ? <PaymentMethodCard
-                key={paymentMethodInfo.id}
-                user={user}
-                paymentMethodsArray={paymentMethodsArray}
-                setPaymentMethodsArray={setPaymentMethodsArray}
-                paymentMethodInfo={paymentMethodInfo}
-              >
-              </PaymentMethodCard>
-            : ''
-        ))}
+        {
+          paymentMethodsArray.length > 0
+            ? paymentMethodsArray?.map((paymentMethodInfo) => (
+              paymentMethodInfo.softDelete === false
+                ? <PaymentMethodCard
+                    key={paymentMethodInfo.id}
+                    user={user}
+                    paymentMethodsArray={paymentMethodsArray}
+                    setPaymentMethodsArray={setPaymentMethodsArray}
+                    paymentMethodInfo={paymentMethodInfo}
+                  >
+                  </PaymentMethodCard>
+                : ''
+            ))
+            : '*******Please Add a Payment Method*******'
+        }
       </>
-      }
       </UserInfoContainer>
 
       <UserSidebar>
         <UserPageLogo src={logo} />
-        <p>{user.firstName} {user.lastName}</p>
+        <hr/>
+        <UserPageSideBarText>{user.firstName} {user.lastName}</UserPageSideBarText>
+        <UserPageSideBarText>{user.email}</UserPageSideBarText>
+        <hr/>
         <UserAddressModal
           user={user}
           userAddresses={userAddresses}

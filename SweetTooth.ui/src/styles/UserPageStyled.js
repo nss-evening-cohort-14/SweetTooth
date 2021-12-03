@@ -21,6 +21,12 @@ const UserPageSectionHeader = styled.div`
   font-weight: bold;
 `;
 
+const UserPageSideBarText = styled.p`
+  font-size: 5vm;
+  font-weight: bold;
+  
+`;
+
 const UserPageLogo = styled.img`
   background-image: url(${logo}) no-repeat center center fixed;
   width: 50%;
@@ -37,6 +43,8 @@ const UserInfoContainer = styled.div`
 `;
 
 const UserSidebar = styled.div`
+  padding-top: 5%;
+  flex-flow: column wrap;
   background-color: white;
   margin: auto;
   width: 30%;
@@ -46,5 +54,5 @@ const UserSidebar = styled.div`
 `;
 
 export {
-  UserPageContainer, UserPageHeader, UserInfoContainer, UserPageLogo, UserSidebar, UserPageSectionHeader
+  UserPageContainer, UserPageHeader, UserInfoContainer, UserPageLogo, UserSidebar, UserPageSectionHeader, UserPageSideBarText
 };
