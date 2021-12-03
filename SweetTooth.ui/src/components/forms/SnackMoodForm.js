@@ -12,6 +12,7 @@ function SnackMoodForm({
     MoodId: '',
     SnackId: ''
   });
+  const [toggle, setToggle] = useState(false);
 
   const handleInputChange = (e) => {
     setSnackMoodObj((prevState) => ({
@@ -21,6 +22,9 @@ function SnackMoodForm({
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (snackMoodObj.MoodId === '' || snackMoodObj.SnackId === '') {
+      setToggle(!toggle);
+    }
     addSnackMood(snackMoodObj).then(setSnackMoods);
   };
 
