@@ -13,7 +13,10 @@ function UserAddressModal({
   const toggle = () => setModal(!modal);
   return (
     <div style={{ padding: '2%' }}>
-      <Button color='primary' onClick={toggle}>New Address</Button>
+      <Button
+        outline color='primary' onClick={toggle}>
+        New Address
+      </Button>
   <Modal
     isOpen={modal} toggle={toggle}
   >

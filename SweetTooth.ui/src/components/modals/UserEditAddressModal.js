@@ -4,7 +4,6 @@ import {
   Button, Modal, ModalBody, ModalHeader
 } from 'reactstrap';
 import UserAddressForm from '../forms/userAddressForm';
-// import { getByAddressId } from '../../helpers/data/userAddressData';
 
 function UserEditAddressModal({
   user, userAddressInfo, userAddresses, setUserAddresses

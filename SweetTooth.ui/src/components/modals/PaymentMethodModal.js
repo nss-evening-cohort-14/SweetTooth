@@ -13,7 +13,10 @@ function PaymentMethodModal({
   const toggle = () => setModal(!modal);
   return (
     <div style={{ padding: '2%' }}>
-      <Button color='primary' onClick={toggle}>New Payment Method</Button>
+      <Button
+        outline color='primary' onClick={toggle}>
+          New Payment Method
+      </Button>
   <Modal
     isOpen={modal} toggle={toggle}
   >
