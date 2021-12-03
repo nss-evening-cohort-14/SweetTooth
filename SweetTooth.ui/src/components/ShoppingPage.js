@@ -5,12 +5,12 @@ import {
   Container
 } from 'reactstrap';
 import '../styles/shoppingPage.scss';
-import { Div } from '../styles/ShoppingPageStyled';
+import { Div, FilledDiv } from '../styles/ShoppingPageStyled';
 import SnackCard from './SnackCard';
 import MoodModal from './forms/MoodModal';
 import { getMoodById } from '../helpers/data/MoodData';
 import { getOrderItems } from '../helpers/data/OrderData';
-import { getSnacksByCategory, getSnacksByMood } from '../helpers/data/SnackData';
+import { getSnacksByMood } from '../helpers/data/SnackData';
 
 function ShoppingPage({
   user, snacks, setUser, order, setOrder
@@ -28,10 +28,10 @@ function ShoppingPage({
     getSnacksByMood(user.moodId).then(setSnacksByMood);
   }, []);
 
-  const [snacksByCategory, setSnacksByCategory] = useState([]);
-  useEffect(() => {
-    getSnacksByCategory('Sweet').then(setSnacksByCategory);
-  }, []);
+  // const [snacksByCategory, setSnacksByCategory] = useState([]);
+  // useEffect(() => {
+  //   getSnacksByCategory('Sweet').then(setSnacksByCategory);
+  // }, []);
 
   const [modalStatus, setModalStatus] = useState(false);
   const modalToggle = () => setModalStatus(!modalStatus);
@@ -39,7 +39,7 @@ function ShoppingPage({
   const [orderItems, setOrderItems] = useState([]);
   useEffect(() => {
     getOrderItems(order.id).then((resp) => {
-      console.warn('resp', resp);
+      // console.warn('resp', resp);
       if (resp.length === 0) {
         setOrderItems([{
           id: '',
@@ -53,26 +53,24 @@ function ShoppingPage({
     });
   }, []);
 
-  console.warn(orderItems);
-
   return (
     <>
-      <div className="shoppingPage d-flex flex-column justify-content-around">
-        <Button onClick={modalToggle}>Select Mood</Button>
-        <Button>Select Category</Button>
+      <div className="shoppingPage d-flex flex-column justify-content-center align-items-center pt-3">
+        <Button className='btn-danger' onClick={modalToggle}>Select Mood</Button>
+        {/* <Button>Select Category</Button> */}
+        <MoodModal
+          id='selectMood'
+          modalStatus={modalStatus}
+          modalToggle={modalToggle}
+          userMood={userMood}
+          setUserMood={setUserMood}
+          user={user}
+          setUser={setUser}
+        />
         <Container className="rounded mb-20 border border-primary m-3">
-          <MoodModal
-            id='selectMood'
-            modalStatus={modalStatus}
-            modalToggle={modalToggle}
-            userMood={userMood}
-            setUserMood={setUserMood}
-            user={user}
-            setUser={setUser}
-          />
-          <h1>Suggested Snacks (Filtered by Mood)</h1>
-          <div className="row pt-5">
-            <Div className="col-12 d-flex align-items-stretch">
+          <FilledDiv className="row justify-content-center">
+            <h1>These snacks would fit your mood nicely.</h1>
+            <Div className="col-12 d-flex align-items-stretch p-2">
               {orderItems.length > 0
                 ? snacksByMood.map((snack, i) => (
                   <SnackCard
@@ -92,9 +90,9 @@ function ShoppingPage({
                 : ''
               }
             </Div>
-          </div>
+          </FilledDiv>
         </Container>
-        <Container className="rounded mb-20 border border-secondary flex-grow-1 flex-fill m-3">
+        {/* <Container className="rounded mb-20 border border-secondary flex-grow-1 flex-fill m-3">
           <h1>All Snacks (Filtered by Category)</h1>
           <div className="row pt-5">
             <Div className="col-12 d-flex align-items-stretch">
@@ -118,11 +116,11 @@ function ShoppingPage({
               }
             </Div>
           </div>
-        </Container>
+        </Container> */}
         <Container className="rounded mb-20 border border-secondary flex-grow-1 flex-fill m-3">
-          <h1>All Snacks</h1>
-          <div className="row pt-5">
-            <Div className="col-12 d-flex align-items-stretch">
+          <FilledDiv className="row justify-content-center">
+            <h1>Select from all snacks to fuel your snack attack.</h1>
+            <Div className="col-12 d-flex align-items-stretch p-2">
               {orderItems.length > 0
                 ? snacks.map((snack, i) => (
                   <SnackCard
@@ -142,10 +140,7 @@ function ShoppingPage({
                 : ''
               }
             </Div>
-          </div>
-        </Container>
-        <Container className="rounded mb-20 border border-success m-3">
-          <h1>Stretch: Recently Viewed</h1>
+          </FilledDiv>
         </Container>
       </div>
     </>

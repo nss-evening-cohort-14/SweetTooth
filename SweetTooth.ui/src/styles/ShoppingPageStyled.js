@@ -8,6 +8,17 @@ const SnackImage = styled.img`
 
 const Div = styled.div`
   overflow-x: auto;
+  background-color: #6bab90;
 `;
 
-export { SnackImage, Div };
+const FilledDiv = styled.div`
+  background-color: #ffe2d1;
+`;
+
+const SnackDiv = styled.div`
+  background-color: #e1f0c4;
+`;
+
+export {
+  SnackImage, Div, FilledDiv, SnackDiv
+};
